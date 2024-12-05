@@ -1,0 +1,34 @@
+@use '../../styles/variables';
+
+@keyframes show-modal {
+    0% {
+        right: -500px;
+    }
+
+    50% {
+        right: 40px;
+    }
+
+    100% {
+        right: -500px;
+    }
+}
+
+.modal-action-container {
+    position: absolute;
+    right: -500px;
+    bottom: 40px;
+    @extend %element-position-center;
+    min-width: 150px;
+    height: 45px;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px 2px rgba(0, 26, 52, .16);
+    animation: show-modal 3s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+    .modal-action-inner {
+        padding: 10px;
+        display: flex;
+        column-gap: 15px;
+        color: variables.$color-dark-grey
+    }
+}

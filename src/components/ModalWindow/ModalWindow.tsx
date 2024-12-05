@@ -54,7 +54,7 @@ const ModalWindow = ({ type, modalWindowTitle, handleShowModal }: IModalWindow) 
         if (type === "simple") {
             postProjectFormData(data)
         } else if (type === "advanced") {
-            dispatch(postTaskData(data))
+            postTaskFormData(data)
         }
         reset()
         handleShowModal(false)
@@ -64,8 +64,8 @@ const ModalWindow = ({ type, modalWindowTitle, handleShowModal }: IModalWindow) 
         dispatch(postProjectData(data))
     }
 
-    const postTaskFormData = () => {
-
+    const postTaskFormData = (data: IModalWindowInputs) => {
+        dispatch(postTaskData(data))
     }
 
     return (

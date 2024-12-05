@@ -4,7 +4,7 @@ import SvgIcons from "../UI/Svg/SvgIcons";
 import Button from "../UI/Button/Button";
 import { IProjectCard } from "./ProjectCard.props";
 
-const ProjectCard = ({ projectData }: IProjectCard) => {
+const ProjectCard = ({ projectData, deleteProject }: IProjectCard) => {
     return (
         <div className={styles['project-card-container']}>
             <div className={styles['project-card-wrapper']}>
@@ -14,9 +14,9 @@ const ProjectCard = ({ projectData }: IProjectCard) => {
                     <ProgressBar type={'small'} progressPercentage={projectData.attributes.progress} />
                 </div>
                 <div className={styles['creation-date']}>{new Date(projectData.attributes.createdAt).toLocaleDateString()}</div>
-                <span className={styles['burger-menu']}>
-                    <Button colorStyle={'none'}>
-                        <SvgIcons iconName={'burgerMenu'} />
+                <span className={styles['btn-delete']}>
+                    <Button colorStyle={'none'} onClick={(event) => deleteProject(event, projectData.id)}>
+                        <SvgIcons iconName={'trash'} styleName={styles['svg-trash']} />
                     </Button>
                 </span>
                 <span className={styles.favourites}>

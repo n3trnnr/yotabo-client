@@ -1,8 +1,19 @@
 import styles from './ProjectBoardsPage.module.scss'
 import TaskCard from "../../components/TaskCard/TaskCard";
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from '../../hooks/useStore';
+import { useEffect } from 'react';
+import { getTasksData } from '../../store/slices/taskSlice';
 
 const ProjectBoardsPage = () => {
+    const dispatch = useAppDispatch()
+    const tasks = useAppSelector((state) => state.tasks.tasks)
+    // console.log('tasks', tasks);
+
+    useEffect(() => {
+        dispatch(getTasksData())
+    }, [])
+
     return (
         <div className={styles["boards-container"]}>
             <div className={styles["board-container"]}>
@@ -15,10 +26,10 @@ const ProjectBoardsPage = () => {
                         <Link to="boards/:id/task">
                             <TaskCard />
                         </Link>
+                        {/* <TaskCard />
                         <TaskCard />
                         <TaskCard />
-                        <TaskCard />
-                        <TaskCard />
+                        <TaskCard /> */}
                     </ul>
                 </div>
             </div>
@@ -30,7 +41,7 @@ const ProjectBoardsPage = () => {
                 </div>
                 <div className={styles["board-wrapper"]}>
                     <ul className={styles["tasks-list-wrapper"]}>
-                        <TaskCard />
+                        {/* <TaskCard /> */}
                     </ul>
                 </div>
             </div>
@@ -42,7 +53,7 @@ const ProjectBoardsPage = () => {
                 </div>
                 <div className={styles["board-wrapper"]}>
                     <ul className={styles["tasks-list-wrapper"]}>
-                        <TaskCard />
+                        {/* <TaskCard /> */}
                     </ul>
                 </div>
             </div>

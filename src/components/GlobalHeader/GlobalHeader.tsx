@@ -3,12 +3,11 @@ import styles from './GlobalHeader.module.scss'
 import Nav from "./Navigation/Nav";
 import SvgIcons from "../UI/Svg/SvgIcons";
 import { Link, useLocation } from "react-router-dom";
+import { IGlobalHeader } from "./GlobalHeader.props";
 
-interface IGlobalHeader {
-    children?: React.ReactNode,
-}
 
-const GlobalHeader: React.FC<IGlobalHeader> = ({ children }) => {
+
+const GlobalHeader = ({ children }: IGlobalHeader) => {
 
     const [text, setText] = useState('')
 

@@ -6,7 +6,7 @@ import CustomInput from '../../CustomInput/CustomInput';
 import { IFile } from '../ModalWindow';
 
 const AdvancedSettings = ({ register, files, handleDeleteFile }: IAdvancedSettings) => {
-
+    //Исправить загрузку файлов, разобраться с багом!
     return (
         <div className={styles["advanced-settings-container"]}>
             <div className={styles["info-block-container"]}>

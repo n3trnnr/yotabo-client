@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import MainComponentHeader from '../../components/MainComponentHeader/MainComponentHeader'
 import ProjectCard from '../../components/ProjectCard/ProjectCard';
 import styles from './ProjectsPage.module.scss'
@@ -7,26 +7,32 @@ import ModalWindow from '../../components/ModalWindow/ModalWindow';
 import Button from '../../components/UI/Button/Button';
 import SvgIcons from '../../components/UI/Svg/SvgIcons';
 import { useAppDispatch, useAppSelector } from '../../hooks/useStore';
-import { getProjectsData } from '../../store/slices/projectSlice';
+import { deleteProject, getProjectsData } from '../../store/slices/projectSlice';
+import { TId } from '../../interfaces/global';
+import ModalAction from '../../components/ModalAction/ModalAction';
 
 const ProjectsPage = () => {
     const dispatch = useAppDispatch()
-    const projects = useAppSelector((state) => state.project.projects)
+    const { projects, status, error } = useAppSelector((state) => state.project)
     const [showModal, setShowModal] = useState<boolean>(false)
-    const handleShowModal = (isShown: boolean) => {
-        setShowModal(isShown)
-    }
-    const navigate = useNavigate()
 
     useEffect(() => {
         dispatch(getProjectsData())
     }, [dispatch])
 
-    // console.log('projects', projects);
+    const handleShowModal = (isShown: boolean) => {
+        setShowModal(isShown)
+    }
 
+    const handleDeleteProject = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, id: TId) => {
+        // event.stopPropagation()
+        dispatch(deleteProject(id))
+    }
 
     return (
         <>
+            {(status || error) && <ModalAction status={status} error={error} />}
+
             {showModal &&
                 <div className={styles["modal-window"]}>
                     <ModalWindow type={"simple"} modalWindowTitle={"Create project"} handleShowModal={handleShowModal} />
@@ -52,9 +58,9 @@ const ProjectsPage = () => {
                 <div className={styles['projects-list-wrapper']}>
 
                     {projects && projects?.data.map((project) => (
-                        <div onDoubleClick={() => navigate(`/projects/${project.id}/boards`)} key={project.id}>
-                            <ProjectCard key={project.id} projectData={project} />
-                        </div>
+                        // <Link to={`/projects/${project.id}/boards`} key={project.id}>
+                        <ProjectCard key={project.id} projectData={project} deleteProject={handleDeleteProject} />
+                        // </Link>
                     ))}
 
                 </div>

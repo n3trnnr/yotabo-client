@@ -3,7 +3,7 @@
 .project-card-container {
     width: 332px;
     height: 181px;
-    margin: 15px 15px 15px 15px;
+    padding: 20px;
     border: 1px solid variables.$color-light-grey;
     border-radius: variables.$main-radius;
     color: variables.$color-light-grey;
@@ -14,7 +14,6 @@
     .project-card-wrapper {
         width: 282px;
         height: 141px;
-        margin: 20px;
 
         .title {
             @extend %font-title-18px-semibold;
@@ -35,10 +34,15 @@
 
         // .creation-date {}
 
-        .burger-menu {
+        .btn-delete {
+            display: none;
             position: absolute;
             top: 20px;
             right: 20px;
+
+            .svg-trash:hover {
+                @extend %icon-color-black;
+            }
         }
 
         .favourites {
@@ -48,10 +52,14 @@
         }
     }
 
+
     &:hover {
         box-shadow: 0 4px 16px 2px rgba(0, 26, 52, .16);
         border: 1px solid white;
         transform: translateY(2px);
-        // outline: 2px solid variables.$color-dark-grey;
+    }
+
+    &:hover>.project-card-wrapper>.btn-delete {
+        display: block;
     }
 }

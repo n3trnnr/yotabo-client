@@ -22,7 +22,7 @@ const ProjectPage = () => {
 
     useEffect(() => {
         if (id) {
-            dispatch(getProjectDataById(+id))
+            dispatch(getProjectDataById(id))
         }
     }, [])
 
@@ -43,18 +43,20 @@ const ProjectPage = () => {
                 type={'info'}
                 progressPercentage={project?.data.attributes.progress}
             >
-                <Button buttonShape={'square'} colorStyle={'light-grey'} margin={'10px'}>
-                    <SvgIcons iconName={'boardView'} />
-                </Button>
-                <Button buttonShape={'square'} colorStyle={'light-grey'} margin={'10px'}>
-                    <SvgIcons iconName={'listView'} />
-                </Button>
-                <Button buttonShape={'rectangle'} colorStyle={'light-grey'} title={'Filter'} margin={'10px'}>
-                    <SvgIcons iconName={'filter'} />
-                </Button>
-                <Button handleClick={() => handleShowModal(true)} buttonShape={'rectangle'} colorStyle={'blue'} title={'New task'} margin={'10px'}>
-                    <SvgIcons iconName={'addNewElement'} />
-                </Button>
+                {location.pathname.endsWith('boards') && <>
+                    <Button buttonShape={'square'} colorStyle={'light-grey'} margin={'10px'}>
+                        <SvgIcons iconName={'boardView'} />
+                    </Button>
+                    <Button buttonShape={'square'} colorStyle={'light-grey'} margin={'10px'}>
+                        <SvgIcons iconName={'listView'} />
+                    </Button>
+                    <Button buttonShape={'rectangle'} colorStyle={'light-grey'} title={'Filter'} margin={'10px'}>
+                        <SvgIcons iconName={'filter'} />
+                    </Button>
+                    <Button handleClick={() => handleShowModal(true)} buttonShape={'rectangle'} colorStyle={'blue'} title={'New task'} margin={'10px'}>
+                        <SvgIcons iconName={'addNewElement'} />
+                    </Button>
+                </>}
             </MainComponentHeader>
 
             {/* <Outlet /> */}
