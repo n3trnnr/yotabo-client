@@ -12,9 +12,9 @@
     // width: 1049px;
     // height: 230px;
     height: auto;
-    border: 1px solid variables.$color-light-grey;
-    border-radius: variables.$main-radius;
-    @extend %element-position-center;
+    border: 1px solid variables.$grey-2;
+    border-radius: variables.$radius-10;
+    @extend %flex-center;
     position: relative;
 }
 
@@ -23,7 +23,7 @@
     // height: 190px;
     height: auto;
     padding: 20px;
-    @extend %element-position-center;
+    @extend %flex-center;
     align-items: normal;
 }
 
@@ -31,9 +31,9 @@
     float: left;
     width: 190px;
     height: 190px;
-    border: 1px solid variables.$color-light-grey;
-    border-radius: variables.$main-radius;
-    @extend %element-position-center;
+    border: 1px solid variables.$grey-2;
+    border-radius: variables.$radius-10;
+    @extend %flex-center;
 }
 
 .content-wrapper {
@@ -51,12 +51,12 @@
         margin-bottom: 10px;
 
         .title {
-            @extend %font-20px-semibold;
+            @extend %font-20px-medium;
         }
     }
 
     .description {
-        color: variables.$color-light-grey;
+        color: variables.$grey-2;
     }
 }
 

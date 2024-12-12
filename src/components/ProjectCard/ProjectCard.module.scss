@@ -4,19 +4,19 @@
     width: 332px;
     height: 181px;
     padding: 20px;
-    border: 1px solid variables.$color-light-grey;
-    border-radius: variables.$main-radius;
-    color: variables.$color-light-grey;
+    border: 1px solid variables.$grey-2;
+    border-radius: variables.$radius-10;
+    color: variables.$grey-2;
     position: relative;
     cursor: pointer;
-    transition: variables.$transition-time;
+    transition: variables.$transition;
 
     .project-card-wrapper {
         width: 282px;
         height: 141px;
 
         .title {
-            @extend %font-18px-semibold;
+            @extend %font-18px-medium;
             color: black;
             margin-bottom: 10px;
         }
@@ -41,7 +41,7 @@
             right: 20px;
 
             .svg-trash:hover {
-                @extend %icon-color-black;
+                @extend %svg-grey;
             }
         }
 

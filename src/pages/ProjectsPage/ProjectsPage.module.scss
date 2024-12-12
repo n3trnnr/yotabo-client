@@ -22,3 +22,15 @@
     top: calc(50% - 198.5px);
     left: calc(50% - 278px);
 }
+
+.squre-button {
+    @extend %button-square-40, %button-grey;
+}
+
+.fiter-button {
+    @extend %button-rectangle, %button-grey;
+}
+
+.add-button {
+    @extend %button-rectangle, %button-blue;
+}

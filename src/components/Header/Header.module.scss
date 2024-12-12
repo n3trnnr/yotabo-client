@@ -1,54 +1,51 @@
 @use '../../styles/variables';
 
-header.header {
+.header {
     width: 100%;
-    border-bottom: 1px solid #D9D9D9;
+    border-bottom: 1px solid variables.$grey-2;
 
-
-    .header-inner {
+    .header__inner {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding-inline: 20px;
+        padding-inline: 20px 70px;
         padding-block: 20px;
     }
 }
 
 .search-form {
-    @extend %element-position-center;
-    justify-content: flex-start;
-    align-items: center;
     width: 500px;
-    height: 45px;
-    border: 1px solid variables.$color-light-grey;
-    border-radius: variables.$main-radius;
+    @extend %flex-center;
+    justify-content: flex-start;
+    border-radius: variables.$radius-10;
+    background-color: variables.$grey-1;
+    outline: 1px solid variables.$grey-2;
 
-    .input-search {
-        height: 36px;
+    &:focus-within {
+        outline: 2px solid variables.$blue-2;
+        outline-offset: 2px;
+    }
+
+    .input {
+        height: 40px;
         width: 100%;
         background: none;
-        color: variables.$color-light-grey;
+        color: variables.$grey-4;
         border: none;
         outline: 0;
         @extend %font-16px-medium;
     }
 
-    .search-button {
+    .search-icon {
         padding-inline: 10px;
+        @extend %flex-center;
     }
 
-    .close-button {
-        width: 40px;
-        height: 40px;
-        @extend %square-button-size;
-        @extend %element-position-center;
-        background: none;
-        border-radius: 10px;
-        cursor: pointer;
-        @extend %icon-color-grey;
+    .button {
+        @extend %flex-center, %button-square-40;
 
-        &:hover {
-            @extend %icon-color-black;
+        &:hover>:first-child>path {
+            fill: variables.$grey-4;
         }
     }
 }

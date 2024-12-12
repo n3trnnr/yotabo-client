@@ -5,7 +5,7 @@
     height: 105px;
     padding: 20px;
     box-sizing: border-box;
-    @extend %element-position-center;
+    @extend %flex-center;
 }
 
 .project-info {

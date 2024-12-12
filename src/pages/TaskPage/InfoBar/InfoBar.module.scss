@@ -10,7 +10,7 @@
             display: flex;
             margin-top: 10px;
             @extend %font-16px-regular;
-            color: variables.$color-light-grey;
+            color: variables.$grey-3;
         }
     }
 
@@ -18,7 +18,7 @@
         .creation-date-value {
             margin-top: 10px;
             @extend %font-16px-regular;
-            color: variables.$color-light-grey;
+            color: variables.$grey-3;
         }
     }
 
@@ -26,7 +26,7 @@
         .deadline-value {
             margin-top: 10px;
             @extend %font-16px-regular;
-            color: variables.$color-light-grey;
+            color: variables.$grey-3;
         }
 
     }
@@ -36,7 +36,7 @@
             display: flex;
             margin-top: 10px;
             @extend %font-16px-regular;
-            color: variables.$color-light-grey;
+            color: variables.$grey-3;
 
             .attach-files-icon {
                 margin-right: 10px;
@@ -45,11 +45,11 @@
             .buttons-wrapper {
                 display: flex;
                 margin-left: 30px;
-                transition: variables.$transition-time;
+                transition: variables.$transition;
 
                 .download-file-button {
                     &:hover {
-                        @extend %icon-color-black;
+                        @extend %svg-grey;
                     }
                 }
 
@@ -58,7 +58,7 @@
                     height: 17px;
 
                     &:hover {
-                        @extend %icon-color-black;
+                        @extend %svg-grey;
                     }
                 }
             }

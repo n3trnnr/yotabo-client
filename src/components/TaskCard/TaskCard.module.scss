@@ -5,10 +5,10 @@
     width: 302px;
     height: 157px;
     margin: 15px;
-    border: 1px solid variables.$color-light-grey;
-    border-radius: variables.$main-radius;
+    border: 1px solid variables.$grey-2;
+    border-radius: variables.$radius-10;
     cursor: pointer;
-    transition: variables.$transition-time;
+    transition: variables.$transition;
 
     .cover {
         width: 303px;
@@ -27,27 +27,27 @@
         margin: 20px;
 
         .title {
-            @extend %font-18px-semibold;
+            @extend %font-18px-medium;
             margin-bottom: 10px;
         }
 
         .description {
             margin-bottom: 30px;
-            color: variables.$color-light-grey;
+            color: variables.$grey-2;
         }
 
         .info-bar {
-            @extend %element-position-center;
+            @extend %flex-center;
             justify-content: flex-start;
-            color: variables.$color-light-grey;
+            color: variables.$grey-2;
 
             .priority {
-                @extend %element-position-center;
+                @extend %flex-center;
                 margin-right: 20px
             }
 
             .deadline {
-                @extend %element-position-center;
+                @extend %flex-center;
                 margin-right: 20px;
 
                 .deadline-icon {
@@ -56,7 +56,7 @@
             }
 
             .files {
-                @extend %element-position-center;
+                @extend %flex-center;
 
                 .files-icon {
                     margin-right: 5px;

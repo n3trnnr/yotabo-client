@@ -46,16 +46,16 @@ const ProjectsPage = () => {
             }
 
             <MainComponentHeader type={'none'}>
-                <Button buttonShape={'square'} colorStyle={'light-grey'}>
+                <Button className={styles['squre-button']}>
                     <SvgIcons svgIcon={'board'} />
                 </Button>
-                <Button buttonShape={'square'} colorStyle={'light-grey'}>
+                <Button className={styles['squre-button']}>
                     <SvgIcons svgIcon={'list'} />
                 </Button>
-                <Button buttonShape={'rectangle'} colorStyle={'light-grey'} title={'Filter'}>
+                <Button className={styles['fiter-button']} childrenAfter={<SvgIcons svgIcon='arrowDown' />} title={'Filter'}>
                     <SvgIcons svgIcon={'filter'} />
                 </Button>
-                <Button handleClick={() => handleShowModal(true)} buttonShape={'rectangle'} colorStyle={'blue'} title={'New project'}>
+                <Button handleClick={() => handleShowModal(true)} className={styles['add-button']} title={'New project'}>
                     <SvgIcons svgIcon={'add'} />
                 </Button>
             </MainComponentHeader>

@@ -3,6 +3,6 @@
 .sign-up-container {
     height: 100%;
     width: 100%;
-    @extend %element-position-center;
+    @extend %flex-center;
     flex-direction: column;
 }

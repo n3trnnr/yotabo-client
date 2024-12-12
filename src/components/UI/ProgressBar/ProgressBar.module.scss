@@ -1,7 +1,7 @@
 @use '../../../styles/variables';
 
 .progress-bar-wrapper {
-    @extend %element-position-center;
+    @extend %flex-center;
     // justify-content: flex-start;
 
     .progress-bar-fill {
@@ -9,13 +9,12 @@
         height: 7px;
         border-radius: 10px;
         background: #D9D9D9;
-        margin-right: variables.$margin-menu-elements;
     }
 
     .progress-bar-progress {
         // width: 50%;
         height: 7px;
-        background: variables.$color-blue;
+        background: variables.$blue-1;
         border-radius: 10px;
     }
 
@@ -24,13 +23,12 @@
         height: 5px;
         border-radius: 10px;
         background: #D9D9D9;
-        margin-right: variables.$margin-menu-elements;
     }
 
     .progress-bar-progress-small {
         // width: 50%;
         height: 5px;
-        background: variables.$color-blue;
+        background: variables.$blue-1;
         border-radius: 10px;
     }
 }

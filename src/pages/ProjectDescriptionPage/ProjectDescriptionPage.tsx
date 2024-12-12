@@ -25,7 +25,7 @@ const ProjectDescriptionPage = ({ project }: IProjectDescriptionPage) => {
                             {/* <InfoBar /> */}
                         </div>
                         <span className={styles['burger-menu']}>
-                            <Button colorStyle={'none'}>
+                            <Button color={'none'}>
                                 тут должна быть иконка
                             </Button>
                         </span>

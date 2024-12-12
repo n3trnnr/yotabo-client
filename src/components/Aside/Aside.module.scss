@@ -10,9 +10,9 @@ aside {
     user-select: none;
 
     .logo-wrapper {
-        @extend %element-position-center;
+        @extend %flex-center;
         column-gap: 10px;
-        color: variables.$color-dark-grey;
+        color: variables.$grey-3;
 
         h1 {
             font-size: 24px;

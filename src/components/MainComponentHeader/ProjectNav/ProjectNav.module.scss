@@ -6,32 +6,29 @@
     .project-nav-list {
         display: flex;
 
-        .icon-wrapper {
-            margin-right: variables.$margin-menu-elements;
-        }
+        .icon-wrapper {}
 
         .nav-item {
             cursor: pointer;
             width: 156px;
             height: 45px;
             box-sizing: border-box;
-            @extend %element-position-center;
-            margin-right: variables.$margin-menu-elements;
-            color: variables.$color-light-grey;
-            transition: variables.$transition-time;
+            @extend %flex-center;
+            color: variables.$grey-2;
+            transition: variables.$transition;
             // @extend %icon-color-grey;
 
             &:hover {
                 border-bottom: 3px solid black;
-                color: variables.$color-black;
-                @extend %icon-color-black;
+                color: variables.$black;
+                @extend %svg-grey;
             }
         }
 
         .active {
             border-bottom: 3px solid black;
-            color: variables.$color-black;
-            @extend %icon-color-black;
+            color: variables.$black;
+            @extend %svg-grey;
         }
     }
 }

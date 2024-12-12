@@ -11,7 +11,7 @@
 
 %nav-item-font {
     @extend %font-16px-medium;
-    color: variables.$color-light-grey;
+    color: variables.$grey-2;
 }
 
 .aside-nav-wrapper {
@@ -19,7 +19,7 @@
     height: calc(100% - 30px);
     margin-top: 30px;
     @extend %nav-item-font;
-    color: variables.$color-light-grey;
+    color: variables.$grey-2;
 }
 
 .main-nav-list {
@@ -40,7 +40,7 @@
     height: 45px;
     display: flex;
     box-sizing: border-box;
-    transition: variables.$transition-time;
+    transition: variables.$transition;
     cursor: pointer;
 
     .nav-item {
@@ -50,16 +50,16 @@
     &:hover {
         color: black;
         border-right: 3px solid;
-        color: variables.$color-black;
-        @extend %icon-color-black;
+        color: variables.$black;
+        @extend %svg-grey;
     }
 }
 
 .active {
     color: black;
     border-right: 3px solid;
-    color: variables.$color-black;
-    @extend %icon-color-black;
+    color: variables.$black;
+    @extend %svg-grey;
 }
 
 .nav-item-logout {
