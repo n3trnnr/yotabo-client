@@ -32,7 +32,7 @@
     margin-right: 30px;
 
     .info-block-wrapper {
-        @extend %font-technical-16px-medium;
+        @extend %font-16px-medium;
         color: variables.$color-dark-grey;
         padding: 20px 25px;
         transition: all 100ms;
@@ -50,7 +50,7 @@
     .radio-group-wrapper {
         display: flex;
         justify-content: space-between;
-        @extend %font-content-14px-medium;
+        @extend %font-14px-medium;
         color: variables.$color-light-grey;
 
         // .form-radio-low {
@@ -105,7 +105,7 @@
     .deadline-input {
         border: none;
         font-family: 'inter', 'sans-serif';
-        @extend %font-content-14px-medium;
+        @extend %font-14px-medium;
         color: variables.$color-light-grey;
         // width: 100%;
 
@@ -173,7 +173,7 @@
     white-space: nowrap;
 
     margin: 5px 5px 5px 0;
-    @extend %font-content-14px-medium;
+    @extend %font-14px-medium;
     color: variables.$color-light-grey;
 }
 

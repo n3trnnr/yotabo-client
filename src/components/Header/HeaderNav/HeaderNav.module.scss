@@ -1,12 +1,11 @@
 @use '../../../styles/variables';
 
-.header-nav {
-    // width: 50%
-    margin-right: 40px;
-}
+// .header-nav {
+//     margin-right: 40px;
+// }
 
 .header-nav-items-list {
     @extend %element-position-center;
     justify-content: flex-end;
-    // margin-right: 66px;
+    column-gap: 10px;
 }

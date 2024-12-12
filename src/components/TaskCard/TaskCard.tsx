@@ -19,16 +19,16 @@ const TaskCard: React.FC = () => {
                             <span>High</span>
                         </div>
                         <div className={styles.deadline}>
-                            <SvgIcons iconName={"inProgress"} styleName={styles["deadline-icon"]} />
+                            <SvgIcons svgIcon={"inProgress"} className={styles["deadline-icon"]} />
                             <span>Dec 24</span>
                         </div>
                         <div className={styles.files}>
-                            <SvgIcons iconName={"attachFile"} styleName={styles["files-icon"]} />
+                            <SvgIcons svgIcon={"file"} className={styles["files-icon"]} />
                             <span>0</span>
                         </div>
                         <span className={styles['burger-menu']}>
                             <Button colorStyle={'none'}>
-                                <SvgIcons iconName={'burgerMenu'} />
+                                some icon
                             </Button>
                         </span>
                     </div>

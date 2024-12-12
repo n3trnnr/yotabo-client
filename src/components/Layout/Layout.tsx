@@ -1,16 +1,16 @@
 import React from "react";
 import Aside from "../Aside/Aside";
-import Main from "../Main/Main";
+import MainSection from "../MainSection/MainSection";
 import styles from './Layout.module.scss'
-import GlobalHeader from "../GlobalHeader/GlobalHeader";
+import Header from "../Header/Header";
 
 const Layout: React.FC = () => {
     return (
         <>
-            <GlobalHeader />
-            <div className={styles["layout-page"]}>
-                <Aside />
-                <Main />
+            <Aside />
+            <div className={styles["main-content"]}>
+                <Header />
+                <MainSection />
             </div>
         </>
     );

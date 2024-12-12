@@ -101,7 +101,7 @@ const ModalWindow = ({ type, modalWindowTitle, handleShowModal }: IModalWindow) 
             </form>
 
             <Button handleClick={() => handleShowModal(false)} colorStyle={"none"} buttonShape={"none"} styleName={styles['cross-close']}>
-                <SvgIcons iconName={"cross"} />
+                <SvgIcons svgIcon={"close"} />
             </Button>
         </div>
     );

@@ -4,14 +4,14 @@ import SvgIcons from "../UI/Svg/SvgIcons";
 
 const ModalAction = ({ status, error }: IModalAction) => {
     return (
-        <div className={styles['modal-action-container']}>
+        <output className={styles['modal-action-container']}>
             <div className={styles['modal-action-inner']}>
-                <SvgIcons iconName={status ? 'confirm' : 'error'} />
+                <SvgIcons svgIcon={status ? 'fulfilled' : 'reject'} />
                 <span>
                     {status ?? error}
                 </span>
             </div>
-        </div>
+        </output>
     );
 }
 

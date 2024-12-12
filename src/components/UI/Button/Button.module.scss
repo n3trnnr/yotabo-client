@@ -2,6 +2,7 @@
 
 button {
     border: none;
+    background: none;
     @extend %element-position-center;
     transition: variables.$transition-time;
     cursor: pointer;
@@ -13,7 +14,7 @@ button {
 }
 
 .title {
-    @extend %font-technical-16px-medium;
+    @extend %font-16px-medium;
     margin-left: 10px
 }
 

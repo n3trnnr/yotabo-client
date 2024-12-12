@@ -7,5 +7,4 @@ export interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
     styleName?: string;
     handleClick?: () => void;
     title?: string;
-    margin?: string;
 }

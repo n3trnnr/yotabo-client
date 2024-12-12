@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
 
-export interface IGlobalHeader {
+export interface IHeader {
     children?: ReactNode,
 }

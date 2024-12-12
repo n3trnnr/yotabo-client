@@ -57,7 +57,7 @@ const AuthModalWindow = ({ type }: IAuthModalWindow) => {
         <>
             {error && <div>{error}</div>}
             {loadingStatus && <div>Loading...</div>}
-            <SvgIcons iconName={'logo'} styleName={styles['logo-icon']} />
+            <SvgIcons svgIcon={'logo'} className={styles['logo-icon']} />
             <div className={styles["modal-window-container"]}>
                 {type === 'signup' ?
                     <>

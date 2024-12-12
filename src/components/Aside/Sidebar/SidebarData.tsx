@@ -15,7 +15,7 @@ export const SidebarData: ISidebarData[] = [
         title: 'Dashboard',
         path: 'dashboard',
         icon: (styleName: string): ReactNode => {
-            return <SvgIcons iconName={'dashboard'} styleName={styleName} />
+            return <SvgIcons svgIcon={'dashboard'} className={styleName} />
         }
     },
     {
@@ -23,7 +23,7 @@ export const SidebarData: ISidebarData[] = [
         title: 'Projects',
         path: 'projects',
         icon: (styleName: string): ReactNode => {
-            return <SvgIcons iconName={'projects'} styleName={styleName} />
+            return <SvgIcons svgIcon={'projects'} className={styleName} />
         }
     },
     {
@@ -31,7 +31,7 @@ export const SidebarData: ISidebarData[] = [
         title: 'Settings',
         path: 'settings',
         icon: (styleName: string): ReactNode => {
-            return <SvgIcons iconName={'settings'} styleName={styleName} />
+            return <SvgIcons svgIcon={'settings'} className={styleName} />
         }
     },
     {
@@ -39,7 +39,7 @@ export const SidebarData: ISidebarData[] = [
         title: 'Trash',
         path: 'trash',
         icon: (styleName: string): ReactNode => {
-            return <SvgIcons iconName={'trash'} styleName={styleName} />
+            return <SvgIcons svgIcon={'trash'} className={styleName} />
         }
     },
     {
@@ -47,7 +47,7 @@ export const SidebarData: ISidebarData[] = [
         title: 'Log out',
         path: 'logout',
         icon: (styleName: string): ReactNode => {
-            return <SvgIcons iconName={'logOut'} styleName={styleName} />
+            return <SvgIcons svgIcon={'exit'} className={styleName} />
         }
     }
 ]

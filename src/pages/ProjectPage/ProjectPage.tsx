@@ -44,17 +44,17 @@ const ProjectPage = () => {
                 progressPercentage={project?.data.attributes.progress}
             >
                 {location.pathname.endsWith('boards') && <>
-                    <Button buttonShape={'square'} colorStyle={'light-grey'} margin={'10px'}>
-                        <SvgIcons iconName={'boardView'} />
+                    <Button buttonShape={'square'} colorStyle={'light-grey'}>
+                        <SvgIcons svgIcon={'board'} />
                     </Button>
-                    <Button buttonShape={'square'} colorStyle={'light-grey'} margin={'10px'}>
-                        <SvgIcons iconName={'listView'} />
+                    <Button buttonShape={'square'} colorStyle={'light-grey'}>
+                        <SvgIcons svgIcon={'list'} />
                     </Button>
-                    <Button buttonShape={'rectangle'} colorStyle={'light-grey'} title={'Filter'} margin={'10px'}>
-                        <SvgIcons iconName={'filter'} />
+                    <Button buttonShape={'rectangle'} colorStyle={'light-grey'} title={'Filter'}>
+                        <SvgIcons svgIcon={'filter'} />
                     </Button>
-                    <Button handleClick={() => handleShowModal(true)} buttonShape={'rectangle'} colorStyle={'blue'} title={'New task'} margin={'10px'}>
-                        <SvgIcons iconName={'addNewElement'} />
+                    <Button handleClick={() => handleShowModal(true)} buttonShape={'rectangle'} colorStyle={'blue'} title={'New task'}>
+                        <SvgIcons svgIcon={'add'} />
                     </Button>
                 </>}
             </MainComponentHeader>

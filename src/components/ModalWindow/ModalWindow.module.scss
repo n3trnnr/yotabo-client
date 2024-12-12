@@ -27,7 +27,7 @@
 
     .title {
         color: variables.$color-dark-grey;
-        @extend %font-title-18px-medium;
+        @extend %font-18px-medium;
         margin-bottom: 30px;
     }
 
@@ -38,7 +38,7 @@
         border: 1px solid variables.$color-light-grey;
         margin-bottom: 20px;
         padding: 15px;
-        @extend %font-content-16px-regular;
+        @extend %font-16px-regular;
     }
 
     .textarea-description {
@@ -50,7 +50,7 @@
         padding: 15px;
         resize: none;
         font-family: "inter", "sans-serif";
-        @extend %font-content-16px-regular;
+        @extend %font-16px-regular;
     }
 }
 
@@ -67,7 +67,7 @@
         margin-right: 30px;
         background: variables.$color-blue;
         color: variables.$color-white;
-        @extend %font-title-18px-medium;
+        @extend %font-18px-medium;
 
         &:hover {
             background: rgba(variables.$color-blue, .8);
@@ -81,7 +81,7 @@
         border: 1px solid variables.$color-dark-grey;
         background: none;
         color: variables.$color-dark-grey;
-        @extend %font-title-18px-medium;
+        @extend %font-18px-medium;
         cursor: pointer;
         transition: variables.$transition-time;
 

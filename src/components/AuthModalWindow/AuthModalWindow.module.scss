@@ -32,7 +32,7 @@
     .title {
         text-align: center;
         color: variables.$color-dark-grey;
-        @extend %font-title-18px-medium;
+        @extend %font-18px-medium;
         margin-bottom: 30px;
     }
 
@@ -47,7 +47,7 @@
         border: 1px solid variables.$color-light-grey;
         // margin-bottom: 20px;
         padding: 15px;
-        @extend %font-content-16px-regular;
+        @extend %font-16px-regular;
     }
 
     .error-message {
@@ -66,7 +66,7 @@
     // margin-right: 30px;
     background: variables.$color-blue;
     color: variables.$color-white;
-    @extend %font-title-18px-medium;
+    @extend %font-18px-medium;
 
     &:hover {
         background: rgba(variables.$color-blue, .8);

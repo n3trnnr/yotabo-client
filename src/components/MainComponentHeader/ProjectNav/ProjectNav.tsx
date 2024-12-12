@@ -15,7 +15,7 @@ const ProjectNav = () => {
                         })}
                     >
                         <div className={styles['icon-wrapper']}>
-                            <SvgIcons iconName={'description'} />
+                            <SvgIcons svgIcon={'overview'} />
                         </div>
                         <span>Description</span>
                     </NavLink>
@@ -28,7 +28,7 @@ const ProjectNav = () => {
                         })}
                     >
                         <div className={styles['icon-wrapper']}>
-                            <SvgIcons iconName={'boards'} />
+                            <SvgIcons svgIcon={'board'} />
                         </div>
                         <span>Boards</span>
                     </NavLink>

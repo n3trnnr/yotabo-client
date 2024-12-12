@@ -25,8 +25,14 @@ const ProjectsPage = () => {
     }
 
     const handleDeleteProject = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, id: TId) => {
-        // event.stopPropagation()
+        event.preventDefault()
         dispatch(deleteProject(id))
+    }
+
+    const handleEditProject = ({ title, description }: { title: string, description: string }) => {
+        dispatch;
+        title
+        description
     }
 
     return (
@@ -40,17 +46,17 @@ const ProjectsPage = () => {
             }
 
             <MainComponentHeader type={'none'}>
-                <Button buttonShape={'square'} colorStyle={'light-grey'} margin={'10px'}>
-                    <SvgIcons iconName={'boardView'} />
+                <Button buttonShape={'square'} colorStyle={'light-grey'}>
+                    <SvgIcons svgIcon={'board'} />
                 </Button>
-                <Button buttonShape={'square'} colorStyle={'light-grey'} margin={'10px'}>
-                    <SvgIcons iconName={'listView'} />
+                <Button buttonShape={'square'} colorStyle={'light-grey'}>
+                    <SvgIcons svgIcon={'list'} />
                 </Button>
-                <Button buttonShape={'rectangle'} colorStyle={'light-grey'} title={'Filter'} margin={'10px'}>
-                    <SvgIcons iconName={'filter'} />
+                <Button buttonShape={'rectangle'} colorStyle={'light-grey'} title={'Filter'}>
+                    <SvgIcons svgIcon={'filter'} />
                 </Button>
-                <Button handleClick={() => handleShowModal(true)} buttonShape={'rectangle'} colorStyle={'blue'} title={'New project'} margin={'10px'}>
-                    <SvgIcons iconName={'addNewElement'} />
+                <Button handleClick={() => handleShowModal(true)} buttonShape={'rectangle'} colorStyle={'blue'} title={'New project'}>
+                    <SvgIcons svgIcon={'add'} />
                 </Button>
             </MainComponentHeader>
 
@@ -58,9 +64,9 @@ const ProjectsPage = () => {
                 <div className={styles['projects-list-wrapper']}>
 
                     {projects && projects?.data.map((project) => (
-                        // <Link to={`/projects/${project.id}/boards`} key={project.id}>
-                        <ProjectCard key={project.id} projectData={project} deleteProject={handleDeleteProject} />
-                        // </Link>
+                        <Link to={`/projects/${project.id}/boards`} key={project.id}>
+                            <ProjectCard key={project.id} projectData={project} deleteProject={handleDeleteProject} />
+                        </Link>
                     ))}
 
                 </div>

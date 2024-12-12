@@ -43,7 +43,7 @@
         width: 100%;
         height: 100%;
         background: none;
-        @extend %font-content-16px-regular;
+        @extend %font-16px-regular;
         color: variables.$color-light-grey;
         @extend %icon-color-grey;
 
@@ -73,7 +73,7 @@
         margin-bottom: 10px;
 
         .title {
-            @extend %font-titel-20px-semibold;
+            @extend %font-20px-semibold;
         }
     }
 

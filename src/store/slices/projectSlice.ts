@@ -3,6 +3,7 @@ import { PREFIX } from "../../constants/constants";
 import { RootState } from "../../store/store";
 import { IProject, IProjectFormData, IProjects } from "../../interfaces/store/projectSlice";
 import { TId } from "../../interfaces/global";
+import { ErrorPayload } from "vite/types/hmrPayload.js";
 
 interface IProjectSlice {
     project: IProject | null,
@@ -93,12 +94,38 @@ export const deleteProject = createAsyncThunk<IProject, TId, { rejectValue: stri
 
         dispatch(projectActions.clearStatus())
 
-        const response = await fetch(`${PREFIX}/api/projects/${id}`, {
+        const response = await fetch(`${PREFIX}/api/projects/${id}1`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${jwt}`
             }
+        })
+
+        if (!response.ok) {
+            const errorData = await response.json()
+            return rejectWithValue(`${response.status.toString()} - ${response.statusText} - ${errorData?.error?.message}`)
+        }
+
+        const data = await response.json() as IProject
+        return data
+    }
+)
+
+export const editProject = createAsyncThunk<IProject, { title: string, description: string, id: TId }, { rejectValue: string, state: RootState }>(
+    'project/editProject',
+    async (updatedData, { rejectWithValue, getState, dispatch }) => {
+        const jwt = getState().user.jwt;
+
+        dispatch(projectActions.clearStatus())
+
+        const response = await fetch(`${PREFIX}/api/projects/${updatedData.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${jwt}`
+            },
+            body: JSON.stringify(updatedData)
         })
 
         if (!response.ok) {
@@ -159,10 +186,12 @@ const projectSlice = createSlice({
                 }
             })
 
-            .addMatcher(isRejected, (state, action: PayloadAction) => {
+            .addMatcher(isRejected, (state, action: any) => {
                 // console.log('action', action);
-                const message = action.payload as unknown as string
-                state.error = message
+
+                const payloadMessage = action.payload as unknown as string
+                const errorMessage = action.error.message as unknown as string
+                state.error = payloadMessage ?? errorMessage
             })
     },
 
