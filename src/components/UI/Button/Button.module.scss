@@ -8,6 +8,7 @@
     transition: variables.$transition;
     cursor: pointer;
     @extend %font-16px-medium;
+    font-family: 'inter', sans-serif;
 
     &:focus-visible {
         outline: 2px solid variables.$blue-2;

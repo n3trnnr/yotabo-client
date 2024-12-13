@@ -3,19 +3,26 @@ import styles from './Aside.module.scss'
 import Sidebar from "./Sidebar/Sidebar";
 import { Link } from "react-router-dom";
 import SvgIcons from "../UI/Svg/SvgIcons";
+import Button from "../UI/Button/Button";
 
 const Aside: React.FC = () => {
     return (
-        <aside className={styles.aside}>
+        <aside className={styles['aside']}>
+            <div className={styles['aside__inner']}>
 
-            <div className={styles["logo-container"]}>
-                <Link to={'/'} className={styles["logo-wrapper"]}>
-                    <SvgIcons svgIcon={'logo'} className={styles['logo-icon']} />
-                    <h1>Yotabo</h1>
-                </Link>
+                <div className={styles['logo']}>
+                    <Link to={'/'} className={styles['logo__inner']}>
+                        <SvgIcons svgIcon={'logo'} className={styles['icon']} />
+                        <h1 className={styles['headling']}>Yotabo</h1>
+                    </Link>
+
+                    <Button className={styles['burger-menu']}>
+                        <SvgIcons svgIcon={'arrowLeft'} />
+                    </Button>
+                </div>
+
+                <Sidebar />
             </div>
-
-            <Sidebar />
         </aside>
     );
 }

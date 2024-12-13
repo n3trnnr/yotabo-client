@@ -1,74 +1,25 @@
 @use '../../../styles/variables';
 
-%nav-item-position-center {
-    max-width: 150px;
-    // margin: 0 auto;
-    margin-left: 40px;
-    line-height: 45px;
-    display: flex;
-    align-items: center;
-}
+.sidebar {
 
-%nav-item-font {
-    @extend %font-16px-medium;
-    color: variables.$grey-2;
-}
+    &__inner {
+        width: 100%;
+        height: calc(100% - 30px);
+        margin-top: 30px;
+        @extend %font-16px-medium;
+        color: variables.$grey-3;
 
-.aside-nav-wrapper {
-    width: 100%;
-    height: calc(100% - 30px);
-    margin-top: 30px;
-    @extend %nav-item-font;
-    color: variables.$grey-2;
-}
+        .separator {
+            border-radius: 5px;
+            border: 1px solid variables.$grey-2;
+            margin-block: 10px;
+        }
 
-.main-nav-list {
-    height: 80%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.aside-nav-icon {
-    height: 45px;
-    margin-right: 20px;
-    flex-shrink: 0;
-}
-
-.item-wrapper {
-    width: 100%;
-    height: 45px;
-    display: flex;
-    box-sizing: border-box;
-    transition: variables.$transition;
-    cursor: pointer;
-
-    .nav-item {
-        @extend %nav-item-position-center;
-    }
-
-    &:hover {
-        color: black;
-        border-right: 3px solid;
-        color: variables.$black;
-        @extend %svg-grey;
-    }
-}
-
-.active {
-    color: black;
-    border-right: 3px solid;
-    color: variables.$black;
-    @extend %svg-grey;
-}
-
-.nav-item-logout {
-    height: 20%;
-
-    @extend %nav-item-font;
-
-    .logout-button {
-        background: none;
-        font-size: inherit;
+        .exit {
+            border: 1px solid variables.$grey-2;
+            border-radius: variables.$radius-10;
+            width: 100%;
+            @extend %button-rectangle, %flex-center, %button-grey;
+        }
     }
 }

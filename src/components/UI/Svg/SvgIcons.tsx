@@ -27,6 +27,8 @@ import Reject from '../../../assets/svg/reject.svg?react'
 import ArrowDown from '../../../assets/svg/arrow-down.svg?react'
 import ArrowLeft from '../../../assets/svg/arrow-left.svg?react'
 import File from '../../../assets/svg/file.svg?react'
+import Home from '../../../assets/svg/home.svg?react'
+
 
 export const iconsList = {
     logo: Logo,
@@ -54,7 +56,8 @@ export const iconsList = {
     reject: Reject,
     arrowDown: ArrowDown,
     arrowLeft: ArrowLeft,
-    file: File
+    file: File,
+    home: Home
 }
 
 const SvgIcons = ({ svgIcon, className }: ISvgIcons) => {

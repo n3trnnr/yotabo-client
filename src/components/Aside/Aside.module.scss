@@ -1,26 +1,48 @@
 @use '../../styles/variables';
 
-aside {
-    width: 250px;
-    min-height: 100%;
-    border-right: 1px solid #D9D9D9;
+.aside {
+
+    &__inner {
+        width: 250px;
+        min-height: 100%;
+        padding: 20px 15px 30px;
+        border-right: 1px solid variables.$grey-2;
+
+        .logo {
+            user-select: none;
+            position: relative;
+
+            &__inner {
+                @extend %flex-center;
+                justify-content: start;
+                column-gap: 10px;
+                padding-left: 15px;
+                color: variables.$grey-4;
+
+                .icon {
+                    flex-shrink: 0;
+                }
+
+                .headling {
+                    @extend %font-24px-medium;
+                }
+
+
+            }
+        }
+    }
 }
 
-.logo-container {
-    user-select: none;
+.burger-menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transition: variables.$transition;
+    @extend %button-square-40;
 
-    .logo-wrapper {
-        @extend %flex-center;
-        column-gap: 10px;
-        color: variables.$grey-3;
-
-        h1 {
-            font-size: 24px;
-            font-weight: 700;
-        }
-
-        .logo-icon {
-            flex-shrink: 0;
+    &:hover {
+        path {
+            stroke: variables.$grey-4;
         }
     }
 }
