@@ -12,19 +12,18 @@ import ProjectDescriptionPage from '../ProjectDescriptionPage/ProjectDescription
 
 const ProjectPage = () => {
     const location = useLocation()
-    // console.log('location', location);
 
     const { id } = useParams()
     const dispatch = useAppDispatch()
     const project = useAppSelector((state) => state.project.project)
-    // console.log('project', project);
+
 
 
     useEffect(() => {
         if (id) {
             dispatch(getProjectDataById(id))
         }
-    }, [])
+    }, [id])
 
     const [showModal, setShowModal] = useState<boolean>(false)
     const handleShowModal = (isShown: boolean) => {
@@ -44,16 +43,16 @@ const ProjectPage = () => {
                 progressPercentage={project?.data.attributes.progress}
             >
                 {location.pathname.endsWith('boards') && <>
-                    <Button buttonShape={'square'} colorStyle={'light-grey'}>
+                    <Button className={styles['']}>
                         <SvgIcons svgIcon={'board'} />
                     </Button>
-                    <Button buttonShape={'square'} colorStyle={'light-grey'}>
+                    <Button className={styles['']}>
                         <SvgIcons svgIcon={'list'} />
                     </Button>
-                    <Button buttonShape={'rectangle'} colorStyle={'light-grey'} title={'Filter'}>
+                    <Button className={styles['']} title={'Filter'}>
                         <SvgIcons svgIcon={'filter'} />
                     </Button>
-                    <Button handleClick={() => handleShowModal(true)} buttonShape={'rectangle'} colorStyle={'blue'} title={'New task'}>
+                    <Button handleClick={() => handleShowModal(true)} className={styles['']} title={'New task'}>
                         <SvgIcons svgIcon={'add'} />
                     </Button>
                 </>}

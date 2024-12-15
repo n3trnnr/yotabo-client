@@ -1,5 +1,10 @@
-import { IProjects } from "../../../interfaces/store/projectSlice";
+import { ReactNode } from "react";
 
 export interface IDynamicSidebarItems {
-    projects: IProjects | null
+    children: ReactNode,
+    iconBefore: ReactNode,
+    iconAfter?: ReactNode,
+    title: string,
+    handeShowModal?: () => void,
+    setSubstring: (substring: string) => void
 }

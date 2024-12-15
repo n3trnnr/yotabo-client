@@ -18,12 +18,10 @@ const router = createBrowserRouter(createRoutesFromElements(
     <>
         <Route path='/' element={<Auth><Layout /></Auth>} errorElement={<ErrorPage />}>
             <Route path='home' element={<Home />} />
-            <Route path='projects' element={<ProjectsPage />} />
-            <Route path='projects/:id' element={<ProjectPage />} />
             <Route path='projects/:id' element={<ProjectPage />}>
-                <Route path='/projects/:id/boards' element={<ProjectBoardsPage />} />
-                <Route path='/projects/:id/description' element={<ProjectDescriptionPage />} />
-                <Route path='/projects/:id/dashboard' element={<DashboardPage />} />
+                <Route path='projects/:id/boards' element={<ProjectBoardsPage />} />
+                <Route path='projects/:id/description' element={<ProjectDescriptionPage />} />
+                <Route path='projects/:id/dashboard' element={<DashboardPage />} />
             </Route>
             <Route path='projects/:id/boards/:id/task' element={<TaskPage />} />
             <Route path='*' element={<NotFound />} />

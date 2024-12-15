@@ -1,18 +1,33 @@
 @use '../../../styles/variables';
 
 .sidebar {
+    height: 100%;
 
     &__inner {
         width: 100%;
-        height: calc(100% - 30px);
+        min-height: calc(100% - 70px);
+        display: flex;
+        flex-direction: column;
         margin-top: 30px;
         @extend %font-16px-medium;
         color: variables.$grey-3;
 
+        .items-list {
+            display: flex;
+            flex-direction: column;
+            row-gap: 10px;
+
+            .project-icon {
+                width: 8px;
+                height: 8px;
+                border-radius: 100%;
+            }
+        }
+
         .separator {
-            border-radius: 5px;
-            border: 1px solid variables.$grey-2;
             margin-block: 10px;
+            border: 1px solid variables.$grey-2;
+            border-radius: 5px;
         }
 
         .exit {

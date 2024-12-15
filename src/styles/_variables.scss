@@ -94,11 +94,16 @@ $red-2: #FF7474;
     }
 }
 
-%button-dark {
-    border: none;
+%active-link {
     background: $grey-1;
-    color: $grey-4;
-    @extend %svg-grey;
+
+    path {
+        fill: $grey-4;
+    }
+
+    &>span {
+        color: $grey-4;
+    }
 }
 
 %svg-grey {
