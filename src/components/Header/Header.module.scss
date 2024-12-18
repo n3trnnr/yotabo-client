@@ -22,8 +22,7 @@
     outline: 1px solid variables.$grey-2;
 
     &:focus-within {
-        outline: 2px solid variables.$blue-2;
-        outline-offset: 2px;
+        @extend %focus;
     }
 
     .input {

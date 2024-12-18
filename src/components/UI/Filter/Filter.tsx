@@ -9,7 +9,7 @@ const Filter = ({ handleChange }: IFilter) => {
             <input
                 className={styles['input-search']}
                 type="text"
-                onChange={(event) => handleChange(event.target.value)}
+                onChange={(event) => handleChange!(event.target.value)}
             />
 
             <Button className={styles['button-filter']}>

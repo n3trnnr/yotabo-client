@@ -55,15 +55,21 @@ $red-2: #FF7474;
     font-weight: 500;
 }
 
+%focus {
+    outline: 2px solid $blue-2;
+}
+
 %button-square-40 {
     min-width: 40px;
     min-height: 40px;
+    height: 40px;
     border-radius: $radius-10;
 }
 
 %button-square-28 {
     min-width: 28px;
     min-height: 28px;
+    height: 28px;
     border-radius: 5px;
 }
 

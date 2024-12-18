@@ -12,10 +12,7 @@
         .nav {
             display: flex;
             flex-direction: column;
-            padding-block-end: 10px;
-            height: calc(100% - 40px);
-
-            .link-items {}
+            height: calc(100% - 60px);
 
             .drop-down-items {
                 flex: 1;
@@ -32,19 +29,19 @@
                 }
             }
 
-            .separator {
-                margin-block: 10px;
+        }
+
+        .exit-button-container {
+            margin-inline: 15px;
+
+            .exit {
                 border: 1px solid variables.$grey-2;
-                border-radius: 5px;
+                border-radius: variables.$radius-10;
+                width: 100%;
+                @extend %button-rectangle, %flex-center, %button-grey;
             }
         }
 
-        .exit {
-            border: 1px solid variables.$grey-2;
-            border-radius: variables.$radius-10;
-            width: 100%;
-            @extend %button-rectangle, %flex-center, %button-grey;
-        }
     }
 }
 
@@ -58,4 +55,14 @@
         height: 8px;
         border-radius: 100%;
     }
+}
+
+.items-list__links {
+    margin-inline: 15px;
+}
+
+.separator {
+    margin: 10px 15px;
+    border: 1px solid variables.$grey-2;
+    border-radius: 5px;
 }

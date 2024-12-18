@@ -1,10 +1,11 @@
 @use '../../../styles/variables';
 
 .drop-down-item {
-    flex: 1;
+    margin-inline: 15px;
 
     .buttons-list {
         display: flex;
+        align-items: center;
         column-gap: 10px;
         margin-bottom: 10px;
 
@@ -17,6 +18,16 @@
             column-gap: 10px;
             transition: variables.$transition;
             @extend %flex-center, %button-grey;
+
+            .icon-2 {
+                @extend %flex-center;
+                transition: transform 300ms cubic-bezier(0.075, 0.82, 0.165, 1);
+
+                &__active {
+                    transform: rotateX(180deg);
+                    transition: transform 300ms cubic-bezier(0.075, 0.82, 0.165, 1);
+                }
+            }
         }
 
         .button-add {
@@ -35,7 +46,6 @@
 
         .drop-down-menu__inner {
             height: 200px;
-            overflow: auto;
             margin-bottom: 10px;
         }
     }

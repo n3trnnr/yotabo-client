@@ -10,19 +10,17 @@ import { useAppDispatch, useAppSelector } from '../../hooks/useStore';
 import { deleteProject, getProjectsData } from '../../store/slices/projectSlice';
 import { TId } from '../../interfaces/global';
 import ModalAction from '../../components/ModalAction/ModalAction';
+import { useModal } from '../../hoc/Contexts/ModalWindow/ModalProvider';
 
 const ProjectsPage = () => {
     const dispatch = useAppDispatch()
     const { projects, status, error } = useAppSelector((state) => state.project)
-    const [showModal, setShowModal] = useState<boolean>(false)
+
+    const { isModalOpen } = useModal();
 
     useEffect(() => {
         dispatch(getProjectsData())
     }, [dispatch])
-
-    const handleShowModal = (isShown: boolean) => {
-        setShowModal(isShown)
-    }
 
     const handleDeleteProject = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, id: TId) => {
         event.preventDefault()
@@ -40,9 +38,9 @@ const ProjectsPage = () => {
             {(status || error) && <ModalAction status={status} error={error} />}
 
 
-            {/* <div className={styles["modal-window"]}>
-                <ModalWindow type={"simple"} modalWindowTitle={"Create project"} />
-            </div> */}
+            {isModalOpen && <div className={styles["modal-window"]}>
+                <ModalWindow type={"simple"} title={"Create project"} />
+            </div>}
 
 
             <MainComponentHeader type={'none'}>
@@ -51,12 +49,6 @@ const ProjectsPage = () => {
                 </Button>
                 <Button className={styles['squre-button']}>
                     <SvgIcons svgIcon={'list'} />
-                </Button>
-                <Button className={styles['fiter-button']} childrenAfter={<SvgIcons svgIcon='arrowDown' />} title={'Filter'}>
-                    <SvgIcons svgIcon={'filter'} />
-                </Button>
-                <Button handleClick={() => handleShowModal(true)} className={styles['add-button']} title={'New project'}>
-                    <SvgIcons svgIcon={'add'} />
                 </Button>
             </MainComponentHeader>
 

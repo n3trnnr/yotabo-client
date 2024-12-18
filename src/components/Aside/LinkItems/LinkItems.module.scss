@@ -4,6 +4,7 @@
     user-select: none;
 
 
+
     .item__inner {
         width: 100%;
         height: 40px;
@@ -13,6 +14,11 @@
         column-gap: 10px;
         transition: variables.$transition;
         @extend %flex-center, %button-grey;
+
+        // &:focus {
+        //     outline: 2px solid variables.$blue-2;
+        //     outline-offset: 2px;
+        // }
 
         &>span {
             text-overflow: ellipsis;

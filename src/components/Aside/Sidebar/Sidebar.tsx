@@ -11,13 +11,14 @@ import { getProjectsData } from '../../../store/slices/projectSlice.ts';
 import { hex } from '../../../helpers/hex.ts';
 import Filter from '../../UI/Filter/Filter.tsx';
 import { useModal } from '../../../hoc/Contexts/ModalWindow/ModalProvider.tsx';
+import cn from 'classnames';
+import ItemsList from '../ItemsList/ItemsList.tsx';
 
 const Sidebar = () => {
     const dispatch = useAppDispatch();
     const projects = useAppSelector((state) => state.project.projects);
-    const [substring, setSubstring] = useState('');
+    // const [substring, setSubstring] = useState('');
     const { handleOpenModal } = useModal();
-
     useEffect(() => {
         dispatch(getProjectsData())
     }, [])
@@ -25,22 +26,19 @@ const Sidebar = () => {
     return (
         <div className={styles["sidebar"]}>
             <div className={styles['sidebar__inner']}>
-
                 <nav className={styles['nav']}>
 
-                    <div className={styles['link-items']}>
-                        <ul className={styles['items-list']}>
-                            {LinkItemsData.map((item) => (
-                                <LinkItems
-                                    key={item.id}
-                                    id={item.id}
-                                    title={item.title}
-                                    path={item.path}
-                                    icon={item.icon}
-                                />
-                            ))}
-                        </ul>
-                    </div>
+                    <ItemsList className={cn(styles['items-list'], styles['items-list__links'])}>
+                        {LinkItemsData.map((item) => (
+                            <LinkItems
+                                key={item.id}
+                                id={item.id}
+                                title={item.title}
+                                path={item.path}
+                                icon={item.icon}
+                            />
+                        ))}
+                    </ItemsList>
 
                     <hr className={styles['separator']} />
 
@@ -53,7 +51,7 @@ const Sidebar = () => {
                                 settings={<Filter />}
                                 handleClick={handleOpenModal}
                             >
-                                <ul className={styles['items-list']}>
+                                <ItemsList className={styles['items-list']}>
                                     {projects?.data.map((project) => (
                                         <LinkItems
                                             key={project.id}
@@ -63,75 +61,20 @@ const Sidebar = () => {
                                             icon={<div className={styles['project-icon']} style={{ background: `${hex()}` }} />}
                                         />
                                     ))}
-                                </ul>
-                            </DropDownItems>
-
-                            <DropDownItems
-                                icon1={<SvgIcons svgIcon={'projects'} />}
-                                icon2={<SvgIcons svgIcon={'arrowDown'} />}
-                                title={'Project'}
-                                settings={<Filter />}
-                                handleClick={handleOpenModal}
-                            >
-                                <ul className={styles['items-list']}>
-                                    {projects?.data.map((project) => (
-                                        <LinkItems
-                                            key={project.id}
-                                            id={project.id}
-                                            title={project.attributes.title}
-                                            path={`projects/${project.id}`}
-                                            icon={<div className={styles['project-icon']} style={{ background: `${hex()}` }} />}
-                                        />
-                                    ))}
-                                </ul>
-                            </DropDownItems>
-                            <DropDownItems
-                                icon1={<SvgIcons svgIcon={'projects'} />}
-                                icon2={<SvgIcons svgIcon={'arrowDown'} />}
-                                title={'Project'}
-                                settings={<Filter />}
-                                handleClick={handleOpenModal}
-                            >
-                                <ul className={styles['items-list']}>
-                                    {projects?.data.map((project) => (
-                                        <LinkItems
-                                            key={project.id}
-                                            id={project.id}
-                                            title={project.attributes.title}
-                                            path={`projects/${project.id}`}
-                                            icon={<div className={styles['project-icon']} style={{ background: `${hex()}` }} />}
-                                        />
-                                    ))}
-                                </ul>
-                            </DropDownItems>
-                            <DropDownItems
-                                icon1={<SvgIcons svgIcon={'projects'} />}
-                                icon2={<SvgIcons svgIcon={'arrowDown'} />}
-                                title={'Project'}
-                                settings={<Filter />}
-                                handleClick={handleOpenModal}
-                            >
-                                <ul className={styles['items-list']}>
-                                    {projects?.data.map((project) => (
-                                        <LinkItems
-                                            key={project.id}
-                                            id={project.id}
-                                            title={project.attributes.title}
-                                            path={`projects/${project.id}`}
-                                            icon={<div className={styles['project-icon']} style={{ background: `${hex()}` }} />}
-                                        />
-                                    ))}
-                                </ul>
+                                </ItemsList>
                             </DropDownItems>
                         </div>
-
                     </div>
-
                 </nav>
 
-                <Button aria-controls='' className={styles['exit']} onClick={() => dispatch(userActions.logOut())} title={'Log out'}>
-                    <SvgIcons svgIcon={'exit'} />
-                </Button>
+                <hr className={styles['separator']} />
+
+                <div className={styles['exit-button-container']}>
+                    <Button className={styles['exit']} onClick={() => dispatch(userActions.logOut())} title={'Log out'}>
+                        <SvgIcons svgIcon={'exit'} />
+                    </Button>
+                </div>
+
             </div>
         </div>
     );

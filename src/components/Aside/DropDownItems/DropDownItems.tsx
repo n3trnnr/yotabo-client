@@ -6,7 +6,6 @@ import { IDropDownItems } from './DropDownItems.props';
 import cn from 'classnames'
 
 const DropDownItems = ({ icon1, icon2, title, children, handleClick, settings }: IDropDownItems) => {
-
     const [active, setActive] = useState(false)
 
     return (
@@ -15,7 +14,7 @@ const DropDownItems = ({ icon1, icon2, title, children, handleClick, settings }:
                 <Button className={styles['button-sidebar-item']} onClick={() => setActive(!active)}>
                     {icon1 && icon1}
                     {title}
-                    {icon2 && icon2}
+                    <div className={cn(styles['icon-2'], { [styles['icon-2__active']]: active })}>{icon2 && icon2}</div>
                 </Button>
 
                 {handleClick && <Button className={styles['button-add']} handleClick={handleClick}>

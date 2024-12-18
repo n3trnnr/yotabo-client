@@ -8,7 +8,7 @@ import ModalWindow from "../ModalWindow/ModalWindow";
 const Layout: React.FC = () => {
     return (
         <>
-            {/* <ModalWindow type={'simple'} title="" /> */}
+            <ModalWindow type={'simple'} title="Create project" />
             <Aside />
             <div className={styles["main-content"]}>
                 <Header />

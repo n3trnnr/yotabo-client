@@ -8,8 +8,8 @@
         row-gap: 20px;
         width: 250px;
         height: 100%;
-        padding: 20px 15px;
         border-right: 1px solid variables.$grey-2;
+        padding-block-end: 20px;
 
         .aside__header {
             user-select: none;
@@ -17,7 +17,7 @@
             display: flex;
             align-items: center;
             justify-content: start;
-            padding-left: 15px;
+            margin: 20px 20px 20px 30px;
 
             .logo {
                 @extend %flex-center;
@@ -50,12 +50,4 @@
             stroke: variables.$grey-4;
         }
     }
-}
-
-.exit {
-    margin-top: auto;
-    border: 1px solid variables.$grey-2;
-    border-radius: variables.$radius-10;
-    width: 100%;
-    @extend %button-rectangle, %flex-center, %button-grey;
 }

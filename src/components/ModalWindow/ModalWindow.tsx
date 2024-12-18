@@ -9,6 +9,7 @@ import { useAppDispatch } from "../../hooks/useStore";
 import { postProjectData } from "../../store/slices/projectSlice";
 import { postTaskData } from "../../store/slices/taskSlice";
 import { useModal } from "../../hoc/Contexts/ModalWindow/ModalProvider";
+import cn from 'classnames';
 
 export interface IModalWindowInputs {
     title: string,
@@ -74,41 +75,47 @@ const ModalWindow = ({ type, title }: IModalWindow) => {
     if (!isModalOpen) return null;
 
     return (
-        <div className={styles['modal-window']}>
-            <div className={styles["modal-window__inner"]}>
-                <form onSubmit={handleSubmit(submit)} className={styles["form-wrapper"]}>
-                    <div className={styles.title}>{title}</div>
-                    <input
-                        {...register('title')}
-                        name="title"
-                        className={styles["input-title"]} type="text"
-                        required
-                        placeholder="Title"
-                    />
-                    <textarea
-                        {...register('description')}
-                        className={styles["textarea-description"]}
-                        rows={5}
-                        cols={40}
-                        required
-                        placeholder="Description"
-                    />
-                    {type === "advanced" &&
-                        <AdvancedSettings
-                            register={register}
-                            files={files}
-                            handleDeleteFile={handleDeleteFile}
-                        />
-                    }
-                    <div className={styles["buttons-wrapper"]}>
-                        <button type="submit" className={styles["button-create"]}>Create</button>
-                        <input type="button" onClick={handleCloseModal} className={styles["button-cancel"]} value={"Cancel"} />
-                    </div>
-                </form>
+        <div className={styles['overlay']}>
+            <div className={styles['modal-window']}>
+                <div className={styles["modal-window__inner"]}>
+                    <form onSubmit={handleSubmit(submit)} className={styles["form"]}>
 
-                <Button onClick={handleCloseModal} className={styles['cross-close']}>
-                    <SvgIcons svgIcon={"close"} />
-                </Button>
+                        <div className={styles['form__items']}>
+                            <div className={styles.title}>{title}</div>
+                            <input
+                                {...register('title')}
+                                name="title"
+                                className={styles["input-title"]} type="text"
+                                required
+                                placeholder="Title"
+                            />
+                            <textarea
+                                {...register('description')}
+                                className={styles["textarea-description"]}
+                                rows={5}
+                                cols={40}
+                                required
+                                placeholder="Description"
+                            />
+                            {type === "advanced" &&
+                                <AdvancedSettings
+                                    register={register}
+                                    files={files}
+                                    handleDeleteFile={handleDeleteFile}
+                                />
+                            }
+                        </div>
+
+                        <div className={styles["form__buttons"]}>
+                            <Button type="submit" className={cn(styles["button"], styles['button__create'])}>Create</Button>
+                            <input type="button" onClick={handleCloseModal} className={cn(styles["button"], styles['button__cancel'])} value={"Cancel"} />
+                        </div>
+                    </form>
+
+                    <Button onClick={handleCloseModal} className={styles['cross-close']}>
+                        <SvgIcons svgIcon={"close"} />
+                    </Button>
+                </div>
             </div>
         </div>
     );
