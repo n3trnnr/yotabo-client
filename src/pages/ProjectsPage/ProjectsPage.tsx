@@ -39,11 +39,11 @@ const ProjectsPage = () => {
         <>
             {(status || error) && <ModalAction status={status} error={error} />}
 
-            {showModal &&
-                <div className={styles["modal-window"]}>
-                    <ModalWindow type={"simple"} modalWindowTitle={"Create project"} handleShowModal={handleShowModal} />
-                </div>
-            }
+
+            {/* <div className={styles["modal-window"]}>
+                <ModalWindow type={"simple"} modalWindowTitle={"Create project"} />
+            </div> */}
+
 
             <MainComponentHeader type={'none'}>
                 <Button className={styles['squre-button']}>

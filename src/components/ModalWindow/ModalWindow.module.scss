@@ -1,20 +1,24 @@
 @use '../../styles/variables';
 
-.modal-window-container {
-    width: 574px;
-    background: variables.$white;
-    border-radius: variables.$radius-20;
-    box-shadow: 0 4px 16px 2px rgba(0, 26, 52, .16);
-    position: relative;
-    z-index: 101;
+.modal-window {
+    position: absolute;
 
-    .cross-close {
-        position: absolute;
-        top: 20px;
-        right: 20px;
+    &__inner {
+        width: 574px;
+        background: variables.$white;
+        border-radius: variables.$radius-20;
+        box-shadow: 0 4px 16px 2px rgba(0, 26, 52, .16);
+        position: relative;
+        z-index: 101;
 
-        &:hover {
-            @extend %svg-grey;
+        .cross-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+
+            &:hover {
+                @extend %svg-grey;
+            }
         }
     }
 }

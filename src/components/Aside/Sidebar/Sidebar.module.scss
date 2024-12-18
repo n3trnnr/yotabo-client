@@ -5,29 +5,38 @@
 
     &__inner {
         width: 100%;
-        min-height: calc(100% - 70px);
-        display: flex;
-        flex-direction: column;
-        margin-top: 30px;
+        height: 100%;
         @extend %font-16px-medium;
         color: variables.$grey-3;
 
-        .items-list {
+        .nav {
             display: flex;
             flex-direction: column;
-            row-gap: 10px;
+            padding-block-end: 10px;
+            height: calc(100% - 40px);
 
-            .project-icon {
-                width: 8px;
-                height: 8px;
-                border-radius: 100%;
+            .link-items {}
+
+            .drop-down-items {
+                flex: 1;
+                height: 100%;
+                position: relative;
+
+                &__inner {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    overflow-y: auto;
+                }
             }
-        }
 
-        .separator {
-            margin-block: 10px;
-            border: 1px solid variables.$grey-2;
-            border-radius: 5px;
+            .separator {
+                margin-block: 10px;
+                border: 1px solid variables.$grey-2;
+                border-radius: 5px;
+            }
         }
 
         .exit {
@@ -36,5 +45,17 @@
             width: 100%;
             @extend %button-rectangle, %flex-center, %button-grey;
         }
+    }
+}
+
+.items-list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+
+    .project-icon {
+        min-width: 8px;
+        height: 8px;
+        border-radius: 100%;
     }
 }

@@ -1,11 +1,9 @@
-import styles from './SidebarLinkItems.module.scss'
+import styles from './LinkItems.module.scss'
 import cn from 'classnames';
 import { NavLink } from 'react-router-dom';
-import { ISidebarLinkItems } from './SidebarLinkItems.props';
+import { ILinkItems } from './LinkItems.props';
 
-const SidebarLinkItems = ({ id, title, path, icon }: ISidebarLinkItems) => {
-    console.log('path', path);
-
+const LinkItems = ({ id, title, path, icon }: ILinkItems) => {
     return (
         <li key={id} className={styles['item']}>
             <NavLink to={path}
@@ -18,4 +16,4 @@ const SidebarLinkItems = ({ id, title, path, icon }: ISidebarLinkItems) => {
     );
 }
 
-export default SidebarLinkItems;
+export default LinkItems;

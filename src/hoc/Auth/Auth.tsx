@@ -1,4 +1,4 @@
-import { useAppSelector } from '../hooks/useStore';
+import { useAppSelector } from '../../hooks/useStore';
 import { Navigate } from 'react-router-dom';
 import { IAuth } from './Auth.props';
 

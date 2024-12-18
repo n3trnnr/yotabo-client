@@ -3,20 +3,25 @@
 .aside {
 
     &__inner {
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
         width: 250px;
         height: 100%;
-        padding: 20px 15px 30px;
+        padding: 20px 15px;
         border-right: 1px solid variables.$grey-2;
 
-        .logo {
+        .aside__header {
             user-select: none;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            padding-left: 15px;
 
-            &__inner {
+            .logo {
                 @extend %flex-center;
-                justify-content: start;
                 column-gap: 10px;
-                padding-left: 15px;
                 color: variables.$grey-4;
 
                 .icon {
@@ -45,4 +50,12 @@
             stroke: variables.$grey-4;
         }
     }
+}
+
+.exit {
+    margin-top: auto;
+    border: 1px solid variables.$grey-2;
+    border-radius: variables.$radius-10;
+    width: 100%;
+    @extend %button-rectangle, %flex-center, %button-grey;
 }

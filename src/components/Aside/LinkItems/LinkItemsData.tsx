@@ -1,14 +1,14 @@
 import { ReactNode } from "react"
 import SvgIcons from "../../UI/Svg/SvgIcons"
 
-interface ISidebarLinkItemsData {
+interface ILinkItemsData {
     id: string | number;
     title: string;
     path: string;
     icon: ReactNode;
 }
 
-export const SidebarLinkItemsData: ISidebarLinkItemsData[] = [
+export const LinkItemsData: ILinkItemsData[] = [
     {
         id: 1,
         title: 'Home',

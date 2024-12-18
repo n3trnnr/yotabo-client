@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 
-export interface ISidebarLinkItems {
+export interface ILinkItems {
     id: string | number,
     title: string,
     path: string
-    icon: ReactNode | string,
+    icon: ReactNode
 }

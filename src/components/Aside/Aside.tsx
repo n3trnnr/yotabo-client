@@ -8,10 +8,10 @@ import Button from "../UI/Button/Button";
 const Aside: React.FC = () => {
     return (
         <aside className={styles['aside']}>
-            <div className={styles['aside__inner']}>
+            <section className={styles['aside__inner']}>
 
-                <div className={styles['logo']}>
-                    <Link to={'/'} className={styles['logo__inner']}>
+                <header className={styles['aside__header']}>
+                    <Link to={'/'} className={styles['logo']}>
                         <SvgIcons svgIcon={'logo'} className={styles['icon']} />
                         <h1 className={styles['headling']}>Yotabo</h1>
                     </Link>
@@ -19,10 +19,10 @@ const Aside: React.FC = () => {
                     <Button className={styles['burger-menu']}>
                         <SvgIcons svgIcon={'arrowLeft'} />
                     </Button>
-                </div>
+                </header>
 
                 <Sidebar />
-            </div>
+            </section>
         </aside>
     );
 }

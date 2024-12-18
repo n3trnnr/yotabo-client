@@ -9,7 +9,7 @@ import Layout from '../components/Layout/Layout';
 import TaskPage from '../pages/TaskPage/TaskPage';
 import SignUpPage from '../pages/SignUpPage/SignUpPage';
 import SignInPage from '../pages/SignInPage/SignInPage';
-import Auth from '../hoc/Auth';
+import Auth from '../hoc/Auth/Auth';
 import ProjectDescriptionPage from '../pages/ProjectDescriptionPage/ProjectDescriptionPage';
 import ProjectBoardsPage from '../pages/ProjectBoardsPage/ProjectBoardsPage';
 import Home from '../pages/Home/Home';

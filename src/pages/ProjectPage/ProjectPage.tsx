@@ -32,11 +32,11 @@ const ProjectPage = () => {
 
     return (
         <>
-            {showModal &&
-                <div className={styles["modal-window"]}>
-                    <ModalWindow type={"advanced"} modalWindowTitle={"Create task"} handleShowModal={handleShowModal} />
-                </div>
-            }
+
+            {/* <div className={styles["modal-window"]}>
+                <ModalWindow type={"advanced"} modalWindowTitle={"Create task"} />
+            </div> */}
+
 
             <MainComponentHeader
                 type={'info'}
