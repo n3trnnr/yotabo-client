@@ -31,7 +31,7 @@
         }
 
         .button-add {
-            @extend %button-square-40, %button-blue;
+            @extend %button-square-28, %button-blue;
         }
     }
 
@@ -45,8 +45,7 @@
         display: none;
 
         .drop-down-menu__inner {
-            height: 200px;
-            margin-bottom: 10px;
+            margin-block-end: 10px;
         }
     }
 

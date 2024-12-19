@@ -3,11 +3,13 @@ import { PREFIX } from "../../constants/constants";
 import { RootState } from "../../store/store";
 import { IProject, IProjectFormData, IProjects } from "../../interfaces/store/projectSlice";
 import { TId } from "../../interfaces/global";
-import { ErrorPayload } from "vite/types/hmrPayload.js";
+import { hex } from "../../helpers/hex";
+// import { ErrorPayload } from "vite/types/hmrPayload.js";
 
 interface IProjectSlice {
     project: IProject | null,
     projects: IProjects | null,
+    filteredProjects: IProjects | null,
     error: string | null,
     status: string | null
 }
@@ -72,7 +74,7 @@ export const postProjectData = createAsyncThunk<IProject, IProjectFormData, { re
             },
             body: JSON.stringify(
                 {
-                    data: { ...projectDataClient }
+                    data: { ...projectDataClient, hex: hex() }
                 }
             )
         })
@@ -138,12 +140,15 @@ export const editProject = createAsyncThunk<IProject, { title: string, descripti
     }
 )
 
-const initialState: IProjectSlice = {
-    project: null,
-    projects: null,
-    error: null,
-    status: null
-}
+export
+
+    const initialState: IProjectSlice = {
+        project: null,
+        projects: null,
+        filteredProjects: null,
+        error: null,
+        status: null
+    }
 
 const projectSlice = createSlice({
     name: 'project',
@@ -152,6 +157,30 @@ const projectSlice = createSlice({
         clearStatus: (state) => {
             state.status = null
             state.error = null
+        },
+        sortItemsBySubstring: (state, action: PayloadAction<string>) => {
+            if (state.projects && action.payload) {
+                state.filteredProjects = state.projects
+
+                if (action.payload.length > 0) {
+                    console.log(action.payload, 'ok');
+                    const substring = action.payload.toLocaleLowerCase();
+
+                    state.projects.data = [...state.projects.data].sort((a, b) => {
+                        const indexA = a.attributes.title.toLocaleLowerCase().indexOf(substring)
+                        const indexB = b.attributes.title.toLocaleLowerCase().indexOf(substring)
+                        if (indexA === -1 && indexB === -1) return 0;
+                        if (indexA === -1) return 1;
+                        if (indexB === -1) return -1;
+                        return indexA - indexB;
+                    })
+                } else {
+                    console.log('clear  ', action.payload);
+                    state.projects.data = state.filteredProjects.data
+                }
+
+
+            }
         }
     },
     extraReducers: (builder) => {

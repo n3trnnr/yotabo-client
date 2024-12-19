@@ -12,7 +12,8 @@ export interface IProjectData {
         isFavorites: boolean,
         progress: number,
         createdAt: string
-        isDeleted: boolean
+        isDeleted: boolean,
+        hex: string
     }
 }
 

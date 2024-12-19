@@ -6,19 +6,22 @@ import SvgIcons from '../../UI/Svg/SvgIcons.tsx';
 import { LinkItemsData } from '../LinkItems/LinkItemsData.tsx';
 import LinkItems from '../LinkItems/LinkItems.tsx';
 import DropDownItems from '../DropDownItems/DropDownItems.tsx';
-import { useEffect, useState } from 'react';
-import { getProjectsData } from '../../../store/slices/projectSlice.ts';
-import { hex } from '../../../helpers/hex.ts';
+import { useEffect } from 'react';
+import { getProjectsData, projectActions } from '../../../store/slices/projectSlice.ts';
 import Filter from '../../UI/Filter/Filter.tsx';
 import { useModal } from '../../../hoc/Contexts/ModalWindow/ModalProvider.tsx';
 import cn from 'classnames';
 import ItemsList from '../ItemsList/ItemsList.tsx';
 
 const Sidebar = () => {
+    const { handleOpenModal } = useModal();
     const dispatch = useAppDispatch();
     const projects = useAppSelector((state) => state.project.projects);
-    // const [substring, setSubstring] = useState('');
-    const { handleOpenModal } = useModal();
+
+    const handleChange = (substring: string) => {
+        dispatch(projectActions.sortItemsBySubstring(substring))
+    }
+
     useEffect(() => {
         dispatch(getProjectsData())
     }, [])
@@ -48,7 +51,7 @@ const Sidebar = () => {
                                 icon1={<SvgIcons svgIcon={'projects'} />}
                                 icon2={<SvgIcons svgIcon={'arrowDown'} />}
                                 title={'Project'}
-                                settings={<Filter />}
+                                settings={<Filter handleChange={handleChange} />}
                                 handleClick={handleOpenModal}
                             >
                                 <ItemsList className={styles['items-list']}>
@@ -58,7 +61,7 @@ const Sidebar = () => {
                                             id={project.id}
                                             title={project.attributes.title}
                                             path={`projects/${project.id}`}
-                                            icon={<div className={styles['project-icon']} style={{ background: `${hex()}` }} />}
+                                            icon={<div className={styles['project-icon']} style={{ background: `${project.attributes.hex}` }} />}
                                         />
                                     ))}
                                 </ItemsList>

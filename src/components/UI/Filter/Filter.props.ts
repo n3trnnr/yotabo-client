@@ -1,3 +1,6 @@
+import { ReactNode } from "react";
+
 export interface IFilter {
-    handleChange?: (value: string) => {}
+    handleChange?: (substring: string) => void,
+    children?: ReactNode
 }
