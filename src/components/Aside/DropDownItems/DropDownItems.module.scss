@@ -1,0 +1,56 @@
+@use '../../../styles/variables';
+
+.drop-down-item {
+    margin-inline: 15px;
+
+    .buttons-list {
+        display: flex;
+        align-items: center;
+        column-gap: 10px;
+        margin-bottom: 10px;
+
+        .button-sidebar-item {
+            width: 100%;
+            height: 40px;
+            border-radius: variables.$radius-10;
+            padding-inline: 15px;
+            justify-content: start;
+            column-gap: 10px;
+            transition: variables.$transition;
+            @extend %flex-center, %button-grey;
+
+            .icon-2 {
+                @extend %flex-center;
+                transition: transform 300ms cubic-bezier(0.075, 0.82, 0.165, 1);
+
+                &__active {
+                    transform: rotateX(180deg);
+                    transition: transform 300ms cubic-bezier(0.075, 0.82, 0.165, 1);
+                }
+            }
+        }
+
+        .button-add {
+            @extend %button-square-28, %button-blue;
+        }
+    }
+
+    .separator {
+        margin-block: 10px;
+        border: 1px solid variables.$grey-2;
+        border-radius: 5px;
+    }
+
+    .drop-down-menu {
+        display: none;
+
+        .drop-down-menu__inner {
+            margin-block-end: 10px;
+        }
+    }
+
+    .drop-down-menu.active {
+        display: flex;
+        flex-direction: column;
+    }
+}

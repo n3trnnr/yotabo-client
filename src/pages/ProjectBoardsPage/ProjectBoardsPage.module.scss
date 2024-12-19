@@ -5,26 +5,27 @@
     left: 15px;
     width: 21px;
     height: 21px;
-    border-radius: variables.$main-radius;
+    border-radius: variables.$radius-10;
 }
 
 .boards-container {
     width: 100%;
     height: calc(100% - 105px);
     overflow: auto;
-    @extend %element-position-center;
+    // @extend %flex-center;
+    display: flex;
+    padding-inline: 20px;
+    column-gap: 20px;
 
     .board-container {
         width: 332px;
         height: 100%;
-        margin: 0 15px;
         position: relative;
 
         .board-header {
             width: 332px;
             height: 45px;
-            background: white;
-            @extend %element-position-center;
+            @extend %flex-center;
             position: fixed;
             z-index: 100;
 
@@ -44,13 +45,13 @@
             }
 
             .board-title {
-                @extend %font-title-18px-semibold;
+                @extend %font-18px-medium;
             }
         }
 
         .board-wrapper {
-            border: 1px solid variables.$color-light-grey;
-            border-radius: variables.$main-radius;
+            border: 1px solid variables.$grey-2;
+            border-radius: variables.$radius-10;
             width: 100%;
             margin-top: 45px;
             // height: 663px;

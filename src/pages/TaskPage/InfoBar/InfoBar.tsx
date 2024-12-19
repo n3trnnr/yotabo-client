@@ -26,14 +26,14 @@ const InfoBar: React.FC = () => {
                 <div className={styles["files-container"]}>
                     <div className={styles["files-title"]}>Files</div>
                     <div className={styles["files-wrapper"]}>
-                        <div className={styles["attach-files-icon"]}><SvgIcons iconName="attachFile" /></div>
+                        <div className={styles["attach-files-icon"]}><SvgIcons svgIcon="file" /></div>
                         <span>file-name.pdf</span>
                         <div className={styles["buttons-wrapper"]}>
                             <Button colorStyle={'none'}>
-                                <SvgIcons iconName={"download"} styleName={styles["download-file-button"]} />
+                                <SvgIcons svgIcon={"download"} className={styles["download-file-button"]} />
                             </Button>
-                            <Button colorStyle={'none'} margin={'20px'}>
-                                <SvgIcons iconName={"trash"} styleName={styles["delete-button"]} />
+                            <Button colorStyle={'none'}>
+                                <SvgIcons svgIcon={"trash"} className={styles["delete-button"]} />
                             </Button>
                         </div>
                     </div>

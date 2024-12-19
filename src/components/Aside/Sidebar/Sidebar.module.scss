@@ -1,74 +1,68 @@
 @use '../../../styles/variables';
 
-%nav-item-position-center {
-    max-width: 150px;
-    // margin: 0 auto;
-    margin-left: 40px;
-    line-height: 45px;
-    display: flex;
-    align-items: center;
+.sidebar {
+    height: 100%;
+
+    &__inner {
+        width: 100%;
+        height: 100%;
+        @extend %font-16px-medium;
+        color: variables.$grey-3;
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+            height: calc(100% - 60px);
+
+            .drop-down-items {
+                flex: 1;
+                height: 100%;
+                position: relative;
+
+                &__inner {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    overflow-y: auto;
+                }
+            }
+
+        }
+
+        .exit-button-container {
+            margin-inline: 15px;
+
+            .exit {
+                border: 1px solid variables.$grey-2;
+                border-radius: variables.$radius-10;
+                width: 100%;
+                @extend %button-rectangle, %flex-center, %button-grey;
+            }
+        }
+
+    }
 }
 
-%nav-item-font {
-    @extend %font-technical-16px-medium;
-    color: variables.$color-light-grey;
-}
-
-.aside-nav-wrapper {
-    width: 100%;
-    height: calc(100% - 30px);
-    margin-top: 30px;
-    @extend %nav-item-font;
-    color: variables.$color-light-grey;
-}
-
-.main-nav-list {
-    height: 80%;
+.items-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-}
+    row-gap: 10px;
 
-.aside-nav-icon {
-    height: 45px;
-    margin-right: 20px;
-    flex-shrink: 0;
-}
-
-.item-wrapper {
-    width: 100%;
-    height: 45px;
-    display: flex;
-    box-sizing: border-box;
-    transition: variables.$transition-time;
-    cursor: pointer;
-
-    .nav-item {
-        @extend %nav-item-position-center;
-    }
-
-    &:hover {
-        color: black;
-        border-right: 3px solid;
-        color: variables.$color-black;
-        @extend %icon-color-black;
+    .project-icon {
+        min-width: 8px;
+        height: 8px;
+        border-radius: 100%;
     }
 }
 
-.active {
-    color: black;
-    border-right: 3px solid;
-    color: variables.$color-black;
-    @extend %icon-color-black;
+.items-list__links {
+    margin-inline: 15px;
 }
 
-.nav-item-logout {
-    height: 20%;
-
-    @extend %nav-item-font;
-
-    .logout-button {
-        background: none;
-        font-size: inherit;
-    }
+.separator {
+    margin: 10px 15px;
+    border: 1px solid variables.$grey-2;
+    border-radius: 5px;
 }

@@ -1,7 +1,6 @@
 import { IProjectDescriptionPage } from "./ProjectDescriptionPage.props";
 import styles from './ProjectDescriptionPage.module.scss'
 import Button from "../../components/UI/Button/Button";
-import SvgIcons from "../../components/UI/Svg/SvgIcons";
 
 const ProjectDescriptionPage = ({ project }: IProjectDescriptionPage) => {
 
@@ -26,8 +25,8 @@ const ProjectDescriptionPage = ({ project }: IProjectDescriptionPage) => {
                             {/* <InfoBar /> */}
                         </div>
                         <span className={styles['burger-menu']}>
-                            <Button colorStyle={'none'}>
-                                <SvgIcons iconName={'burgerMenu'} />
+                            <Button color={'none'}>
+                                тут должна быть иконка
                             </Button>
                         </span>
                     </div>

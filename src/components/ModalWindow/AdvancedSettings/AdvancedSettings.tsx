@@ -6,7 +6,7 @@ import CustomInput from '../../CustomInput/CustomInput';
 import { IFile } from '../ModalWindow';
 
 const AdvancedSettings = ({ register, files, handleDeleteFile }: IAdvancedSettings) => {
-
+    //Исправить загрузку файлов, разобраться с багом!
     return (
         <div className={styles["advanced-settings-container"]}>
             <div className={styles["info-block-container"]}>
@@ -80,7 +80,7 @@ const AdvancedSettings = ({ register, files, handleDeleteFile }: IAdvancedSettin
                     labelClassName={styles["label-file"]}
                     inputName={'files'}
                 >
-                    <SvgIcons iconName={"uploadFile"} styleName={styles["upload-icon"]} />
+                    <SvgIcons svgIcon={"upload"} className={styles["upload-icon"]} />
                     Upload file
                 </CustomInput>}
 
@@ -91,7 +91,7 @@ const AdvancedSettings = ({ register, files, handleDeleteFile }: IAdvancedSettin
                                 {file.name}
                             </span>
                             <Button colorStyle={"none"} handleClick={() => handleDeleteFile(file.name)}>
-                                <SvgIcons iconName={"trash"} styleName={styles["delete-icon"]} />
+                                <SvgIcons svgIcon={"trash"} className={styles["delete-icon"]} />
                             </Button>
                         </li>
                     ))

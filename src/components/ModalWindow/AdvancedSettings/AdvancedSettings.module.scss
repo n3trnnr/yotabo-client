@@ -1,7 +1,7 @@
 @use '../../../styles/variables';
 
 %upload-icon-style {
-    @extend %icon-color-black;
+    @extend %svg-grey;
     margin-right: 10px;
     width: 17px;
     height: 17px;
@@ -10,12 +10,12 @@
 %upload-label-style {
     display: flex;
     align-items: center;
-    color: variables.$color-dark-grey;
+    color: variables.$grey-4;
     cursor: pointer;
 
     &:hover {
-        @extend %icon-color-grey;
-        color: variables.$color-light-grey;
+        @extend %svg-grey;
+        color: variables.$grey-2;
     }
 }
 
@@ -27,13 +27,13 @@
 .info-block-container {
     width: 242px;
     height: 156px;
-    border: 1px solid variables.$color-light-grey;
+    border: 1px solid variables.$grey-2;
     border-radius: 10px;
     margin-right: 30px;
 
     .info-block-wrapper {
-        @extend %font-technical-16px-medium;
-        color: variables.$color-dark-grey;
+        @extend %font-16px-medium;
+        color: variables.$grey-4;
         padding: 20px 25px;
         transition: all 100ms;
     }
@@ -50,8 +50,8 @@
     .radio-group-wrapper {
         display: flex;
         justify-content: space-between;
-        @extend %font-content-14px-medium;
-        color: variables.$color-light-grey;
+        @extend %font-14px-medium;
+        color: variables.$grey-2;
 
         // .form-radio-low {
         //     @extend %element-position-center;
@@ -61,7 +61,7 @@
             display: flex;
             align-items: center;
             // margin-right: 15px;
-            accent-color: variables.$color-dark-grey;
+            accent-color: variables.$grey-4;
             cursor: pointer;
 
             .input-radio+span {
@@ -69,8 +69,8 @@
             }
 
             &:hover {
-                color: variables.$color-dark-grey;
-                accent-color: variables.$color-dark-grey;
+                color: variables.$grey-4;
+                accent-color: variables.$grey-4;
             }
         }
 
@@ -84,11 +84,11 @@
             }
 
             &:checked~span {
-                color: variables.$color-dark-grey;
+                color: variables.$grey-4;
             }
 
             &:hover {
-                border-color: variables.$color-dark-grey;
+                border-color: variables.$grey-4;
                 background: red;
             }
         }
@@ -105,12 +105,12 @@
     .deadline-input {
         border: none;
         font-family: 'inter', 'sans-serif';
-        @extend %font-content-14px-medium;
-        color: variables.$color-light-grey;
+        @extend %font-14px-medium;
+        color: variables.$grey-2;
         // width: 100%;
 
         &:focus-within::-webkit-datetime-edit {
-            color: variables.$color-dark-grey;
+            color: variables.$grey-4;
         }
 
         &::-webkit-calendar-picker-indicator {
@@ -126,7 +126,7 @@
 
 .files-block-container {
     min-width: 242px;
-    border: 1px solid variables.$color-light-grey;
+    border: 1px solid variables.$grey-2;
     border-radius: 10px;
     display: flex;
     justify-content: center;
@@ -173,16 +173,16 @@
     white-space: nowrap;
 
     margin: 5px 5px 5px 0;
-    @extend %font-content-14px-medium;
-    color: variables.$color-light-grey;
+    @extend %font-14px-medium;
+    color: variables.$grey-2;
 }
 
 .delete-icon {
     width: 15px;
     height: 15px;
-    @extend %icon-color-grey;
+    @extend %svg-grey;
 
     &:hover {
-        @extend %icon-color-black;
+        @extend %svg-grey;
     }
 }

@@ -8,6 +8,8 @@ import { IModalWindow } from "./ModalWindow.props";
 import { useAppDispatch } from "../../hooks/useStore";
 import { postProjectData } from "../../store/slices/projectSlice";
 import { postTaskData } from "../../store/slices/taskSlice";
+import { useModal } from "../../hoc/Contexts/ModalWindow/ModalProvider";
+import cn from 'classnames';
 
 export interface IModalWindowInputs {
     title: string,
@@ -22,12 +24,14 @@ export interface IFile {
     size: number,
 }
 
-const ModalWindow = ({ type, modalWindowTitle, handleShowModal }: IModalWindow) => {
+const ModalWindow = ({ type, title }: IModalWindow) => {
 
     const dispatch = useAppDispatch()
 
     const [files, setFiles] = useState<IFile[]>([])
-    console.log('files', files);
+    // console.log('files', files);
+
+    const { isModalOpen, handleCloseModal } = useModal();
 
     const { register, handleSubmit, watch, reset, // formState: { errors, isValid }
     } = useForm<IModalWindowInputs>({ mode: 'onBlur' })
@@ -54,55 +58,65 @@ const ModalWindow = ({ type, modalWindowTitle, handleShowModal }: IModalWindow) 
         if (type === "simple") {
             postProjectFormData(data)
         } else if (type === "advanced") {
-            dispatch(postTaskData(data))
+            postTaskFormData(data)
         }
         reset()
-        handleShowModal(false)
+        handleCloseModal()
     }
 
     const postProjectFormData = (data: IModalWindowInputs) => {
         dispatch(postProjectData(data))
     }
 
-    const postTaskFormData = () => {
-
+    const postTaskFormData = (data: IModalWindowInputs) => {
+        dispatch(postTaskData(data))
     }
 
-    return (
-        <div className={styles["modal-window-container"]}>
-            <form onSubmit={handleSubmit(submit)} className={styles["form-wrapper"]}>
-                <div className={styles.title}>{modalWindowTitle}</div>
-                <input
-                    {...register('title')}
-                    name="title"
-                    className={styles["input-title"]} type="text"
-                    required
-                    placeholder="Title"
-                />
-                <textarea
-                    {...register('description')}
-                    className={styles["textarea-description"]}
-                    rows={5}
-                    cols={40}
-                    required
-                    placeholder="Description"
-                />
-                {type === "advanced" &&
-                    <AdvancedSettings
-                        register={register}
-                        files={files}
-                        handleDeleteFile={handleDeleteFile}
-                    />
-                }
-                <div className={styles["buttons-wrapper"]}>
-                    <button type="submit" className={styles["button-create"]}>Create</button>
-                    <input type="button" onClick={() => handleShowModal(false)} className={styles["button-cancel"]} value={"Cancel"} />
-                </div>
-            </form>
+    if (!isModalOpen) return null;
 
-            <Button handleClick={() => handleShowModal(false)} colorStyle={"none"} buttonShape={"none"} styleName={styles['cross-close']}>
-                <SvgIcons iconName={"cross"} />
-            </Button>
+    return (
+        <div className={styles['overlay']}>
+            <div className={styles['modal-window']}>
+                <div className={styles["modal-window__inner"]}>
+                    <form onSubmit={handleSubmit(submit)} className={styles["form"]}>
+
+                        <div className={styles['form__items']}>
+                            <div className={styles.title}>{title}</div>
+                            <input
+                                {...register('title')}
+                                name="title"
+                                className={styles["input-title"]} type="text"
+                                required
+                                placeholder="Title"
+                            />
+                            <textarea
+                                {...register('description')}
+                                className={styles["textarea-description"]}
+                                rows={5}
+                                cols={40}
+                                required
+                                placeholder="Description"
+                            />
+                            {type === "advanced" &&
+                                <AdvancedSettings
+                                    register={register}
+                                    files={files}
+                                    handleDeleteFile={handleDeleteFile}
+                                />
+                            }
+                        </div>
+
+                        <div className={styles["form__buttons"]}>
+                            <Button type="submit" className={cn(styles["button"], styles['button__create'])}>Create</Button>
+                            <input type="button" onClick={handleCloseModal} className={cn(styles["button"], styles['button__cancel'])} value={"Cancel"} />
+                        </div>
+                    </form>
+
+                    <Button onClick={handleCloseModal} className={styles['cross-close']}>
+                        <SvgIcons svgIcon={"close"} />
+                    </Button>
+                </div>
+            </div>
         </div>
     );
 }

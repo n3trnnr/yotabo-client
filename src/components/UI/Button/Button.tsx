@@ -1,22 +1,20 @@
+import cn from 'classnames'
 import styles from './Button.module.scss'
 import { IButton } from "./Button.props";
 
-const Button = ({ children, buttonShape, colorStyle, styleName, handleClick, title, margin, ...props }: IButton) => {
+const Button = ({ className, children, childrenAfter, title, handleClick, ...props }: IButton) => {
     return (
         <button
             onClick={handleClick}
-            className={`${styles[`${buttonShape}`]} ${styles[`${colorStyle}`]} ${styleName || ''}`}
-            style={{ marginLeft: `${margin}` }}
+            className={cn(
+                styles['button'],
+                className ?? ''
+            )}
             {...props}
         >
-            <div className={styles['icon-wrapper']}>{children}</div>
-            {
-                title &&
-                buttonShape === 'rectangle' &&
-                <span className={styles['title']}>
-                    {title}
-                </span>
-            }
+            {children && children}
+            {title && <span>{title}</span>}
+            {childrenAfter && childrenAfter}
         </button>
     );
 }

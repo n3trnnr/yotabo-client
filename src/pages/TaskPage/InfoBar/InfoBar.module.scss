@@ -3,30 +3,30 @@
 .info-bar {
     display: flex;
     justify-content: space-between;
-    @extend %font-title-18px-medium;
+    @extend %font-18px-medium;
 
     .priority-container {
         .priority-value-wrapper {
             display: flex;
             margin-top: 10px;
-            @extend %font-content-16px-regular;
-            color: variables.$color-light-grey;
+            @extend %font-16px-regular;
+            color: variables.$grey-3;
         }
     }
 
     .creation-date-container {
         .creation-date-value {
             margin-top: 10px;
-            @extend %font-content-16px-regular;
-            color: variables.$color-light-grey;
+            @extend %font-16px-regular;
+            color: variables.$grey-3;
         }
     }
 
     .deadline-container {
         .deadline-value {
             margin-top: 10px;
-            @extend %font-content-16px-regular;
-            color: variables.$color-light-grey;
+            @extend %font-16px-regular;
+            color: variables.$grey-3;
         }
 
     }
@@ -35,8 +35,8 @@
         .files-wrapper {
             display: flex;
             margin-top: 10px;
-            @extend %font-content-16px-regular;
-            color: variables.$color-light-grey;
+            @extend %font-16px-regular;
+            color: variables.$grey-3;
 
             .attach-files-icon {
                 margin-right: 10px;
@@ -45,11 +45,11 @@
             .buttons-wrapper {
                 display: flex;
                 margin-left: 30px;
-                transition: variables.$transition-time;
+                transition: variables.$transition;
 
                 .download-file-button {
                     &:hover {
-                        @extend %icon-color-black;
+                        @extend %svg-grey;
                     }
                 }
 
@@ -58,7 +58,7 @@
                     height: 17px;
 
                     &:hover {
-                        @extend %icon-color-black;
+                        @extend %svg-grey;
                     }
                 }
             }

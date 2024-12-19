@@ -1,6 +1,6 @@
 import { iconsList } from "./SvgIcons";
 
 export interface ISvgIcons {
-    iconName: keyof typeof iconsList;
-    styleName?: string;
+    svgIcon: keyof typeof iconsList;
+    className?: string;
 }

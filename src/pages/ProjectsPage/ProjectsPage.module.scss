@@ -1,25 +1,18 @@
 @use '../../styles/variables';
 
 .projects-list-container {
-    width: 100%;
-    // width: calc(100% - 66px);
-    height: calc(100% - 115px);
-    border-radius: 10px;
-    // margin: 0 0 0 30px;
-    // background: rgb(247, 247, 247);
-    @extend %element-position-center;
-
+    // width: 100%;
+    // height: calc(100% - 115px);
 
     .projects-list-wrapper {
         width: 100%;
         height: 100%;
+        margin: auto 0;
+        padding: 30px;
         display: flex;
-        justify-content: center;
-        //@extend %element-position-center;
+        gap: 40px 20px;
         flex-wrap: wrap;
         overflow-y: auto;
-        // -ms-overflow-style: none;
-        // scrollbar-width: none;
     }
 }
 
@@ -28,4 +21,16 @@
     z-index: 100;
     top: calc(50% - 198.5px);
     left: calc(50% - 278px);
+}
+
+.squre-button {
+    @extend %button-square-40, %button-grey;
+}
+
+.fiter-button {
+    @extend %button-rectangle, %button-grey;
+}
+
+.add-button {
+    @extend %button-rectangle, %button-blue;
 }

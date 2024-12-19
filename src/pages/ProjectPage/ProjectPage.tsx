@@ -12,19 +12,18 @@ import ProjectDescriptionPage from '../ProjectDescriptionPage/ProjectDescription
 
 const ProjectPage = () => {
     const location = useLocation()
-    // console.log('location', location);
 
     const { id } = useParams()
     const dispatch = useAppDispatch()
     const project = useAppSelector((state) => state.project.project)
-    // console.log('project', project);
+
 
 
     useEffect(() => {
         if (id) {
-            dispatch(getProjectDataById(+id))
+            dispatch(getProjectDataById(id))
         }
-    }, [])
+    }, [id])
 
     const [showModal, setShowModal] = useState<boolean>(false)
     const handleShowModal = (isShown: boolean) => {
@@ -33,28 +32,30 @@ const ProjectPage = () => {
 
     return (
         <>
-            {showModal &&
-                <div className={styles["modal-window"]}>
-                    <ModalWindow type={"advanced"} modalWindowTitle={"Create task"} handleShowModal={handleShowModal} />
-                </div>
-            }
+
+            {/* <div className={styles["modal-window"]}>
+                <ModalWindow type={"advanced"} modalWindowTitle={"Create task"} />
+            </div> */}
+
 
             <MainComponentHeader
                 type={'info'}
                 progressPercentage={project?.data.attributes.progress}
             >
-                <Button buttonShape={'square'} colorStyle={'light-grey'} margin={'10px'}>
-                    <SvgIcons iconName={'boardView'} />
-                </Button>
-                <Button buttonShape={'square'} colorStyle={'light-grey'} margin={'10px'}>
-                    <SvgIcons iconName={'listView'} />
-                </Button>
-                <Button buttonShape={'rectangle'} colorStyle={'light-grey'} title={'Filter'} margin={'10px'}>
-                    <SvgIcons iconName={'filter'} />
-                </Button>
-                <Button handleClick={() => handleShowModal(true)} buttonShape={'rectangle'} colorStyle={'blue'} title={'New task'} margin={'10px'}>
-                    <SvgIcons iconName={'addNewElement'} />
-                </Button>
+                {location.pathname.endsWith('boards') && <>
+                    <Button className={styles['']}>
+                        <SvgIcons svgIcon={'board'} />
+                    </Button>
+                    <Button className={styles['']}>
+                        <SvgIcons svgIcon={'list'} />
+                    </Button>
+                    <Button className={styles['']} title={'Filter'}>
+                        <SvgIcons svgIcon={'filter'} />
+                    </Button>
+                    <Button handleClick={() => handleShowModal(true)} className={styles['']} title={'New task'}>
+                        <SvgIcons svgIcon={'add'} />
+                    </Button>
+                </>}
             </MainComponentHeader>
 
             {/* <Outlet /> */}

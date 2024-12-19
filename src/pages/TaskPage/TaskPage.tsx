@@ -9,8 +9,8 @@ const TaskPage: React.FC = () => {
     return (
         <>
             <MainComponentHeader type={"none"}>
-                <Button buttonShape={"rectangle"} colorStyle={"blue"} title={"Upload file"} >
-                    <SvgIcons iconName={"uploadFile"} styleName={styles["upload-file-icon"]} />
+                <Button buttonShape={"rectangle"} color={"blue"} title={"Upload file"} >
+                    <SvgIcons svgIcon={"upload"} className={styles["upload-file-icon"]} />
                 </Button>
             </MainComponentHeader>
 
@@ -19,7 +19,7 @@ const TaskPage: React.FC = () => {
                     <div className={styles["task-wrapper"]}>
                         <div className={styles["cover-wrapper"]}>
                             <button className={styles["upload-cover-button"]}>
-                                <SvgIcons iconName={"uploadCover"} />
+                                <SvgIcons svgIcon={"upload"} />
                                 <div className={styles["button-name"]}>Upload</div>
                             </button>
                             {/* <img className={styles.cover} src="" alt="" /> */}
@@ -42,8 +42,8 @@ const TaskPage: React.FC = () => {
                             <InfoBar />
                         </div>
                         <span className={styles['burger-menu']}>
-                            <Button colorStyle={'none'}>
-                                <SvgIcons iconName={'burgerMenu'} />
+                            <Button color={'none'}>
+                                some icon
                             </Button>
                         </span>
                     </div>

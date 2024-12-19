@@ -1,0 +1,52 @@
+@use '../../../styles/variables';
+
+.header-bar {
+    &__inner {
+        .items-list {
+            @extend %flex-center;
+            column-gap: 10px;
+
+            .separator {
+                border: 1px solid variables.$grey-2;
+                height: 40px;
+                margin-inline: 10px;
+                border-radius: variables.$radius-10;
+            }
+
+            .user {
+                &__inner {
+                    display: flex;
+                    column-gap: 10px;
+
+                    .avatar {
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 100%;
+                        background-color: variables.$grey-2;
+                    }
+
+                    .info {
+                        display: flex;
+                        justify-content: center;
+                        align-items: start;
+                        flex-direction: column;
+
+                        .name {
+                            @extend %font-14px-medium;
+                            color: variables.$grey-4;
+                        }
+
+                        .email {
+                            @extend %font-12px-medium;
+                            color: variables.$grey-3;
+                        }
+                    }
+                }
+            }
+        }
+
+        .button {
+            @extend %button-square-40, %button-grey;
+        }
+    }
+}

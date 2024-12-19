@@ -1,66 +1,17 @@
 @use '../../../styles/variables';
 
-button {
+.button {
     border: none;
-    @extend %element-position-center;
-    transition: variables.$transition-time;
-    cursor: pointer;
-    color: inherit;
-}
-
-.icon-wrapper {
-    @extend %element-position-center;
-}
-
-.title {
-    @extend %font-technical-16px-medium;
-    margin-left: 10px
-}
-
-.square {
-    @extend %square-button-size;
-    border-radius: variables.$main-radius;
-}
-
-.rectangle {
-    @extend %rectangle-button-size;
-    border-radius: variables.$main-radius;
-}
-
-.blue {
-    background: variables.$color-blue;
-    color: variables.$color-white;
-
-    &:hover {
-        background: rgba(variables.$color-blue, .8);
-        @extend %icon-color-white
-    }
-}
-
-.light-grey {
-    border: 1px solid variables.$color-light-grey;
-    background: white;
-    @extend %icon-color-grey;
-    color: variables.$color-light-grey;
-
-    &:hover {
-        border: none;
-        background: variables.$color-dark-grey;
-        @extend %icon-color-white;
-        color: variables.$color-white;
-    }
-}
-
-.dark-grey {
-    background: variables.$color-dark-grey;
-
-    &:hover {
-        border: 1px solid variables.$color-light-grey;
-        background: white;
-        @extend %icon-color-grey;
-    }
-}
-
-.none {
     background: none;
+    @extend %flex-center;
+    column-gap: 10px;
+    transition: variables.$transition;
+    cursor: pointer;
+    @extend %font-16px-medium;
+    font-family: 'inter', sans-serif;
+
+    &:focus-visible {
+        outline: 2px solid variables.$blue-2;
+        outline-offset: -2px;
+    }
 }

@@ -3,8 +3,12 @@ import ProgressBar from "../UI/ProgressBar/ProgressBar";
 import SvgIcons from "../UI/Svg/SvgIcons";
 import Button from "../UI/Button/Button";
 import { IProjectCard } from "./ProjectCard.props";
+import { useState } from 'react';
 
-const ProjectCard = ({ projectData }: IProjectCard) => {
+const ProjectCard = ({ projectData, deleteProject }: IProjectCard) => {
+
+    const [editMode, setEditMode] = useState<boolean>(false)
+
     return (
         <div className={styles['project-card-container']}>
             <div className={styles['project-card-wrapper']}>
@@ -14,14 +18,14 @@ const ProjectCard = ({ projectData }: IProjectCard) => {
                     <ProgressBar type={'small'} progressPercentage={projectData.attributes.progress} />
                 </div>
                 <div className={styles['creation-date']}>{new Date(projectData.attributes.createdAt).toLocaleDateString()}</div>
-                <span className={styles['burger-menu']}>
-                    <Button colorStyle={'none'}>
-                        <SvgIcons iconName={'burgerMenu'} />
+                <span className={styles['btn-delete']}>
+                    <Button colorStyle={'none'} onClick={(event) => deleteProject(event, projectData.id)}>
+                        <SvgIcons svgIcon={'trash'} className={styles['svg-trash']} />
                     </Button>
                 </span>
                 <span className={styles.favourites}>
                     <Button colorStyle={'none'} >
-                        <SvgIcons iconName={'favourites'} />
+                        <SvgIcons svgIcon={'bookmark'} />
                     </Button>
                 </span>
             </div>

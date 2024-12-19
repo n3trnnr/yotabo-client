@@ -1,4 +1,9 @@
 @use './styles/fonts';
+@use './styles/variables';
+
+html {
+    // background: rgb(35, 35, 35);
+}
 
 * {
     margin: 0;
@@ -15,10 +20,30 @@ a {
 
 body {
     font-family: 'inter', sans-serif;
+    scroll-behavior: smooth;
 }
 
 #root {
     width: 100%;
     height: 100vh;
     // display: flex;
+}
+
+::-webkit-scrollbar {
+    min-width: 4px;
+}
+
+/*Высота перетаскиваемого элемента*/
+::-webkit-scrollbar:horizontal {
+    height: 8px;
+}
+
+::-webkit-scrollbar:vertical {
+    width: 4px;
+}
+
+/*индикатор прокрутки, перетаскиваемый элемент*/
+::-webkit-scrollbar-thumb {
+    background: variables.$grey-2;
+    border-radius: variables.$radius-10;
 }

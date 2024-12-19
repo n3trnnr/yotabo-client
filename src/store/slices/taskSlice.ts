@@ -33,6 +33,29 @@ export const getTasksData = createAsyncThunk<ITasks, void, { rejectValue: string
     }
 )
 
+export const getTaskDataById = createAsyncThunk<ITask, string, { rejectValue: string, state: RootState }>(
+    'task/getTasksDataById',
+    async (id, { rejectWithValue, getState }) => {
+        const jwt = getState().user.jwt;
+
+        const response = await fetch(`${PREFIX}/api/tasks/${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${jwt}`
+            }
+        })
+
+        if (!response.ok) {
+            const errorData = await response.json()
+            return rejectWithValue(`${response.status.toString()} - ${response.statusText} - ${errorData?.error?.message}`)
+        }
+
+        const data = await response.json() as ITask
+        return data
+    }
+)
+
 export const postTaskData = createAsyncThunk<ITask, ITaskFormData, { rejectValue: string, state: RootState }>(
     'task/postTaskData',
     async (taskDataClient, { rejectWithValue, getState }) => {
@@ -40,7 +63,7 @@ export const postTaskData = createAsyncThunk<ITask, ITaskFormData, { rejectValue
         const projectId = getState().project.project?.data.id
 
         taskDataClient = { ...taskDataClient, project: projectId, board: 1 }
-        console.log('taskDataClient', taskDataClient);
+        // console.log('taskDataClient', taskDataClient);
 
         const response = await fetch(`${PREFIX}/api/tasks`, {
             method: 'POST',
@@ -81,14 +104,14 @@ const taskSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(postTaskData.fulfilled, (state, action) => {
-                console.log('action', action.payload);
+                // console.log('action', action.payload);
             })
             .addCase(getTasksData.fulfilled, (state, action) => {
-                console.log('action', action.payload);
+                // console.log('action', action.payload);
                 state.tasks = action.payload
             })
             .addMatcher(isRejected, (state, action) => {
-                console.log('action', action);
+                // console.log('action', action);
             })
     }
 })

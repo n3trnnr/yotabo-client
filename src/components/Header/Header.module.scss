@@ -1,0 +1,56 @@
+@use '../../styles/variables';
+
+.header {
+    width: 100%;
+    border-bottom: 1px solid variables.$grey-2;
+
+    .header__inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        column-gap: 20px;
+        padding-inline: 20px 70px;
+        padding-block: 20px;
+    }
+}
+
+.search-form {
+    width: 500px;
+    @extend %flex-center;
+    justify-content: flex-start;
+    border-radius: variables.$radius-10;
+    background-color: variables.$grey-1;
+    outline: 1px solid variables.$grey-2;
+
+    &:focus-within {
+        @extend %focus;
+    }
+
+    .input {
+        height: 40px;
+        width: 100%;
+        background: none;
+        color: variables.$grey-4;
+        border: none;
+        outline: 0;
+        @extend %font-16px-medium;
+    }
+
+    .search-icon {
+        padding-inline: 11px;
+        @extend %flex-center;
+    }
+
+    .button {
+        @extend %flex-center, %button-square-40;
+
+        &:focus-visible {
+            outline: none;
+
+        }
+
+        &:hover>:first-child>path {
+            fill: variables.$grey-4;
+        }
+    }
+}
