@@ -1,11 +1,11 @@
-import styles from './ProjectBoardsPage.module.scss'
+import styles from './ProjectBoard.module.scss'
 import TaskCard from "../../components/TaskCard/TaskCard";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from '../../hooks/useStore';
 import { useEffect } from 'react';
 import { getTasksData } from '../../store/slices/taskSlice';
 
-const ProjectBoardsPage = () => {
+const ProjectBoard = () => {
     const dispatch = useAppDispatch()
     const tasks = useAppSelector((state) => state.tasks.tasks)
     // console.log('tasks', tasks);
@@ -61,4 +61,4 @@ const ProjectBoardsPage = () => {
     );
 }
 
-export default ProjectBoardsPage;
+export default ProjectBoard;

@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import SvgIcons from "../../UI/Svg/SvgIcons";
+import SvgIcons from "../UI/Svg/SvgIcons";
 import styles from './ProjectNav.module.scss'
 import cn from 'classnames'
 
@@ -9,7 +9,7 @@ const ProjectNav = () => {
             <ul className={styles['project-nav-list']}>
                 <li>
                     <NavLink
-                        to={'description'}
+                        to={'overview'}
                         className={({ isActive }) => cn(styles['nav-item'], {
                             [styles['active']]: isActive
                         })}
@@ -17,12 +17,12 @@ const ProjectNav = () => {
                         <div className={styles['icon-wrapper']}>
                             <SvgIcons svgIcon={'overview'} />
                         </div>
-                        <span>Description</span>
+                        <span>Overview</span>
                     </NavLink>
                 </li>
                 <li>
                     <NavLink
-                        to={'boards'}
+                        to={'board'}
                         className={({ isActive }) => cn(styles['nav-item'], {
                             [styles['active']]: isActive
                         })}
@@ -30,7 +30,7 @@ const ProjectNav = () => {
                         <div className={styles['icon-wrapper']}>
                             <SvgIcons svgIcon={'board'} />
                         </div>
-                        <span>Boards</span>
+                        <span>Board</span>
                     </NavLink>
                 </li>
             </ul>

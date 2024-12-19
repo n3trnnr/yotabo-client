@@ -1,7 +1,7 @@
 @use '../../styles/variables';
 
 .sign-in-container {
-    height: 100%;
+    min-height: 100%;
     width: 100%;
     @extend %flex-center;
     flex-direction: column;

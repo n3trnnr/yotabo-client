@@ -1,8 +1,8 @@
-import { IProjectDescriptionPage } from "./ProjectDescriptionPage.props";
-import styles from './ProjectDescriptionPage.module.scss'
+import { IProjectOverview } from "./ProjectOverview.props";
+import styles from './ProjectOverview.module.scss'
 import Button from "../../components/UI/Button/Button";
 
-const ProjectDescriptionPage = ({ project }: IProjectDescriptionPage) => {
+const ProjectOverview = ({ project }: IProjectOverview) => {
 
     // console.log('ProjectDescriptionPage', project);
 
@@ -25,7 +25,7 @@ const ProjectDescriptionPage = ({ project }: IProjectDescriptionPage) => {
                             {/* <InfoBar /> */}
                         </div>
                         <span className={styles['burger-menu']}>
-                            <Button color={'none'}>
+                            <Button className="">
                                 тут должна быть иконка
                             </Button>
                         </span>
@@ -39,4 +39,4 @@ const ProjectDescriptionPage = ({ project }: IProjectDescriptionPage) => {
     );
 }
 
-export default ProjectDescriptionPage;
+export default ProjectOverview;

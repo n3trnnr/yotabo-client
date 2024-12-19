@@ -60,7 +60,7 @@ const Sidebar = () => {
                                             key={project.id}
                                             id={project.id}
                                             title={project.attributes.title}
-                                            path={`projects/${project.id}`}
+                                            path={`/${project.id}`}
                                             icon={<div className={styles['project-icon']} style={{ background: `${project.attributes.hex}` }} />}
                                         />
                                     ))}

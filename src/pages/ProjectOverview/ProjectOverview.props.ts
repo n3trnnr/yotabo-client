@@ -1,5 +1,5 @@
 import { IProjectData } from "../../interfaces/store/projectSlice";
 
-export interface IProjectDescriptionPage {
+export interface IProjectOverview {
     project?: IProjectData
 }
