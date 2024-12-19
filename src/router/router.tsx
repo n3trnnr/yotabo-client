@@ -11,6 +11,7 @@ import Home from '../pages/Home/Home';
 import ProjectBoard from '../pages/ProjectBoard/ProjectBoard';
 import ProjectOverview from '../pages/ProjectOverview/ProjectOverview';
 import Dashboard from '../pages/Dashboard/Dashboard';
+import ProjectList from '../pages/ProjectList/ProjectList';
 
 const router = createBrowserRouter(createRoutesFromElements(
     <>
@@ -19,8 +20,9 @@ const router = createBrowserRouter(createRoutesFromElements(
             <Route path='home' element={<Home />} />
             <Route path='/:id' element={<ProjectPage />}>
                 <Route index element={<Navigate to="board" replace />} />
-                <Route path='board' element={<ProjectBoard />} />
                 <Route path='overview' element={<ProjectOverview />} />
+                <Route path='board' element={<ProjectBoard />} />
+                <Route path='list' element={<ProjectList />} />
                 <Route path='dashboard' element={<Dashboard />} />
             </Route>
             <Route path='*' element={<NotFound />} />
