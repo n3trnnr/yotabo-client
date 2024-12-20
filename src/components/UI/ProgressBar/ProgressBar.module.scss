@@ -2,33 +2,22 @@
 
 .progress-bar-wrapper {
     @extend %flex-center;
-    // justify-content: flex-start;
+    column-gap: 10px;
+
+    &>:last-child {
+        color: variables.$grey-3;
+    }
 
     .progress-bar-fill {
         width: 480px;
         height: 7px;
-        border-radius: 10px;
-        background: #D9D9D9;
+        border-radius: variables.$radius-10;
+        background: variables.$grey-2;
     }
 
     .progress-bar-progress {
-        // width: 50%;
         height: 7px;
         background: variables.$blue-1;
-        border-radius: 10px;
-    }
-
-    .progress-bar-fill-small {
-        width: 258px;
-        height: 5px;
-        border-radius: 10px;
-        background: #D9D9D9;
-    }
-
-    .progress-bar-progress-small {
-        // width: 50%;
-        height: 5px;
-        background: variables.$blue-1;
-        border-radius: 10px;
+        border-radius: variables.$radius-10;
     }
 }

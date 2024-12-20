@@ -85,6 +85,11 @@ $red-2: #FF7474;
 
     &:hover {
         background: $blue-2;
+        color: $white;
+
+        &>svg {
+            @extend %svg-white;
+        }
     }
 }
 
@@ -129,7 +134,6 @@ $red-2: #FF7474;
     height: 17px;
     border: 1.5px solid #FF0000;
     border-radius: 10px;
-    margin-right: 5px;
 }
 
 %priority-med {
@@ -137,7 +141,6 @@ $red-2: #FF7474;
     height: 17px;
     border: 1.5px solid #FAFF00;
     border-radius: 10px;
-    margin-right: 5px;
 }
 
 %priority-low {
@@ -145,5 +148,4 @@ $red-2: #FF7474;
     height: 17px;
     border: 1.5px solid #00FF47;
     border-radius: 10px;
-    margin-right: 5px;
 }

@@ -1,64 +1,35 @@
 @use '../../styles/variables';
 
-%mark-style {
-    position: absolute;
-    left: 15px;
-    width: 21px;
-    height: 21px;
-    border-radius: variables.$radius-10;
-}
-
-.boards-container {
-    width: 100%;
-    height: calc(100% - 105px);
-    overflow: auto;
-    // @extend %flex-center;
+.board-container {
     display: flex;
-    padding-inline: 20px;
-    column-gap: 20px;
+    flex-direction: column;
+    row-gap: 20px;
 
-    .board-container {
-        width: 332px;
-        height: 100%;
-        position: relative;
+    .board-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        column-gap: 20px;
 
-        .board-header {
-            width: 332px;
-            height: 45px;
-            @extend %flex-center;
-            position: fixed;
-            z-index: 100;
+        .action-buttons {
+            display: flex;
+            column-gap: 10px;
 
-            .mark-to-do {
-                @extend %mark-style;
-                background: #E67046;
+            .button-filter {
+                @extend %button-rectangle, %button-grey;
             }
 
-            .mark-in-progress {
-                @extend %mark-style;
-                background: #FFB72C;
-            }
-
-            .mark-done {
-                @extend %mark-style;
-                background: #1C9C75;
-            }
-
-            .board-title {
-                @extend %font-18px-medium;
+            .button-add {
+                @extend %button-rectangle, %button-blue;
             }
         }
 
-        .board-wrapper {
-            border: 1px solid variables.$grey-2;
-            border-radius: variables.$radius-10;
-            width: 100%;
-            margin-top: 45px;
-            // height: 663px;
-            overflow: auto;
-            scrollbar-width: none;
+    }
 
-            // .tasks-list-wrapper {}
-        }
+    .columns {
+        display: flex;
+        column-gap: 25px;
+        overflow-x: auto;
+        padding-block-end: 10px;
     }
 }

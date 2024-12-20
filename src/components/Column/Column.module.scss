@@ -1,1 +1,68 @@
 @use '../../styles/variables';
+
+.column {
+
+
+    &__inner {
+        display: flex;
+        flex-direction: column;
+        width: 350px;
+        min-height: 212px;
+        max-height: 500px;
+        background: variables.$grey-1;
+        border-radius: variables.$radius-10;
+        padding-block-end: 15px;
+
+        .header {
+            height: 40px;
+            padding-inline: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            @extend %font-18px-medium;
+            color: variables.$grey-4;
+
+            &>:first-child {
+                display: flex;
+                align-items: center;
+                column-gap: 10px;
+
+                .column-icon {
+                    min-width: 20px;
+                    min-height: 20px;
+                    border-radius: 100%;
+                    background: #E67046;
+                }
+
+                // .tasks-count {}
+            }
+
+            .button-delete {
+                @extend %button-square-40;
+
+                &:hover {
+                    @extend %svg-grey;
+                }
+            }
+        }
+
+        .tasks-list {
+            flex: 1;
+            padding-inline: 15px;
+            margin-block-end: 15px;
+        }
+    }
+}
+
+.button-add {
+    margin-inline: 15px;
+    background: variables.$grey-1;
+    border: 1px solid variables.$grey-2;
+    color: variables.$grey-3;
+
+    &>:first-child>path {
+        fill: variables.$grey-3;
+    }
+
+    @extend %button-rectangle, %button-blue;
+}
