@@ -86,6 +86,7 @@ $red-2: #FF7474;
     &:hover {
         background: $blue-2;
         color: $white;
+        border: transparent;
 
         &>svg {
             @extend %svg-white;

@@ -4,5 +4,6 @@ export interface ITaskProps {
     description: string,
     proprity: string,
     deadline: number,
-    files: number
+    files: number,
+    handleDeleteTask: (id: string | number) => void
 }

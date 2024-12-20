@@ -40,6 +40,8 @@ const ProjectBoard = () => {
             <div className={styles['columns']}>
                 <Column>
                     <TaskCard />
+                    <TaskCard />
+                    <TaskCard />
                 </Column>
                 <Column>
                     <TaskCard />
