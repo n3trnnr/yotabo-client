@@ -1,8 +1,10 @@
 @use '../../styles/variables';
 
 .project {
+    height: 100%;
 
     &__inner {
+        height: inherit;
         padding: 20px;
         display: flex;
         flex-direction: column;
@@ -31,9 +33,18 @@
                 @extend %font-24px-medium;
             }
 
-            .button-favourites {
-                @extend %button-square-40, %button-grey;
+            .button {
+                @extend %button-square-40;
             }
+
+            .button-favourites {
+                @extend %button-grey;
+            }
+
+            .button-delete {
+                @extend %button-red;
+            }
+
         }
     }
 }

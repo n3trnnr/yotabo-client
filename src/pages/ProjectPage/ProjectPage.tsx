@@ -1,24 +1,52 @@
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import styles from './ProjectPage.module.scss'
-import { Outlet, useParams } from 'react-router-dom';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/useStore';
-import { getProjectDataById } from '../../store/slices/projectSlice';
+import { deleteProject, editProject } from '../../store/slices/projectSlice';
 import ProjectNav from '../../components/ProjectNav/ProjectNav';
 import Button from '../../components/UI/Button/Button';
 import SvgIcons from '../../components/UI/Svg/SvgIcons';
+import cn from 'classnames'
 
 const ProjectPage = () => {
     const [editMode, setEditMode] = useState(false)
+    const [title, setTitle] = useState('')
 
-    const { id } = useParams()
-    const dispatch = useAppDispatch()
-    const project = useAppSelector((state) => state.project.project)
+    const { id } = useParams();
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate()
 
-    useEffect(() => {
-        if (id) {
-            dispatch(getProjectDataById(id))
+    const project = useAppSelector((state) => {
+        if (state.project.projects && id) {
+            return state.project.projects.data.find(project => project.id === +id)
         }
-    }, [id])
+    })
+
+    const hadnleDeleteProject = () => {
+        if (id) {
+            dispatch(deleteProject(id))
+            navigate('/home')
+        }
+    }
+
+    const handleDoubleClick = () => {
+        if (project) {
+            setTitle(project.attributes.title)
+            setEditMode(true)
+        }
+    }
+
+    const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
+        setTitle(event.target.value)
+    }
+
+    const handleEditProject = () => {
+        setEditMode(false)
+
+        if (id) {
+            dispatch(editProject({ field: 'title', value: title, projectId: id }))
+        }
+    }
 
     return (
         <div className={styles['project']}>
@@ -31,25 +59,30 @@ const ProjectPage = () => {
                                 autoFocus
                                 className={styles['title-input']}
                                 type="text"
-                                onBlur={() => setEditMode(false)}
-                                value={project?.data.attributes.title}
+                                onBlur={handleEditProject}
+                                onChange={handleChangeTitle}
+                                value={title}
                             />
                             : <h2
-                                onDoubleClick={() => setEditMode(true)}
+                                onDoubleClick={handleDoubleClick}
                                 className={styles['title']}
                             >
-                                {project?.data.attributes.title}
+                                {project?.attributes.title}
                             </h2>
                         }
-                        <Button className={styles['button-favourites']}>
+                        <Button className={cn(styles['button'], styles['button-favourites'])}>
                             <SvgIcons svgIcon={'bookmark'} />
+                        </Button>
+
+                        <Button onClick={hadnleDeleteProject} className={cn(styles['button'], styles['button-delete'])}>
+                            <SvgIcons svgIcon={'trash'} />
                         </Button>
                     </div>
 
                     <ProjectNav />
                 </div>
 
-                <Outlet />
+                <Outlet context={project} />
             </div>
         </div>
     );

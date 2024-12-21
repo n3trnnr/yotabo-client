@@ -38,17 +38,35 @@ const ProjectBoard = () => {
             </div>
 
             <div className={styles['columns']}>
-                <Column>
-                    <TaskCard />
-                    <TaskCard />
-                    <TaskCard />
-                </Column>
-                <Column>
-                    <TaskCard />
-                </Column>
-                <Column>
-                    <TaskCard />
-                </Column>
+                <div className={styles['columns__inner']}>
+                    <Column>
+                        <TaskCard />
+                        <TaskCard />
+                        <TaskCard />
+                        <TaskCard />
+                        <TaskCard />
+                        <TaskCard />
+                    </Column>
+                    <Column>
+                        <TaskCard />
+                        <TaskCard />
+                        <TaskCard />
+                        <TaskCard />
+                        <TaskCard />
+                        <TaskCard />
+                    </Column>
+                    <Column>
+                        <TaskCard />
+                    </Column>
+                    <Column>
+                        <TaskCard />
+                        <TaskCard />
+                        <TaskCard />
+                        <TaskCard />
+                        <TaskCard />
+                        <TaskCard />
+                    </Column>
+                </div>
             </div>
 
         </div>

@@ -18,6 +18,7 @@
     position: absolute;
     right: -500px;
     bottom: 40px;
+    z-index: 10;
     @extend %flex-center;
     height: 40px;
     background-color: variables.$white;

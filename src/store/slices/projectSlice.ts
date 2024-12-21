@@ -96,7 +96,7 @@ export const deleteProject = createAsyncThunk<IProject, TId, { rejectValue: stri
 
         dispatch(projectActions.clearStatus())
 
-        const response = await fetch(`${PREFIX}/api/projects/${id}1`, {
+        const response = await fetch(`${PREFIX}/api/projects/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -114,20 +114,24 @@ export const deleteProject = createAsyncThunk<IProject, TId, { rejectValue: stri
     }
 )
 
-export const editProject = createAsyncThunk<IProject, { title: string, description: string, id: TId }, { rejectValue: string, state: RootState }>(
+export const editProject = createAsyncThunk<IProject, { field: string, value: string, projectId: TId }, { rejectValue: string, state: RootState }>(
     'project/editProject',
     async (updatedData, { rejectWithValue, getState, dispatch }) => {
         const jwt = getState().user.jwt;
 
         dispatch(projectActions.clearStatus())
 
-        const response = await fetch(`${PREFIX}/api/projects/${updatedData.id}`, {
+        const response = await fetch(`${PREFIX}/api/projects/${updatedData.projectId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${jwt}`
             },
-            body: JSON.stringify(updatedData)
+            body: JSON.stringify({
+                data: {
+                    [updatedData.field]: updatedData.value
+                }
+            })
         })
 
         if (!response.ok) {
@@ -178,8 +182,6 @@ const projectSlice = createSlice({
                     console.log('clear  ', action.payload);
                     state.projects.data = state.filteredProjects.data
                 }
-
-
             }
         }
     },
@@ -212,6 +214,23 @@ const projectSlice = createSlice({
                     state.projects.data = state.projects.data.filter((project) => {
                         return project.id !== action.payload.data.id
                     })
+                }
+            })
+
+            .addCase(editProject.fulfilled, (state, action) => {
+                state.error = null
+                state.status = 'Success'
+
+                const updatedProject = action.payload
+
+                if (state.projects) {
+                    const index = state.projects.data.findIndex((project) => {
+                        return project.id === updatedProject.data.id
+                    })
+
+                    if (index !== -1) {
+                        state.projects.data[index] = updatedProject.data
+                    }
                 }
             })
 
