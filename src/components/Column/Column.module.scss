@@ -1,0 +1,77 @@
+@use '../../styles/variables';
+
+.column {
+
+    &__inner {
+        display: flex;
+        flex-direction: column;
+        width: 350px;
+        min-height: 212px;
+        max-height: 100%;
+        background: variables.$grey-1;
+        border-radius: variables.$radius-10;
+
+        .header {
+            height: 40px;
+            padding-inline: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            @extend %font-18px-medium;
+            color: variables.$grey-4;
+            user-select: none;
+            // cursor: grab;
+
+            &>:first-child {
+                display: flex;
+                align-items: center;
+                column-gap: 10px;
+
+                .column-icon {
+                    min-width: 20px;
+                    min-height: 20px;
+                    border-radius: 100%;
+                    background: #E67046;
+                    cursor: pointer;
+                }
+
+                // .tasks-count {}
+            }
+
+            .title {
+                // cursor: default;
+            }
+
+            .button-delete {
+                @extend %button-square-40;
+
+                &:hover {
+                    @extend %svg-grey;
+                }
+            }
+        }
+
+        .tasks-list {
+            display: flex;
+            flex-direction: column;
+            row-gap: 15px;
+            flex: 1;
+            padding: 0 15px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+    }
+}
+
+.button-add {
+    margin: 15px;
+    background: variables.$grey-1;
+    border: 1px solid variables.$grey-2;
+    color: variables.$grey-3;
+
+    &>:first-child>path {
+        fill: variables.$grey-3;
+    }
+
+    @extend %button-rectangle, %button-blue;
+}

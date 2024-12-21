@@ -11,8 +11,9 @@ $grey-3: #9C9C9C;
 $grey-4: #464646;
 $blue-1: #5E9EFF;
 $blue-2: #7EB1FF;
-$red-1: #FF0000;
+$red-1: #f43f5e;
 $red-2: #FF7474;
+$red-3: #f43f5d19;
 
 %flex-center {
     display: flex;
@@ -85,6 +86,12 @@ $red-2: #FF7474;
 
     &:hover {
         background: $blue-2;
+        color: $white;
+        border: transparent;
+
+        &>svg {
+            @extend %svg-white;
+        }
     }
 }
 
@@ -97,6 +104,22 @@ $red-2: #FF7474;
         background: $grey-1;
         color: $grey-4;
         @extend %svg-grey;
+    }
+}
+
+%button-red {
+    background: none;
+    color: $grey-3;
+
+    path {
+        fill: $red-2;
+    }
+
+    &:hover {
+        border: none;
+        background: $red-3;
+        color: $red-1;
+        @extend %svg-red;
     }
 }
 
@@ -124,12 +147,17 @@ $red-2: #FF7474;
     }
 }
 
+%svg-red {
+    path {
+        fill: $red-1;
+    }
+}
+
 %priority-high {
     width: 17px;
     height: 17px;
     border: 1.5px solid #FF0000;
     border-radius: 10px;
-    margin-right: 5px;
 }
 
 %priority-med {
@@ -137,7 +165,6 @@ $red-2: #FF7474;
     height: 17px;
     border: 1.5px solid #FAFF00;
     border-radius: 10px;
-    margin-right: 5px;
 }
 
 %priority-low {
@@ -145,5 +172,4 @@ $red-2: #FF7474;
     height: 17px;
     border: 1.5px solid #00FF47;
     border-radius: 10px;
-    margin-right: 5px;
 }

@@ -6,6 +6,7 @@ import Header from "../Header/Header";
 import ModalWindow from "../ModalWindow/ModalWindow";
 
 const Layout: React.FC = () => {
+
     return (
         <>
             <ModalWindow type={'simple'} title="Create project" />

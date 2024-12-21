@@ -1,5 +1,5 @@
 import React from 'react';
-import MainComponentHeader from '../../components/MainComponentHeader/MainComponentHeader';
+import MainComponentHeader from '../../components/ProjectNav/MainComponentHeader';
 import styles from './TaskPage.module.scss'
 import Button from '../../components/UI/Button/Button';
 import SvgIcons from '../../components/UI/Svg/SvgIcons';

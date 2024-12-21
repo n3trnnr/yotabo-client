@@ -1,8 +1,50 @@
 @use '../../styles/variables';
 
-.modal-window {
-    position: absolute;
-    z-index: 101;
-    top: calc(50% - 286.3px);
-    left: calc(50% - 278px);
+.project {
+    height: 100%;
+
+    &__inner {
+        height: inherit;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+
+        .info-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            column-gap: 20px;
+
+            &__inner {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .title-input {
+                height: 40px;
+                padding-inline: 15px;
+                border-radius: variables.$radius-10;
+                @extend %font-24px-medium;
+            }
+
+            .title {
+                @extend %font-24px-medium;
+            }
+
+            .button {
+                @extend %button-square-40;
+            }
+
+            .button-favourites {
+                @extend %button-grey;
+            }
+
+            .button-delete {
+                @extend %button-red;
+            }
+
+        }
+    }
 }

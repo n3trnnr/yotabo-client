@@ -1,67 +1,90 @@
-import { useEffect, useState } from 'react';
-import MainComponentHeader from '../../components/MainComponentHeader/MainComponentHeader';
+import { ChangeEvent, useState } from 'react';
 import styles from './ProjectPage.module.scss'
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks/useStore';
+import { deleteProject, editProject } from '../../store/slices/projectSlice';
+import ProjectNav from '../../components/ProjectNav/ProjectNav';
 import Button from '../../components/UI/Button/Button';
 import SvgIcons from '../../components/UI/Svg/SvgIcons';
-import ModalWindow from '../../components/ModalWindow/ModalWindow';
-import { Outlet, useLocation, useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/useStore';
-import { getProjectDataById } from '../../store/slices/projectSlice';
-import ProjectBoardsPage from '../ProjectBoardsPage/ProjectBoardsPage';
-import ProjectDescriptionPage from '../ProjectDescriptionPage/ProjectDescriptionPage';
+import cn from 'classnames'
 
 const ProjectPage = () => {
-    const location = useLocation()
+    const [editMode, setEditMode] = useState(false)
+    const [title, setTitle] = useState('')
 
-    const { id } = useParams()
-    const dispatch = useAppDispatch()
-    const project = useAppSelector((state) => state.project.project)
+    const { id } = useParams();
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate()
 
-
-
-    useEffect(() => {
-        if (id) {
-            dispatch(getProjectDataById(id))
+    const project = useAppSelector((state) => {
+        if (state.project.projects && id) {
+            return state.project.projects.data.find(project => project.id === +id)
         }
-    }, [id])
+    })
 
-    const [showModal, setShowModal] = useState<boolean>(false)
-    const handleShowModal = (isShown: boolean) => {
-        setShowModal(isShown)
+    const hadnleDeleteProject = () => {
+        if (id) {
+            dispatch(deleteProject(id))
+            navigate('/home')
+        }
+    }
+
+    const handleDoubleClick = () => {
+        if (project) {
+            setTitle(project.attributes.title)
+            setEditMode(true)
+        }
+    }
+
+    const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
+        setTitle(event.target.value)
+    }
+
+    const handleEditProject = () => {
+        setEditMode(false)
+
+        if (id) {
+            dispatch(editProject({ field: 'title', value: title, projectId: id }))
+        }
     }
 
     return (
-        <>
+        <div className={styles['project']}>
+            <div className={styles['project__inner']}>
 
-            {/* <div className={styles["modal-window"]}>
-                <ModalWindow type={"advanced"} modalWindowTitle={"Create task"} />
-            </div> */}
+                <div className={styles['info-bar']}>
+                    <div className={styles['info-bar__inner']}>
+                        {editMode
+                            ? <input
+                                autoFocus
+                                className={styles['title-input']}
+                                type="text"
+                                onBlur={handleEditProject}
+                                onChange={handleChangeTitle}
+                                value={title}
+                            />
+                            : <h2
+                                onDoubleClick={handleDoubleClick}
+                                className={styles['title']}
+                            >
+                                {project?.attributes.title}
+                            </h2>
+                        }
+                        <Button className={cn(styles['button'], styles['button-favourites'])}>
+                            <SvgIcons svgIcon={'bookmark'} />
+                        </Button>
 
+                        <Button onClick={hadnleDeleteProject} className={cn(styles['button'], styles['button-delete'])}>
+                            <SvgIcons svgIcon={'trash'} />
+                        </Button>
+                    </div>
 
-            <MainComponentHeader
-                type={'info'}
-                progressPercentage={project?.data.attributes.progress}
-            >
-                {location.pathname.endsWith('boards') && <>
-                    <Button className={styles['']}>
-                        <SvgIcons svgIcon={'board'} />
-                    </Button>
-                    <Button className={styles['']}>
-                        <SvgIcons svgIcon={'list'} />
-                    </Button>
-                    <Button className={styles['']} title={'Filter'}>
-                        <SvgIcons svgIcon={'filter'} />
-                    </Button>
-                    <Button handleClick={() => handleShowModal(true)} className={styles['']} title={'New task'}>
-                        <SvgIcons svgIcon={'add'} />
-                    </Button>
-                </>}
-            </MainComponentHeader>
+                    <ProjectNav />
+                </div>
 
-            {/* <Outlet /> */}
-            {location.pathname.endsWith('boards') ? <ProjectBoardsPage /> : <ProjectDescriptionPage project={project?.data} />}
-
-        </>
+                <Outlet context={project} />
+            </div>
+        </div>
     );
 }
 

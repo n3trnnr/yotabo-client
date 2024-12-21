@@ -32,8 +32,8 @@ const HeaderBar = ({ userData }: IHeaderBar) => {
                                 <SvgIcons svgIcon={'arrowDown'} />
                             </Button>
                         </div>
-
                     </div>
+
                 </div>
             </div>
         </div>
