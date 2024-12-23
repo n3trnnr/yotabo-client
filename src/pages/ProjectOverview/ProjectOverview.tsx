@@ -6,25 +6,26 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { editProject } from '../../store/slices/projectSlice';
 
 const ProjectOverview = () => {
-    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
 
     const project = useOutletContext<IProjectData | null>();
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (project) {
-            setTitle(project.attributes.description)
+            setDescription(project.attributes.description)
         }
     }, [project])
 
     const handleChangeTitle = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        setTitle(event.target.value)
+        setDescription(event.target.value)
     }
 
     const handleEditProject = () => {
-        if (project?.id) {
-            dispatch(editProject({ field: 'description', value: title, projectId: project.id }))
+        if (project?.id && description !== project.attributes.description) {
+            dispatch(editProject({ field: 'description', value: description, projectId: project.id }))
         }
+        return;
     }
 
     return (
@@ -37,7 +38,7 @@ const ProjectOverview = () => {
                             onBlur={handleEditProject}
                             onChange={handleChangeTitle}
                             className={styles['textarea']}
-                            defaultValue={title}
+                            value={description}
                             placeholder={"What's this project about?"}
                         />
                     </div>

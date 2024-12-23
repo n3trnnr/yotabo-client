@@ -1,4 +1,4 @@
 export interface IModalWindow {
-    type: "simple" | "advanced";
+    type: 'project' | 'column' | 'task' | null;
     title: string;
 }

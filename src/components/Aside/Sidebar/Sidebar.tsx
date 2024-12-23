@@ -14,7 +14,7 @@ import cn from 'classnames';
 import ItemsList from '../ItemsList/ItemsList.tsx';
 
 const Sidebar = () => {
-    const { handleOpenModal } = useModal();
+    const { handleOpenModal, handleModalParams } = useModal();
     const dispatch = useAppDispatch();
     const projects = useAppSelector((state) => state.project.projects);
 
@@ -25,6 +25,11 @@ const Sidebar = () => {
     useEffect(() => {
         dispatch(getProjectsData())
     }, [])
+
+    const handleOpenModalWindow = () => {
+        handleOpenModal()
+        handleModalParams({ type: 'project', title: 'Create project' })
+    }
 
     return (
         <div className={styles["sidebar"]}>
@@ -52,7 +57,7 @@ const Sidebar = () => {
                                 icon2={<SvgIcons svgIcon={'arrowDown'} />}
                                 title={'Project'}
                                 settings={<Filter handleChange={handleChange} />}
-                                handleClick={handleOpenModal}
+                                handleClick={handleOpenModalWindow}
                             >
                                 <ItemsList className={styles['items-list']}>
                                     {projects?.data.map((project) => (

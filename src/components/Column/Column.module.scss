@@ -38,8 +38,15 @@
                 // .tasks-count {}
             }
 
-            .title {
-                // cursor: default;
+            .title-input {
+                height: 28px;
+                min-width: 100px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                padding-inline: 10px;
+                border-radius: 8px;
+                outline-color: variables.$blue-2;
+                @extend %font-18px-medium;
             }
 
             .button-delete {

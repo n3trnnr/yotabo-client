@@ -24,21 +24,53 @@
 
             .title-input {
                 height: 40px;
-                padding-inline: 15px;
+                min-width: 100px;
+                max-width: 480px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                padding-inline: 10px;
+                border: 1px solid transparent;
                 border-radius: variables.$radius-10;
+                outline-color: variables.$blue-2;
                 @extend %font-24px-medium;
-            }
 
-            .title {
-                @extend %font-24px-medium;
+                &:hover {
+                    border: 1px solid variables.$grey-2;
+                }
             }
 
             .button {
                 @extend %button-square-40;
             }
 
-            .button-favourites {
-                @extend %button-grey;
+            .button-favorites {
+                path {
+                    stroke: variables.$grey-3;
+                }
+
+                &:hover {
+                    background: variables.$grey-1;
+
+                    path {
+                        stroke: variables.$grey-4;
+                    }
+                }
+            }
+
+            .button-favorites__active {
+                path {
+                    fill: variables.$blue-2 ;
+                    stroke: variables.$blue-2;
+                }
+
+                &:hover {
+                    background: variables.$grey-1;
+
+                    path {
+                        fill: variables.$blue-1;
+                        stroke: variables.$blue-1;
+                    }
+                }
             }
 
             .button-delete {

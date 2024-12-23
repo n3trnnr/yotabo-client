@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import styles from './ProjectPage.module.scss'
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/useStore';
@@ -7,11 +7,10 @@ import ProjectNav from '../../components/ProjectNav/ProjectNav';
 import Button from '../../components/UI/Button/Button';
 import SvgIcons from '../../components/UI/Svg/SvgIcons';
 import cn from 'classnames'
+import AdaptiveInput from '../../components/UI/AdaptiveInput/AdaptiveInput';
 
 const ProjectPage = () => {
-    const [editMode, setEditMode] = useState(false)
     const [title, setTitle] = useState('')
-
     const { id } = useParams();
     const dispatch = useAppDispatch();
     const navigate = useNavigate()
@@ -22,6 +21,12 @@ const ProjectPage = () => {
         }
     })
 
+    useEffect(() => {
+        if (project) {
+            setTitle(project.attributes.title)
+        }
+    }, [project])
+
     const hadnleDeleteProject = () => {
         if (id) {
             dispatch(deleteProject(id))
@@ -29,22 +34,21 @@ const ProjectPage = () => {
         }
     }
 
-    const handleDoubleClick = () => {
-        if (project) {
-            setTitle(project.attributes.title)
-            setEditMode(true)
-        }
-    }
-
     const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
-        setTitle(event.target.value)
+        const title = event.target.value;
+        setTitle(title)
     }
 
     const handleEditProject = () => {
-        setEditMode(false)
-
-        if (id) {
+        if (project && id && title !== project.attributes.title) {
             dispatch(editProject({ field: 'title', value: title, projectId: id }))
+        }
+        return;
+    }
+
+    const toggleFavoriteProject = () => {
+        if (project && id) {
+            dispatch(editProject({ field: 'isFavorites', value: !project.attributes.isFavorites, projectId: id }))
         }
     }
 
@@ -54,23 +58,19 @@ const ProjectPage = () => {
 
                 <div className={styles['info-bar']}>
                     <div className={styles['info-bar__inner']}>
-                        {editMode
-                            ? <input
-                                autoFocus
-                                className={styles['title-input']}
-                                type="text"
-                                onBlur={handleEditProject}
-                                onChange={handleChangeTitle}
-                                value={title}
-                            />
-                            : <h2
-                                onDoubleClick={handleDoubleClick}
-                                className={styles['title']}
-                            >
-                                {project?.attributes.title}
-                            </h2>
-                        }
-                        <Button className={cn(styles['button'], styles['button-favourites'])}>
+
+                        <AdaptiveInput
+                            className={styles['title-input']}
+                            type="text"
+                            onBlur={handleEditProject}
+                            onChange={handleChangeTitle}
+                            inputValue={title}
+                        />
+
+                        <Button onClick={toggleFavoriteProject} className={cn(styles['button'], {
+                            [styles['button-favorites']]: !project?.attributes.isFavorites,
+                            [styles['button-favorites__active']]: project?.attributes.isFavorites
+                        })}>
                             <SvgIcons svgIcon={'bookmark'} />
                         </Button>
 

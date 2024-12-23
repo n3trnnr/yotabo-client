@@ -1,22 +1,47 @@
 import styles from './ProjectBoard.module.scss'
 import TaskCard from "../../components/TaskCard/TaskCard";
-import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from '../../hooks/useStore';
-import { useEffect } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { getTasksData } from '../../store/slices/taskSlice';
 import ProgressBar from '../../components/UI/ProgressBar/ProgressBar';
 import Button from '../../components/UI/Button/Button';
 import SvgIcons from '../../components/UI/Svg/SvgIcons';
 import Column from '../../components/Column/Column';
+import { useModal } from '../../hoc/Contexts/ModalWindow/ModalProvider';
+import { TId } from '../../interfaces/global';
 
 const ProjectBoard = () => {
-    const dispatch = useAppDispatch()
-    const tasks = useAppSelector((state) => state.tasks.tasks)
-    // console.log('tasks', tasks);
+    const [columnTitle, setcolumnTitle] = useState('');
+
+    const dispatch = useAppDispatch();
+    const tasks = useAppSelector((state) => state.tasks.tasks);
+    const { handleOpenModal, handleModalParams } = useModal();
 
     useEffect(() => {
         dispatch(getTasksData())
     }, [])
+
+    const handleCreateColumn = () => {
+        handleOpenModal()
+        handleModalParams({ type: 'column', title: 'Create column' })
+    }
+
+    const handleSetColumnTitle = (event: ChangeEvent<HTMLInputElement>) => {
+        const title = event.target.value;
+        setcolumnTitle(title)
+    }
+
+    const handleEditColumnTitle = () => {
+
+    }
+
+    const handleDeleteColumn = (id: TId) => {
+    }
+
+    const handleCreateTask = () => {
+        handleOpenModal()
+        handleModalParams({ type: 'task', title: 'Create task' })
+    }
 
     return (
         <div className={styles['board-container']}>
@@ -31,7 +56,7 @@ const ProjectBoard = () => {
                         </>
                     </Button>
 
-                    <Button className={styles['button-add']} title={'Add Column'}>
+                    <Button onClick={handleCreateColumn} className={styles['button-add']} title={'Add Column'}>
                         <SvgIcons svgIcon={'add'} />
                     </Button>
                 </div>
@@ -39,31 +64,7 @@ const ProjectBoard = () => {
 
             <div className={styles['columns']}>
                 <div className={styles['columns__inner']}>
-                    <Column>
-                        <TaskCard />
-                        <TaskCard />
-                        <TaskCard />
-                        <TaskCard />
-                        <TaskCard />
-                        <TaskCard />
-                    </Column>
-                    <Column>
-                        <TaskCard />
-                        <TaskCard />
-                        <TaskCard />
-                        <TaskCard />
-                        <TaskCard />
-                        <TaskCard />
-                    </Column>
-                    <Column>
-                        <TaskCard />
-                    </Column>
-                    <Column>
-                        <TaskCard />
-                        <TaskCard />
-                        <TaskCard />
-                        <TaskCard />
-                        <TaskCard />
+                    <Column handleCreateTask={handleCreateTask} handleSetColumnTitle={handleSetColumnTitle} columnTitle={columnTitle}>
                         <TaskCard />
                     </Column>
                 </div>

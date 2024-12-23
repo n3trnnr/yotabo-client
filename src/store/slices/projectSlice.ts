@@ -4,7 +4,6 @@ import { RootState } from "../../store/store";
 import { IProject, IProjectFormData, IProjects } from "../../interfaces/store/projectSlice";
 import { TId } from "../../interfaces/global";
 import { hex } from "../../helpers/hex";
-// import { ErrorPayload } from "vite/types/hmrPayload.js";
 
 interface IProjectSlice {
     project: IProject | null,
@@ -114,7 +113,7 @@ export const deleteProject = createAsyncThunk<IProject, TId, { rejectValue: stri
     }
 )
 
-export const editProject = createAsyncThunk<IProject, { field: string, value: string, projectId: TId }, { rejectValue: string, state: RootState }>(
+export const editProject = createAsyncThunk<IProject, { field: string, value: string | boolean, projectId: TId }, { rejectValue: string, state: RootState }>(
     'project/editProject',
     async (updatedData, { rejectWithValue, getState, dispatch }) => {
         const jwt = getState().user.jwt;
@@ -144,15 +143,13 @@ export const editProject = createAsyncThunk<IProject, { field: string, value: st
     }
 )
 
-export
-
-    const initialState: IProjectSlice = {
-        project: null,
-        projects: null,
-        filteredProjects: null,
-        error: null,
-        status: null
-    }
+const initialState: IProjectSlice = {
+    project: null,
+    projects: null,
+    filteredProjects: null,
+    error: null,
+    status: null
+}
 
 const projectSlice = createSlice({
     name: 'project',
@@ -188,12 +185,10 @@ const projectSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getProjectsData.fulfilled, (state, action) => {
-                // console.log('action', action.payload);
                 state.projects = action.payload
             })
 
             .addCase(getProjectDataById.fulfilled, (state, action) => {
-                // console.log('getProjectDataById - ', action.payload.data);
                 state.project = action.payload
             })
 

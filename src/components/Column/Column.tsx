@@ -3,8 +3,9 @@ import Button from '../UI/Button/Button';
 import SvgIcons from '../UI/Svg/SvgIcons';
 import styles from './Column.module.scss';
 import { IColumn } from './Column.props';
+import AdaptiveInput from '../UI/AdaptiveInput/AdaptiveInput';
 
-const Column = ({ children }: IColumn) => {
+const Column = ({ children, handleCreateTask, columnTitle, handleSetColumnTitle }: IColumn) => {
 
     const [editMode, setEditMode] = useState(false);
 
@@ -18,8 +19,8 @@ const Column = ({ children }: IColumn) => {
                     </div>
 
                     {editMode
-                        ? <input autoFocus onBlur={() => setEditMode(false)} type='text' value={'To Do'} />
-                        : <span onDoubleClick={() => setEditMode(true)} className={'title'}>To Do</span>
+                        ? <AdaptiveInput className={styles['title-input']} autoFocus onChange={handleSetColumnTitle} onBlur={() => setEditMode(false)} type='text' inputValue={columnTitle} />
+                        : <span onDoubleClick={() => setEditMode(true)} className={'title'}>To do</span>
                     }
 
                     <Button className={styles['button-delete']}>
@@ -31,7 +32,7 @@ const Column = ({ children }: IColumn) => {
                     {children}
                 </div>
 
-                <Button className={styles['button-add']} title={'Add Task'}>
+                <Button onClick={handleCreateTask} className={styles['button-add']} title={'Add Task'}>
                     <SvgIcons svgIcon={'add'} />
                 </Button>
             </div>

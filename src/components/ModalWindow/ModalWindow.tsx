@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from './ModalWindow.module.scss'
 import Button from "../UI/Button/Button";
 import SvgIcons from "../UI/Svg/SvgIcons";
-import AdvancedSettings from "./AdvancedSettings/AdvancedSettings";
+import TaskModal from "./TaskModal/TaskModal";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IModalWindow } from "./ModalWindow.props";
 import { useAppDispatch } from "../../hooks/useStore";
@@ -54,11 +54,13 @@ const ModalWindow = ({ type, title }: IModalWindow) => {
         setFiles([...filteredFiles])
     }
 
-    const submit: SubmitHandler<IModalWindowInputs> = async (data) => {
-        if (type === "simple") {
+    const submit: SubmitHandler<IModalWindowInputs> = (data) => {
+        if (type === 'project') {
             postProjectFormData(data)
-        } else if (type === "advanced") {
+        } else if (type === 'task') {
             postTaskFormData(data)
+        } else if (type === 'column') {
+
         }
         reset()
         handleCloseModal()
@@ -72,7 +74,7 @@ const ModalWindow = ({ type, title }: IModalWindow) => {
         dispatch(postTaskData(data))
     }
 
-    if (!isModalOpen) return null;
+    if (!isModalOpen) return;
 
     return (
         <div className={styles['overlay']}>
@@ -97,8 +99,8 @@ const ModalWindow = ({ type, title }: IModalWindow) => {
                                 required
                                 placeholder="Description"
                             />
-                            {type === "advanced" &&
-                                <AdvancedSettings
+                            {type === "task" &&
+                                <TaskModal
                                     register={register}
                                     files={files}
                                     handleDeleteFile={handleDeleteFile}

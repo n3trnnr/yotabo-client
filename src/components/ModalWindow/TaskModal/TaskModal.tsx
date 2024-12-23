@@ -1,11 +1,11 @@
-import styles from './AdvancedSettings.module.scss'
+import styles from './TaskModal.module.scss'
 import SvgIcons from "../../UI/Svg/SvgIcons";
 import Button from "../../UI/Button/Button";
-import { IAdvancedSettings } from "./AdvancedSettings.props";
+import { ITaskModal } from "./TaskModal.props";
 import CustomInput from '../../CustomInput/CustomInput';
 import { IFile } from '../ModalWindow';
 
-const AdvancedSettings = ({ register, files, handleDeleteFile }: IAdvancedSettings) => {
+const TaskModal = ({ register, files, handleDeleteFile }: ITaskModal) => {
     //Исправить загрузку файлов, разобраться с багом!
     return (
         <div className={styles["advanced-settings-container"]}>
@@ -90,7 +90,7 @@ const AdvancedSettings = ({ register, files, handleDeleteFile }: IAdvancedSettin
                             <span className={styles["uploaded-file-name"]}>
                                 {file.name}
                             </span>
-                            <Button colorStyle={"none"} handleClick={() => handleDeleteFile(file.name)}>
+                            <Button className='' handleClick={() => handleDeleteFile(file.name)}>
                                 <SvgIcons svgIcon={"trash"} className={styles["delete-icon"]} />
                             </Button>
                         </li>
@@ -104,4 +104,4 @@ const AdvancedSettings = ({ register, files, handleDeleteFile }: IAdvancedSettin
     );
 }
 
-export default AdvancedSettings;
+export default TaskModal;
