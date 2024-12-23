@@ -4,7 +4,6 @@ import { IAdaptiveInput } from "./AdaptiveInput.props";
 
 const AdaptiveInput = ({ inputValue, ...props }: IAdaptiveInput) => {
     const ref = useRef<HTMLInputElement>(null);
-    console.log(inputValue);
 
     useEffect(() => {
         if (ref.current) {

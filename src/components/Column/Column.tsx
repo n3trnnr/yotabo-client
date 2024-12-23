@@ -20,7 +20,7 @@ const Column = ({ children, handleCreateTask, columnTitle, handleSetColumnTitle 
 
                     {editMode
                         ? <AdaptiveInput className={styles['title-input']} autoFocus onChange={handleSetColumnTitle} onBlur={() => setEditMode(false)} type='text' inputValue={columnTitle} />
-                        : <span onDoubleClick={() => setEditMode(true)} className={'title'}>To do</span>
+                        : <div onDoubleClick={() => setEditMode(true)} className={'title'}>To do</div>
                     }
 
                     <Button className={styles['button-delete']}>

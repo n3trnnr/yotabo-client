@@ -1,11 +1,12 @@
-import { IModalWindowInputs } from "../../components/ModalWindow/ModalWindow"
+import { IModalWindowFormData } from "../../components/ModalWindow/ModalWindow"
+import { TId } from "../global"
 
-export interface IProjectFormData extends IModalWindowInputs {
+export interface IProjectFormData extends IModalWindowFormData {
     user?: number
 }
 
-export interface IProjectData {
-    id: number,
+export interface IProject {
+    id: TId,
     attributes: {
         title: string,
         description: string,
@@ -17,13 +18,13 @@ export interface IProjectData {
     }
 }
 
-export interface IProject {
-    data: IProjectData,
+export interface IProjectResponse {
+    data: IProject,
     meta: {}
 }
 
-export interface IProjects {
-    data: IProjectData[],
+export interface IProjectsResponse {
+    data: IProject[],
     meta: {
         pagination: {
             page: number,

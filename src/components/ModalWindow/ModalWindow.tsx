@@ -6,12 +6,12 @@ import TaskModal from "./TaskModal/TaskModal";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IModalWindow } from "./ModalWindow.props";
 import { useAppDispatch } from "../../hooks/useStore";
-import { postProjectData } from "../../store/slices/projectSlice";
-import { postTaskData } from "../../store/slices/taskSlice";
+import { postProjectData } from "../../store/slices/projectsSlice";
+// import { postTaskData } from "../../store/slices/taskSlice";
 import { useModal } from "../../hoc/Contexts/ModalWindow/ModalProvider";
 import cn from 'classnames';
 
-export interface IModalWindowInputs {
+export interface IModalWindowFormData {
     title: string,
     description: string,
     priority?: 'low' | 'med' | 'high',
@@ -34,7 +34,7 @@ const ModalWindow = ({ type, title }: IModalWindow) => {
     const { isModalOpen, handleCloseModal } = useModal();
 
     const { register, handleSubmit, watch, reset, // formState: { errors, isValid }
-    } = useForm<IModalWindowInputs>({ mode: 'onBlur' })
+    } = useForm<IModalWindowFormData>({ mode: 'onBlur' })
 
     useEffect(() => {
         const subscription = watch((data) => {
@@ -54,7 +54,7 @@ const ModalWindow = ({ type, title }: IModalWindow) => {
         setFiles([...filteredFiles])
     }
 
-    const submit: SubmitHandler<IModalWindowInputs> = (data) => {
+    const submit: SubmitHandler<IModalWindowFormData> = (data) => {
         if (type === 'project') {
             postProjectFormData(data)
         } else if (type === 'task') {
@@ -66,12 +66,12 @@ const ModalWindow = ({ type, title }: IModalWindow) => {
         handleCloseModal()
     }
 
-    const postProjectFormData = (data: IModalWindowInputs) => {
+    const postProjectFormData = (data: IModalWindowFormData) => {
         dispatch(postProjectData(data))
     }
 
-    const postTaskFormData = (data: IModalWindowInputs) => {
-        dispatch(postTaskData(data))
+    const postTaskFormData = (data: IModalWindowFormData) => {
+        // dispatch(postTaskData(data))
     }
 
     if (!isModalOpen) return;

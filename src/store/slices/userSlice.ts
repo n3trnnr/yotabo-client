@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk, PayloadAction, UnknownAction } from "@reduxjs/toolkit";
 import { getState } from "../localStorage/localStorage";
 import { PREFIX, TOKEN_PRESISTENT_STATE_NAME, USER_PRESISTENT_STATE_NAME } from "../../constants/constants";
-import { IUserData, IUserDataServer, IUserFormData } from "../../interfaces/store/userSlice";
+import { IUser, IUserResponse, IUserFormData } from "../../interfaces/store/userSlice";
 
 interface IUserSlice {
-    currentUser: IUserData | null
+    currentUser: IUser | null
     jwt: null | string,
     loadingStatus: boolean,
     error: null | string,
@@ -17,7 +17,7 @@ const initialState: IUserSlice = {
     error: null,
 }
 
-export const registerUser = createAsyncThunk<IUserDataServer, IUserFormData, { rejectValue: string }>(
+export const registerUser = createAsyncThunk<IUserResponse, IUserFormData, { rejectValue: string }>(
     'user/registerUser',
     async (newUser, { rejectWithValue }) => {
         const response = await fetch(`${PREFIX}/api/auth/local/register`, {
@@ -33,13 +33,13 @@ export const registerUser = createAsyncThunk<IUserDataServer, IUserFormData, { r
             return rejectWithValue(`${response.status.toString()} - ${response.statusText} - ${errorData?.error?.message}`)
         }
 
-        const data = await response.json() as IUserDataServer
+        const data = await response.json() as IUserResponse
 
         return data
     }
 )
 
-export const loginUser = createAsyncThunk<IUserDataServer, IUserFormData, { rejectValue: string }>(
+export const loginUser = createAsyncThunk<IUserResponse, IUserFormData, { rejectValue: string }>(
     'user/loginUser',
     async (loginUser, { rejectWithValue }) => {
         const response = await fetch(`${PREFIX}/api/auth/local?populate=*`, {
@@ -56,7 +56,7 @@ export const loginUser = createAsyncThunk<IUserDataServer, IUserFormData, { reje
             return rejectWithValue(`${response.status.toString()} - ${response.statusText} - ${errorData?.error?.message}`)
         }
 
-        const data = await response.json() as IUserDataServer
+        const data = await response.json() as IUserResponse
 
         return data
     }
@@ -112,5 +112,4 @@ const isPending = (action: UnknownAction) => {
 }
 
 export default userSlice.reducer
-
 export const userActions = userSlice.actions

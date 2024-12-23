@@ -7,7 +7,7 @@ import { LinkItemsData } from '../LinkItems/LinkItemsData.tsx';
 import LinkItems from '../LinkItems/LinkItems.tsx';
 import DropDownItems from '../DropDownItems/DropDownItems.tsx';
 import { useEffect } from 'react';
-import { getProjectsData, projectActions } from '../../../store/slices/projectSlice.ts';
+import { getProjectsData, projectsActions } from '../../../store/slices/projectsSlice.ts';
 import Filter from '../../UI/Filter/Filter.tsx';
 import { useModal } from '../../../hoc/Contexts/ModalWindow/ModalProvider.tsx';
 import cn from 'classnames';
@@ -16,10 +16,10 @@ import ItemsList from '../ItemsList/ItemsList.tsx';
 const Sidebar = () => {
     const { handleOpenModal, handleModalParams } = useModal();
     const dispatch = useAppDispatch();
-    const projects = useAppSelector((state) => state.project.projects);
+    const projects = useAppSelector((state) => state.projects.projects);
 
     const handleChange = (substring: string) => {
-        dispatch(projectActions.sortItemsBySubstring(substring))
+        dispatch(projectsActions.sortItemsBySubstring(substring))
     }
 
     useEffect(() => {
