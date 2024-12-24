@@ -1,4 +1,4 @@
-import { IProjectData } from "../../interfaces/store/projectSlice";
+import { IProjectData } from "../../interfaces/store/projectsSlice";
 
 export interface IProjectOverview {
     project?: IProjectData

@@ -5,17 +5,16 @@ export interface ITaskFormData extends IModalWindowFormData { }
 
 export interface ITask {
     id: TId,
-    attributes: {
-        title: string,
-        description: string,
-        priority: 'low' | 'med' | 'high',
-        createdAt: number,
-        updatedAt: number
-        deadline: number,
-        order: number,
-        isOverdue: boolean,
-        file: File
-    }
+    documentId: TId,
+    title: string,
+    description: string,
+    priority: 'low' | 'med' | 'high',
+    createdAt: number,
+    updatedAt: number
+    deadline: number,
+    order: number,
+    isOverdue: boolean,
+    file: File
 }
 
 export interface ITaskResponse {
@@ -37,14 +36,13 @@ export interface ITasksResponse {
 
 export interface IColumn {
     id: TId,
-    attributes: {
-        title: string,
-        type: 'to_do' | 'in_progress' | 'review' | 'done' | null,
-        createdAt: string,
-        updatedAt: string,
-        order: number,
-        tasks: { data: ITask[] }
-    }
+    documentId: TId,
+    title: string,
+    type: 'to_do' | 'in_progress' | 'review' | 'done' | null,
+    createdAt: string,
+    updatedAt: string,
+    order: number,
+    tasks: { data: ITask[] }
 }
 
 export interface IColumnResponse {

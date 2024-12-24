@@ -1,19 +1,20 @@
 import styles from './ProjectBoard.module.scss'
 import TaskCard from "../../components/TaskCard/TaskCard";
-import { useAppDispatch } from '../../hooks/useStore';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/useStore';
+import { useEffect } from 'react';
 import ProgressBar from '../../components/UI/ProgressBar/ProgressBar';
 import Button from '../../components/UI/Button/Button';
 import SvgIcons from '../../components/UI/Svg/SvgIcons';
 import Column from '../../components/Column/Column';
 import { useModal } from '../../hoc/Contexts/ModalWindow/ModalProvider';
 import { TId } from '../../interfaces/global';
-import { getBoardData } from '../../store/slices/boardSlice';
+import { deleteColumn, editColumn, getBoardData } from '../../store/slices/boardSlice';
 import { useOutletContext } from 'react-router-dom';
-import { IProject } from '../../interfaces/store/projectSlice';
+import { IProject } from '../../interfaces/store/projectsSlice';
 
 const ProjectBoard = () => {
-    const [columnTitle, setcolumnTitle] = useState('');
+
+    const columns = useAppSelector((state) => state.board.columns)
     const project = useOutletContext<IProject | null>();
 
     const dispatch = useAppDispatch();
@@ -21,7 +22,7 @@ const ProjectBoard = () => {
 
     useEffect(() => {
         if (project) {
-            dispatch(getBoardData(project.id))
+            dispatch(getBoardData(project.documentId))
         }
     }, [])
 
@@ -30,16 +31,12 @@ const ProjectBoard = () => {
         handleModalParams({ type: 'column', title: 'Create column' })
     }
 
-    const handleSetColumnTitle = (event: ChangeEvent<HTMLInputElement>) => {
-        const title = event.target.value;
-        setcolumnTitle(title)
-    }
-
-    const handleEditColumnTitle = () => {
-
+    const handleEditColumnTitle = (title: string, columnId: TId) => {
+        dispatch(editColumn({ field: 'title', value: title, id: columnId }))
     }
 
     const handleDeleteColumn = (id: TId) => {
+        if (id) dispatch(deleteColumn(id))
     }
 
     const handleCreateTask = () => {
@@ -68,9 +65,18 @@ const ProjectBoard = () => {
 
             <div className={styles['columns']}>
                 <div className={styles['columns__inner']}>
-                    <Column handleCreateTask={handleCreateTask} handleSetColumnTitle={handleSetColumnTitle} columnTitle={columnTitle}>
-                        <TaskCard />
-                    </Column>
+                    {columns && columns.map((column) => (
+                        <Column
+                            key={column.documentId}
+                            id={column.documentId}
+                            handleCreateTask={handleCreateTask}
+                            handleDeleteColumn={handleDeleteColumn}
+                            handleEditColumnTitle={handleEditColumnTitle}
+                            title={column.title}
+                        >
+                            <TaskCard />
+                        </Column>
+                    ))}
                 </div>
             </div>
 

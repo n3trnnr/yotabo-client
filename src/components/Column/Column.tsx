@@ -1,13 +1,29 @@
-import { useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import Button from '../UI/Button/Button';
 import SvgIcons from '../UI/Svg/SvgIcons';
 import styles from './Column.module.scss';
 import { IColumn } from './Column.props';
 import AdaptiveInput from '../UI/AdaptiveInput/AdaptiveInput';
 
-const Column = ({ children, handleCreateTask, columnTitle, handleSetColumnTitle }: IColumn) => {
-
+const Column = ({ id, children, title, handleCreateTask, handleEditColumnTitle, handleDeleteColumn }: IColumn) => {
     const [editMode, setEditMode] = useState(false);
+    const [columnTitle, setcolumnTitle] = useState('');
+
+    useEffect(() => {
+        if (title) {
+            setcolumnTitle(title)
+        }
+    }, [title])
+
+    const handleSetColumnTitle = (event: ChangeEvent<HTMLInputElement>) => {
+        const title = event.target.value;
+        setcolumnTitle(title)
+    }
+
+    const handleBlur = () => {
+        handleEditColumnTitle(columnTitle, id)
+        setEditMode(false)
+    }
 
     return (
         <div className={styles['column']}>
@@ -19,11 +35,18 @@ const Column = ({ children, handleCreateTask, columnTitle, handleSetColumnTitle 
                     </div>
 
                     {editMode
-                        ? <AdaptiveInput className={styles['title-input']} autoFocus onChange={handleSetColumnTitle} onBlur={() => setEditMode(false)} type='text' inputValue={columnTitle} />
-                        : <div onDoubleClick={() => setEditMode(true)} className={'title'}>To do</div>
+                        ? <AdaptiveInput
+                            autoFocus
+                            className={styles['title-input']}
+                            onChange={handleSetColumnTitle}
+                            onBlur={handleBlur}
+                            type='text'
+                            inputValue={columnTitle}
+                        />
+                        : <div onDoubleClick={() => setEditMode(true)} className={'title'}>{columnTitle}</div>
                     }
 
-                    <Button className={styles['button-delete']}>
+                    <Button onClick={() => handleDeleteColumn(id)} className={styles['button-delete']}>
                         <SvgIcons svgIcon={'trash'} />
                     </Button>
                 </div>

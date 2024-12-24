@@ -1,6 +1,6 @@
 import styles from './ProjectOverview.module.scss'
 import { useOutletContext } from "react-router-dom";
-import { IProject } from '../../interfaces/store/projectSlice';
+import { IProject } from '../../interfaces/store/projectsSlice';
 import { useAppDispatch } from '../../hooks/useStore';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { editProject } from '../../store/slices/projectsSlice';
@@ -13,7 +13,7 @@ const ProjectOverview = () => {
 
     useEffect(() => {
         if (project) {
-            setDescription(project.attributes.description)
+            setDescription(project.description)
         }
     }, [project])
 
@@ -22,8 +22,8 @@ const ProjectOverview = () => {
     }
 
     const handleEditProject = () => {
-        if (project?.id && description !== project.attributes.description) {
-            dispatch(editProject({ field: 'description', value: description, projectId: project.id }))
+        if (project?.id && description !== project.description) {
+            dispatch(editProject({ field: 'description', value: description, projectId: project.documentId }))
         }
         return;
     }
@@ -60,7 +60,7 @@ const ProjectOverview = () => {
 
                         <div className={styles['project-dates']}>
                             <div>Creation date</div>
-                            <div>{new Date(project.attributes.createdAt).toLocaleDateString()}</div>
+                            <div>{new Date(project.createdAt).toLocaleDateString()}</div>
                         </div>
                     </div>
                 </>}

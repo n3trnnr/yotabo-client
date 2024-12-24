@@ -62,11 +62,11 @@ const Sidebar = () => {
                                 <ItemsList className={styles['items-list']}>
                                     {projects?.data.map((project) => (
                                         <LinkItems
-                                            key={project.id}
-                                            id={project.id}
-                                            title={project.attributes.title}
-                                            path={`/${project.id}`}
-                                            icon={<div className={styles['project-icon']} style={{ background: `${project.attributes.hex}` }} />}
+                                            key={project.documentId}
+                                            id={project.documentId}
+                                            title={project.title}
+                                            path={`/${project.documentId}`}
+                                            icon={<div className={styles['project-icon']} style={{ background: `${project.hex}` }} />}
                                         />
                                     ))}
                                 </ItemsList>

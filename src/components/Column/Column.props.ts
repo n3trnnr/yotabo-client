@@ -1,8 +1,11 @@
 import { ChangeEvent, ReactNode } from "react";
+import { TId } from "../../interfaces/global";
 
 export interface IColumn {
+    id: TId,
     children: ReactNode,
+    title: string,
     handleCreateTask: () => void,
-    columnTitle: string,
-    handleSetColumnTitle: (event: ChangeEvent<HTMLInputElement>) => void
+    handleDeleteColumn: (id: TId) => void,
+    handleEditColumnTitle: (title: string, columnId: TId) => void
 }

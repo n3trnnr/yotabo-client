@@ -17,13 +17,13 @@ const ProjectPage = () => {
 
     const project = useAppSelector((state) => {
         if (state.projects.projects && id) {
-            return state.projects.projects.data.find(project => project.id === +id)
+            return state.projects.projects.data.find(project => project.documentId === id)
         }
     })
 
     useEffect(() => {
         if (project) {
-            setTitle(project.attributes.title)
+            setTitle(project.title)
         }
     }, [project])
 
@@ -40,7 +40,7 @@ const ProjectPage = () => {
     }
 
     const handleEditProject = () => {
-        if (project && id && title !== project.attributes.title) {
+        if (project && id && title !== project.title) {
             dispatch(editProject({ field: 'title', value: title, projectId: id }))
         }
         return;
@@ -48,7 +48,7 @@ const ProjectPage = () => {
 
     const toggleFavoriteProject = () => {
         if (project && id) {
-            dispatch(editProject({ field: 'isFavorites', value: !project.attributes.isFavorites, projectId: id }))
+            dispatch(editProject({ field: 'isFavorite', value: !project.isFavorite, projectId: id }))
         }
     }
 
@@ -68,8 +68,8 @@ const ProjectPage = () => {
                         />
 
                         <Button onClick={toggleFavoriteProject} className={cn(styles['button'], {
-                            [styles['button-favorites']]: !project?.attributes.isFavorites,
-                            [styles['button-favorites__active']]: project?.attributes.isFavorites
+                            [styles['button-favorite']]: !project?.isFavorite,
+                            [styles['button-favorite__active']]: project?.isFavorite
                         })}>
                             <SvgIcons svgIcon={'bookmark'} />
                         </Button>

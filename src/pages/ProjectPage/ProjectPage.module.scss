@@ -43,7 +43,7 @@
                 @extend %button-square-40;
             }
 
-            .button-favorites {
+            .button-favorite {
                 path {
                     stroke: variables.$grey-3;
                 }
@@ -57,7 +57,7 @@
                 }
             }
 
-            .button-favorites__active {
+            .button-favorite__active {
                 path {
                     fill: variables.$blue-2 ;
                     stroke: variables.$blue-2;
