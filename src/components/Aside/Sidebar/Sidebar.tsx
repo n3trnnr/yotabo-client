@@ -7,24 +7,29 @@ import { LinkItemsData } from '../LinkItems/LinkItemsData.tsx';
 import LinkItems from '../LinkItems/LinkItems.tsx';
 import DropDownItems from '../DropDownItems/DropDownItems.tsx';
 import { useEffect } from 'react';
-import { getProjectsData, projectActions } from '../../../store/slices/projectSlice.ts';
+import { getProjectsData, projectsActions } from '../../../store/slices/projectsSlice.ts';
 import Filter from '../../UI/Filter/Filter.tsx';
 import { useModal } from '../../../hoc/Contexts/ModalWindow/ModalProvider.tsx';
 import cn from 'classnames';
 import ItemsList from '../ItemsList/ItemsList.tsx';
 
 const Sidebar = () => {
-    const { handleOpenModal } = useModal();
+    const { handleOpenModal, handleModalParams } = useModal();
     const dispatch = useAppDispatch();
-    const projects = useAppSelector((state) => state.project.projects);
+    const projects = useAppSelector((state) => state.projects.projects);
 
     const handleChange = (substring: string) => {
-        dispatch(projectActions.sortItemsBySubstring(substring))
+        dispatch(projectsActions.sortItemsBySubstring(substring))
     }
 
     useEffect(() => {
         dispatch(getProjectsData())
     }, [])
+
+    const handleOpenModalWindow = () => {
+        handleOpenModal()
+        handleModalParams({ type: 'project', title: 'Create project' })
+    }
 
     return (
         <div className={styles["sidebar"]}>
@@ -52,16 +57,16 @@ const Sidebar = () => {
                                 icon2={<SvgIcons svgIcon={'arrowDown'} />}
                                 title={'Project'}
                                 settings={<Filter handleChange={handleChange} />}
-                                handleClick={handleOpenModal}
+                                handleClick={handleOpenModalWindow}
                             >
                                 <ItemsList className={styles['items-list']}>
                                     {projects?.data.map((project) => (
                                         <LinkItems
-                                            key={project.id}
-                                            id={project.id}
-                                            title={project.attributes.title}
-                                            path={`/${project.id}`}
-                                            icon={<div className={styles['project-icon']} style={{ background: `${project.attributes.hex}` }} />}
+                                            key={project.documentId}
+                                            id={project.documentId}
+                                            title={project.title}
+                                            path={`/${project.documentId}`}
+                                            icon={<div className={styles['project-icon']} style={{ background: `${project.hex}` }} />}
                                         />
                                     ))}
                                 </ItemsList>

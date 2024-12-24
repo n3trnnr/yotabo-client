@@ -1,5 +1,4 @@
 import React from 'react';
-import MainComponentHeader from '../../components/ProjectNav/MainComponentHeader';
 import styles from './TaskPage.module.scss'
 import Button from '../../components/UI/Button/Button';
 import SvgIcons from '../../components/UI/Svg/SvgIcons';
@@ -8,12 +7,6 @@ import InfoBar from './InfoBar/InfoBar';
 const TaskPage: React.FC = () => {
     return (
         <>
-            <MainComponentHeader type={"none"}>
-                <Button buttonShape={"rectangle"} color={"blue"} title={"Upload file"} >
-                    <SvgIcons svgIcon={"upload"} className={styles["upload-file-icon"]} />
-                </Button>
-            </MainComponentHeader>
-
             <div className={styles["task-page"]}>
                 <div className={styles["task-container"]}>
                     <div className={styles["task-wrapper"]}>
@@ -42,7 +35,7 @@ const TaskPage: React.FC = () => {
                             <InfoBar />
                         </div>
                         <span className={styles['burger-menu']}>
-                            <Button color={'none'}>
+                            <Button className=''>
                                 some icon
                             </Button>
                         </span>

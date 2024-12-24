@@ -95,12 +95,19 @@
             &__cancel {
                 width: 100%;
                 height: 40px;
+                background: variables.$white;
+                color: variables.$grey-3;
                 border-radius: variables.$radius-10;
                 border: 1px solid variables.$grey-2;
-                // color: variables.$grey-3;
-                cursor: pointer;
                 transition: variables.$transition;
-                @extend %font-16px-medium, %button-grey;
+                @extend %font-16px-medium;
+                cursor: pointer;
+
+                &:hover {
+                    background: variables.$grey-4;
+                    color: variables.$white;
+                    border-color: transparent;
+                }
             }
         }
     }

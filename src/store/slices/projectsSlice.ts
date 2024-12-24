@@ -1,25 +1,24 @@
 import { createAsyncThunk, createSlice, PayloadAction, UnknownAction } from "@reduxjs/toolkit";
 import { PREFIX } from "../../constants/constants";
-import { RootState } from "../../store/store";
-import { IProject, IProjectFormData, IProjects } from "../../interfaces/store/projectSlice";
+import { RootState } from "../store";
+import { IProjectFormData, IProjectResponse, IProjectsResponse } from "../../interfaces/store/projectsSlice";
 import { TId } from "../../interfaces/global";
 import { hex } from "../../helpers/hex";
-// import { ErrorPayload } from "vite/types/hmrPayload.js";
 
-interface IProjectSlice {
-    project: IProject | null,
-    projects: IProjects | null,
-    filteredProjects: IProjects | null,
+interface IProjectsSlice {
+    project: IProjectResponse | null,
+    projects: IProjectsResponse | null,
+    filteredProjects: IProjectsResponse | null,
     error: string | null,
     status: string | null
 }
 
-export const getProjectsData = createAsyncThunk<IProjects, void, { rejectValue: string, state: RootState }>(
-    'project/getProjectsData',
+export const getProjectsData = createAsyncThunk<IProjectsResponse, void, { rejectValue: string, state: RootState }>(
+    'projects/getProjectsData',
     async (_, { rejectWithValue, getState, dispatch }) => {
         const jwt = getState().user.jwt
 
-        dispatch(projectActions.clearStatus())
+        dispatch(projectsActions.resetStatus())
 
         const response = await fetch(`${PREFIX}/api/projects`, {
             method: 'GET',
@@ -33,13 +32,13 @@ export const getProjectsData = createAsyncThunk<IProjects, void, { rejectValue: 
             return rejectWithValue(`${response.status.toString()} - ${response.statusText} - ${errorData?.error?.message}`)
         }
 
-        const data = await response.json() as IProjects
+        const data = await response.json() as IProjectsResponse
         return data
     }
 )
 
-export const getProjectDataById = createAsyncThunk<IProject, TId, { rejectValue: string, state: RootState }>(
-    'project/getProjectDataById',
+export const getProjectDataById = createAsyncThunk<IProjectResponse, TId, { rejectValue: string, state: RootState }>(
+    'projects/getProjectDataById',
     async (id, { rejectWithValue, getState }) => {
         const jwt = getState().user.jwt
         const response = await fetch(`${PREFIX}/api/projects/${id}?populate=*`, {
@@ -54,17 +53,17 @@ export const getProjectDataById = createAsyncThunk<IProject, TId, { rejectValue:
             return rejectWithValue(`${response.status.toString()} - ${response.statusText} - ${errorData?.error?.message}`)
         }
 
-        const data = await response.json() as IProject
+        const data = await response.json() as IProjectResponse
         return data
     }
 )
 
-export const postProjectData = createAsyncThunk<IProject, IProjectFormData, { rejectValue: string, state: RootState }>(
-    'project/postProjectData',
+export const postProjectData = createAsyncThunk<IProjectResponse, IProjectFormData, { rejectValue: string, state: RootState }>(
+    'projects/postProjectData',
     async (projectDataClient, { rejectWithValue, getState, dispatch }) => {
         const jwt = getState().user.jwt;
 
-        dispatch(projectActions.clearStatus())
+        dispatch(projectsActions.resetStatus())
 
         const response = await fetch(`${PREFIX}/api/projects`, {
             method: 'POST',
@@ -84,42 +83,17 @@ export const postProjectData = createAsyncThunk<IProject, IProjectFormData, { re
             return rejectWithValue(`${response.status.toString()} - ${response.statusText} - ${errorData?.error?.message}`)
         }
 
-        const data = await response.json() as IProject
+        const data = await response.json() as IProjectResponse
         return data
     }
 )
 
-export const deleteProject = createAsyncThunk<IProject, TId, { rejectValue: string, state: RootState }>(
-    'project/deleteProject',
-    async (id, { rejectWithValue, getState, dispatch }) => {
-        const jwt = getState().user.jwt;
-
-        dispatch(projectActions.clearStatus())
-
-        const response = await fetch(`${PREFIX}/api/projects/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${jwt}`
-            }
-        })
-
-        if (!response.ok) {
-            const errorData = await response.json()
-            return rejectWithValue(`${response.status.toString()} - ${response.statusText} - ${errorData?.error?.message}`)
-        }
-
-        const data = await response.json() as IProject
-        return data
-    }
-)
-
-export const editProject = createAsyncThunk<IProject, { field: string, value: string, projectId: TId }, { rejectValue: string, state: RootState }>(
-    'project/editProject',
+export const editProject = createAsyncThunk<IProjectResponse, { field: string, value: string | boolean, projectId: TId }, { rejectValue: string, state: RootState }>(
+    'projects/editProject',
     async (updatedData, { rejectWithValue, getState, dispatch }) => {
         const jwt = getState().user.jwt;
 
-        dispatch(projectActions.clearStatus())
+        dispatch(projectsActions.resetStatus())
 
         const response = await fetch(`${PREFIX}/api/projects/${updatedData.projectId}`, {
             method: 'PUT',
@@ -139,29 +113,52 @@ export const editProject = createAsyncThunk<IProject, { field: string, value: st
             return rejectWithValue(`${response.status.toString()} - ${response.statusText} - ${errorData?.error?.message}`)
         }
 
-        const data = await response.json() as IProject
+        const data = await response.json() as IProjectResponse
         return data
     }
 )
 
-export
+export const deleteProject = createAsyncThunk<TId, TId, { rejectValue: string, state: RootState }>(
+    'projects/deleteProject',
+    async (id, { rejectWithValue, getState, dispatch }) => {
+        const jwt = getState().user.jwt;
 
-    const initialState: IProjectSlice = {
-        project: null,
-        projects: null,
-        filteredProjects: null,
-        error: null,
-        status: null
+        dispatch(projectsActions.resetStatus())
+
+        const response = await fetch(`${PREFIX}/api/projects/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${jwt}`
+            }
+        })
+
+        if (!response.ok) {
+            const errorData = await response.json()
+            return rejectWithValue(`${response.status.toString()} - ${response.statusText} - ${errorData?.error?.message}`)
+        }
+
+        return id
     }
+)
 
-const projectSlice = createSlice({
-    name: 'project',
+const initialState: IProjectsSlice = {
+    project: null,
+    projects: null,
+    filteredProjects: null,
+    error: null,
+    status: null
+}
+
+const projectsSlice = createSlice({
+    name: 'projects',
     initialState,
     reducers: {
-        clearStatus: (state) => {
+        resetStatus: (state) => {
             state.status = null
             state.error = null
         },
+
         sortItemsBySubstring: (state, action: PayloadAction<string>) => {
             if (state.projects && action.payload) {
                 state.filteredProjects = state.projects
@@ -171,8 +168,8 @@ const projectSlice = createSlice({
                     const substring = action.payload.toLocaleLowerCase();
 
                     state.projects.data = [...state.projects.data].sort((a, b) => {
-                        const indexA = a.attributes.title.toLocaleLowerCase().indexOf(substring)
-                        const indexB = b.attributes.title.toLocaleLowerCase().indexOf(substring)
+                        const indexA = a.title.toLocaleLowerCase().indexOf(substring)
+                        const indexB = b.title.toLocaleLowerCase().indexOf(substring)
                         if (indexA === -1 && indexB === -1) return 0;
                         if (indexA === -1) return 1;
                         if (indexB === -1) return -1;
@@ -188,19 +185,17 @@ const projectSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getProjectsData.fulfilled, (state, action) => {
-                // console.log('action', action.payload);
                 state.projects = action.payload
             })
 
             .addCase(getProjectDataById.fulfilled, (state, action) => {
-                // console.log('getProjectDataById - ', action.payload.data);
                 state.project = action.payload
             })
 
             .addCase(postProjectData.fulfilled, (state, action) => {
                 state.error = null
                 state.status = 'Success'
-
+                console.log('action', action.payload)
                 if (state.projects) {
                     state.projects.data.push(action.payload.data)
                 }
@@ -212,7 +207,7 @@ const projectSlice = createSlice({
 
                 if (state.projects) {
                     state.projects.data = state.projects.data.filter((project) => {
-                        return project.id !== action.payload.data.id
+                        return project.documentId !== action.payload
                     })
                 }
             })
@@ -245,8 +240,8 @@ const projectSlice = createSlice({
 
 })
 
-export const projectActions = projectSlice.actions
-export default projectSlice.reducer
+export const projectsActions = projectsSlice.actions
+export default projectsSlice.reducer
 
 const isRejected = (action: UnknownAction) => {
     return action.type.endsWith('rejected')

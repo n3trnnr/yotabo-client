@@ -1,30 +1,31 @@
 import styles from './ProjectOverview.module.scss'
 import { useOutletContext } from "react-router-dom";
-import { IProjectData } from '../../interfaces/store/projectSlice';
+import { IProject } from '../../interfaces/store/projectsSlice';
 import { useAppDispatch } from '../../hooks/useStore';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { editProject } from '../../store/slices/projectSlice';
+import { editProject } from '../../store/slices/projectsSlice';
 
 const ProjectOverview = () => {
-    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
 
-    const project = useOutletContext<IProjectData | null>();
+    const project = useOutletContext<IProject | null>();
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (project) {
-            setTitle(project.attributes.description)
+            setDescription(project.description)
         }
     }, [project])
 
     const handleChangeTitle = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        setTitle(event.target.value)
+        setDescription(event.target.value)
     }
 
     const handleEditProject = () => {
-        if (project?.id) {
-            dispatch(editProject({ field: 'description', value: title, projectId: project.id }))
+        if (project?.id && description !== project.description) {
+            dispatch(editProject({ field: 'description', value: description, projectId: project.documentId }))
         }
+        return;
     }
 
     return (
@@ -37,7 +38,7 @@ const ProjectOverview = () => {
                             onBlur={handleEditProject}
                             onChange={handleChangeTitle}
                             className={styles['textarea']}
-                            defaultValue={title}
+                            value={description}
                             placeholder={"What's this project about?"}
                         />
                     </div>
@@ -59,7 +60,7 @@ const ProjectOverview = () => {
 
                         <div className={styles['project-dates']}>
                             <div>Creation date</div>
-                            <div>{new Date(project.attributes.createdAt).toLocaleDateString()}</div>
+                            <div>{new Date(project.createdAt).toLocaleDateString()}</div>
                         </div>
                     </div>
                 </>}

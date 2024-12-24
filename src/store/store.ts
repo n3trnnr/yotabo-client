@@ -1,15 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import projectSlice from "./slices/projectSlice";
-import taskSlice from "./slices/taskSlice";
+import projectsSlice from "./slices/projectsSlice";
 import userSlice from "./slices/userSlice";
+import boardSlice from './slices/boardSlice'
 import { saveState } from "./localStorage/localStorage";
 import { TOKEN_PRESISTENT_STATE_NAME, USER_PRESISTENT_STATE_NAME } from "../constants/constants";
 
 const store = configureStore({
     reducer: {
         user: userSlice,
-        project: projectSlice,
-        tasks: taskSlice
+        projects: projectsSlice,
+        board: boardSlice
     }
 })
 

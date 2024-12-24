@@ -1,22 +1,48 @@
 import styles from './ProjectBoard.module.scss'
 import TaskCard from "../../components/TaskCard/TaskCard";
-import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from '../../hooks/useStore';
 import { useEffect } from 'react';
-import { getTasksData } from '../../store/slices/taskSlice';
 import ProgressBar from '../../components/UI/ProgressBar/ProgressBar';
 import Button from '../../components/UI/Button/Button';
 import SvgIcons from '../../components/UI/Svg/SvgIcons';
 import Column from '../../components/Column/Column';
+import { useModal } from '../../hoc/Contexts/ModalWindow/ModalProvider';
+import { TId } from '../../interfaces/global';
+import { deleteColumn, editColumn, getBoardData } from '../../store/slices/boardSlice';
+import { useOutletContext } from 'react-router-dom';
+import { IProject } from '../../interfaces/store/projectsSlice';
 
 const ProjectBoard = () => {
-    const dispatch = useAppDispatch()
-    const tasks = useAppSelector((state) => state.tasks.tasks)
-    // console.log('tasks', tasks);
+
+    const columns = useAppSelector((state) => state.board.columns)
+    const project = useOutletContext<IProject | null>();
+
+    const dispatch = useAppDispatch();
+    const { handleOpenModal, handleModalParams } = useModal();
 
     useEffect(() => {
-        dispatch(getTasksData())
+        if (project) {
+            dispatch(getBoardData(project.documentId))
+        }
     }, [])
+
+    const handleCreateColumn = () => {
+        handleOpenModal()
+        handleModalParams({ type: 'column', title: 'Create column' })
+    }
+
+    const handleEditColumnTitle = (title: string, columnId: TId) => {
+        dispatch(editColumn({ field: 'title', value: title, id: columnId }))
+    }
+
+    const handleDeleteColumn = (id: TId) => {
+        if (id) dispatch(deleteColumn(id))
+    }
+
+    const handleCreateTask = () => {
+        handleOpenModal()
+        handleModalParams({ type: 'task', title: 'Create task' })
+    }
 
     return (
         <div className={styles['board-container']}>
@@ -31,7 +57,7 @@ const ProjectBoard = () => {
                         </>
                     </Button>
 
-                    <Button className={styles['button-add']} title={'Add Column'}>
+                    <Button onClick={handleCreateColumn} className={styles['button-add']} title={'Add Column'}>
                         <SvgIcons svgIcon={'add'} />
                     </Button>
                 </div>
@@ -39,33 +65,18 @@ const ProjectBoard = () => {
 
             <div className={styles['columns']}>
                 <div className={styles['columns__inner']}>
-                    <Column>
-                        <TaskCard />
-                        <TaskCard />
-                        <TaskCard />
-                        <TaskCard />
-                        <TaskCard />
-                        <TaskCard />
-                    </Column>
-                    <Column>
-                        <TaskCard />
-                        <TaskCard />
-                        <TaskCard />
-                        <TaskCard />
-                        <TaskCard />
-                        <TaskCard />
-                    </Column>
-                    <Column>
-                        <TaskCard />
-                    </Column>
-                    <Column>
-                        <TaskCard />
-                        <TaskCard />
-                        <TaskCard />
-                        <TaskCard />
-                        <TaskCard />
-                        <TaskCard />
-                    </Column>
+                    {columns && columns.map((column) => (
+                        <Column
+                            key={column.documentId}
+                            id={column.documentId}
+                            handleCreateTask={handleCreateTask}
+                            handleDeleteColumn={handleDeleteColumn}
+                            handleEditColumnTitle={handleEditColumnTitle}
+                            title={column.title}
+                        >
+                            <TaskCard />
+                        </Column>
+                    ))}
                 </div>
             </div>
 
