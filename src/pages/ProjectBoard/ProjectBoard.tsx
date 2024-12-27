@@ -15,6 +15,7 @@ import { IProject } from '../../interfaces/store/projectsSlice';
 const ProjectBoard = () => {
 
     const columns = useAppSelector((state) => state.board.columns)
+
     const project = useOutletContext<IProject | null>();
 
     const dispatch = useAppDispatch();
@@ -24,7 +25,7 @@ const ProjectBoard = () => {
         if (project) {
             dispatch(getBoardData(project.documentId))
         }
-    }, [])
+    }, [project])
 
     const handleCreateColumn = () => {
         handleOpenModal()

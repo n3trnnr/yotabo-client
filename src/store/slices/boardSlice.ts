@@ -110,7 +110,7 @@ const boardSlice = createSlice({
             .addCase(getBoardData.fulfilled, (state, action) => {
                 state.error = null;
                 state.status = 'Succes';
-                console.log('action.payload', action.payload)
+
                 state.columns = action.payload.data
             })
 
