@@ -6,8 +6,14 @@ export interface ICustomInput<T extends FieldValues> {
     label?: string,
     name: Path<T>,
     control: Control<T>,
-    rules: RegisterOptions,
+    rules?: RegisterOptions,
     labelClassName?: string,
     className: string,
-    errorClassName: string
+    errorClassName: string,
+    params?: {
+        title: string,
+        name: string,
+        value: string,
+        isDefault?: boolean
+    }[]
 }

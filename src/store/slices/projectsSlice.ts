@@ -1,3 +1,4 @@
+import { IProject } from './../../interfaces/store/projectsSlice';
 import { createAsyncThunk, createSlice, PayloadAction, UnknownAction } from "@reduxjs/toolkit";
 import { PREFIX } from "../../constants/constants";
 import { RootState } from "../store";
@@ -6,7 +7,7 @@ import { TId } from "../../interfaces/global";
 import { hex } from "../../helpers/hex";
 
 interface IProjectsSlice {
-    project: IProjectResponse | null,
+    project: IProject | null,
     projects: IProjectsResponse | null,
     filteredProjects: IProjectsResponse | null,
     error: string | null,
@@ -60,7 +61,7 @@ export const getProjectDataById = createAsyncThunk<IProjectResponse, TId, { reje
 
 export const postProjectData = createAsyncThunk<IProjectResponse, IProjectFormData, { rejectValue: string, state: RootState }>(
     'projects/postProjectData',
-    async (projectDataClient, { rejectWithValue, getState, dispatch }) => {
+    async (formData, { rejectWithValue, getState, dispatch }) => {
         const jwt = getState().user.jwt;
 
         dispatch(projectsActions.resetStatus())
@@ -73,7 +74,7 @@ export const postProjectData = createAsyncThunk<IProjectResponse, IProjectFormDa
             },
             body: JSON.stringify(
                 {
-                    data: { ...projectDataClient, hex: hex() }
+                    data: { ...formData, hex: hex() }
                 }
             )
         })
@@ -159,6 +160,12 @@ const projectsSlice = createSlice({
             state.error = null
         },
 
+        setCurrentProject: (state, action: PayloadAction<IProject>) => {
+            if (action) {
+                state.project = action.payload
+            }
+        },
+
         sortItemsBySubstring: (state, action: PayloadAction<string>) => {
             if (state.projects && action.payload) {
                 state.filteredProjects = state.projects
@@ -188,8 +195,9 @@ const projectsSlice = createSlice({
                 state.projects = action.payload
             })
 
+            //Удалить текущий кейс?
             .addCase(getProjectDataById.fulfilled, (state, action) => {
-                state.project = action.payload
+                // state.project = action.payload
             })
 
             .addCase(postProjectData.fulfilled, (state, action) => {

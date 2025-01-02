@@ -8,7 +8,7 @@ import SvgIcons from '../../components/UI/Svg/SvgIcons';
 import Column from '../../components/Column/Column';
 import { useModal } from '../../hoc/Contexts/ModalWindow/ModalProvider';
 import { TId } from '../../interfaces/global';
-import { deleteColumn, editColumn, getBoardData } from '../../store/slices/boardSlice';
+import { deleteColumn, editColumn, getColumnsData } from '../../store/slices/boardSlice';
 import { useOutletContext } from 'react-router-dom';
 import { IProject } from '../../interfaces/store/projectsSlice';
 
@@ -23,7 +23,7 @@ const ProjectBoard = () => {
 
     useEffect(() => {
         if (project) {
-            dispatch(getBoardData(project.documentId))
+            dispatch(getColumnsData(project.documentId))
         }
     }, [project])
 

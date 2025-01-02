@@ -2,7 +2,7 @@ import { IModalWindowFormData } from "../../components/ModalWindow/ModalWindow"
 import { TId } from "../global"
 
 export interface IProjectFormData extends IModalWindowFormData {
-    user?: number
+    user?: TId
 }
 
 export interface IProject {

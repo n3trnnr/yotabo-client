@@ -109,7 +109,7 @@ const AuthComponent = ({ type }: IAuthComponent) => {
                                 <CustomInput
                                     className={styles["input-auth"]} errorClassName={styles['error-message']}
                                     control={control}
-                                    name={'username'}
+                                    name={'identifier'}
                                     type={'text'}
                                     placeHolder={'Login'}
                                     rules={{

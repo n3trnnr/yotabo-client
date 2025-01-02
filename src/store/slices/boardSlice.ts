@@ -1,6 +1,6 @@
 import { RootState } from "../store";
 import { createAsyncThunk, createSlice, UnknownAction } from "@reduxjs/toolkit";
-import { IColumn, IColumnResponse, IColumnsResponse } from "../../interfaces/store/boardSlice";
+import { IColumn, IColumnFormData, IColumnResponse, IColumnsResponse } from "../../interfaces/store/boardSlice";
 import { PREFIX } from "../../constants/constants";
 import { TId } from "../../interfaces/global";
 
@@ -10,8 +10,8 @@ interface IBoardSlice {
     error: string | null
 }
 
-export const getBoardData = createAsyncThunk<IColumnsResponse, TId, { rejectValue: string, state: RootState }>(
-    'board/getBoardsData',
+export const getColumnsData = createAsyncThunk<IColumnsResponse, TId, { rejectValue: string, state: RootState }>(
+    'board/getColumnsData',
     async (projectId, { rejectWithValue, getState, dispatch }) => {
         const jwt = getState().user.jwt
 
@@ -22,6 +22,34 @@ export const getBoardData = createAsyncThunk<IColumnsResponse, TId, { rejectValu
             headers: {
                 Authorization: `Bearer ${jwt}`
             }
+        })
+
+        if (!response.ok) {
+            const errorData = await response.json()
+            return rejectWithValue(`${response.status.toString()} - ${response.statusText} - ${errorData?.error?.message}`)
+        }
+
+        const data = await response.json() as IColumnsResponse
+        return data
+    }
+)
+
+export const postColumnData = createAsyncThunk<IColumnsResponse, IColumnFormData, { rejectValue: string, state: RootState }>(
+    'board/postColumnData',
+    async (formData, { rejectWithValue, getState, dispatch }) => {
+        const jwt = getState().user.jwt
+        const projectId = getState().projects.project?.documentId
+
+        dispatch(boardActions.resetStatus());
+
+        const response = await fetch(`${PREFIX}/api/columns`, {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${jwt}`
+            },
+            body: JSON.stringify({
+                data: { ...formData, project: projectId }
+            })
         })
 
         if (!response.ok) {
@@ -66,7 +94,7 @@ export const editColumn = createAsyncThunk<IColumnResponse, { field: string, val
 )
 
 export const deleteColumn = createAsyncThunk<TId, TId, { rejectValue: string, state: RootState }>(
-    'projects/deleteProject',
+    'board/deleteColumn',
     async (id, { rejectWithValue, getState, dispatch }) => {
         const jwt = getState().user.jwt;
 
@@ -107,7 +135,7 @@ const boardSlice = createSlice({
 
     extraReducers: (builder) => {
         builder
-            .addCase(getBoardData.fulfilled, (state, action) => {
+            .addCase(getColumnsData.fulfilled, (state, action) => {
                 state.error = null;
                 state.status = 'Succes';
 
