@@ -3,6 +3,7 @@
 .sign-up-container {
     min-height: 100%;
     width: 100%;
+    background: url('../../assets/background-logo.webp') no-repeat center / contain;
     @extend %flex-center;
     flex-direction: column;
 }

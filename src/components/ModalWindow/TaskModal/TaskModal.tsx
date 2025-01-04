@@ -1,106 +1,121 @@
 import styles from './TaskModal.module.scss'
-import SvgIcons from "../../UI/Svg/SvgIcons";
-import Button from "../../UI/Button/Button";
 import { ITaskModal } from "./TaskModal.props";
-import CustomInput from '../../CustomInput/CustomInput';
-import { IFile } from '../ModalWindow';
+import { Controller, FieldValues } from 'react-hook-form';
+import cn from 'classnames'
+import { useEffect, useRef } from 'react';
+import SvgIcons from '../../UI/Svg/SvgIcons';
+import Button from '../../UI/Button/Button';
 
-const TaskModal = ({ register, files, handleDeleteFile }: ITaskModal) => {
-    //Исправить загрузку файлов, разобраться с багом!
+const TaskModal = <T extends FieldValues>({ control, name, files, handleDeleteFile }: ITaskModal<T>) => {
+    const ref = useRef<HTMLInputElement>(null)
+
+    useEffect(() => {
+        if (ref.current) {
+            ref.current.focus()
+        }
+    }, [])
+
     return (
-        <div className={styles["advanced-settings-container"]}>
-            <div className={styles["info-block-container"]}>
-                <div className={styles["info-block-wrapper"]}>
-                    <div className={styles["priority-wrapper"]}>
-                        <div className={styles["priority-title"]}>
-                            Priority
-                        </div>
-                        <div className={styles["radio-group-wrapper"]}>
-                            <CustomInput
-                                register={register}
-                                inputName={'priority'}
-                                labelClassName={styles["label-radio"]}
-                                type={'radio'}
-                                defaultValue={'low'}
-                                className={styles["input-radio"]}
-                                required
-                            >
-                                <span className={styles["radio-description"]}>
-                                    Low
-                                </span>
-                            </CustomInput>
-                            <CustomInput
-                                register={register}
-                                inputName={'priority'}
-                                labelClassName={styles["label-radio"]}
-                                type={'radio'}
-                                defaultValue={'med'}
-                                className={styles["input-radio"]}
-                                required
-                            >
-                                <span className={styles["radio-description"]}>
-                                    Med
-                                </span>
-                            </CustomInput>
-                            <CustomInput
-                                register={register}
-                                inputName={'priority'}
-                                labelClassName={styles["label-radio"]}
-                                type={'radio'}
-                                defaultValue={'high'}
-                                className={styles["input-radio"]}
-                                required
-                            >
-                                <span className={styles["radio-description"]}>
-                                    High
-                                </span>
-                            </CustomInput>
-                        </div>
-                    </div>
+        <>
+            <Controller
+                control={control}
+                name={name.title}
+                rules={{
+                    required: { value: true, message: 'Title is required' },
+                }}
+                render={({ field, fieldState: { error } }) => (
+                    <label className={styles['']}>
+                        <input className={styles["input-title"]} placeholder={'Title'} {...field} />
+                        {error && <div className={styles['error-message']}>{error.message}</div>}
+                    </label>
+                )}
+            />
 
-                    <div className={styles["deadline-wrapper"]}>
-                        <div className={styles["deadline-title"]}>
-                            Deadline
+            <Controller
+                control={control}
+                name={name.description}
+                rules={{
+                    required: { value: true, message: 'Description is required' }
+                }}
+                render={({ field, fieldState: { error } }) => (
+                    <label className={''}>
+                        <textarea className={styles['textarea-description']} {...field} placeholder={'Description'} />
+                        {error && <div className={styles['error-message']}>{error.message}</div>}
+                    </label>
+                )}
+            />
+
+            <div className={styles['priority']}>
+                <span>Priority</span>
+                <Controller
+                    control={control}
+                    name={name.priority}
+                    render={({ field }) => (
+                        <div className={styles['radios']}>
+                            <input className={styles['input-radio']} {...field} type="radio" id={'low'} name={'priority'} value={'low'} defaultChecked />
+                            <label tabIndex={0} className={cn(styles['label'], styles['label__low'])} htmlFor={'low'}>
+                                <div className={cn(styles['dote'], styles['dote__low'])} />
+                                <span>Low</span>
+                            </label>
+
+                            <input className={styles['input-radio']} {...field} type="radio" id={'med'} name={'priority'} value={'med'} />
+                            <label tabIndex={0} className={cn(styles['label'], styles['label__med'])} htmlFor={'med'}>
+                                <div className={cn(styles['dote'], styles['dote__med'])} />
+                                <span>Med</span>
+                            </label>
+
+                            <input className={styles['input-radio']} {...field} type="radio" id={'high'} name={'priority'} value={'high'} />
+                            <label tabIndex={0} className={cn(styles['label'], styles['label__high'])} htmlFor={'high'}>
+                                <div className={cn(styles['dote'], styles['dote__high'])} />
+                                <span>High</span>
+                            </label>
                         </div>
-                        <CustomInput
-                            register={register}
-                            inputName={'deadline'}
-                            type={'date'}
-                            className={styles["deadline-input"]}
-                            required
-                        />
-                    </div>
-                </div>
+                    )}
+                />
             </div>
 
-            <div className={styles["files-block-container"]}>
-                {!files?.length && <CustomInput
-                    type={'file'}
-                    register={register}
-                    labelClassName={styles["label-file"]}
-                    inputName={'files'}
-                >
-                    <SvgIcons svgIcon={"upload"} className={styles["upload-icon"]} />
-                    Upload file
-                </CustomInput>}
+            <div className={styles['dates']}>
+                <Controller control={control} name={name.beginTime} render={({ field }) => (
+                    <label>
+                        Begin date
+                        <input type="date" {...field} />
+                    </label>
+                )} />
 
-                <ul className={styles["upload-file-wrapper"]}>
-                    {files && files.map((file: IFile) => (
-                        <li key={`${file.name}_${file.size}`} className={styles["uploaded-file"]}>
-                            <span className={styles["uploaded-file-name"]}>
-                                {file.name}
-                            </span>
-                            <Button className='' handleClick={() => handleDeleteFile(file.name)}>
-                                <SvgIcons svgIcon={"trash"} className={styles["delete-icon"]} />
+                <Controller control={control} name={name.dueTime} render={({ field }) => (
+                    <label>
+                        Due date
+                        <input type="date" {...field} />
+                    </label>
+                )} />
+            </div>
+
+            <div className={styles['files']}>
+                <Controller control={control} name={name.files} render={({ field }) => (
+                    <div tabIndex={0} className={styles['file-controller']}>
+                        <input type="file" id="file" onChange={(event) => { field.onChange(event.target.files) }} multiple />
+                        <label htmlFor="file">
+                            <div>
+                                <SvgIcons svgIcon={'upload'} />
+                                <p>Drag and Drop a file here or click</p>
+                            </div>
+                        </label>
+                    </div>
+                )} />
+
+                {Boolean(files.length) && <ul className={styles['files-list']}>
+                    {files.map((file) => (
+                        <li key={`${file.size}_${file.size}`} className={styles['file-item']}>
+                            <p>{file.name}</p>
+                            <Button className={styles['button-delete']} onClick={() => handleDeleteFile(file.name)}>
+                                <SvgIcons svgIcon={'trash'} />
                             </Button>
                         </li>
-                    ))
-                        // : <li className={styles["uploaded-file-name"]}>choose file</li>
-                    }
-                </ul>
-
+                    ))}
+                </ul>}
             </div>
-        </div>
+
+        </>
     );
 }
 

@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import styles from './ProjectPage.module.scss'
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/useStore';
-import { deleteProject, editProject } from '../../store/slices/projectsSlice';
+import { deleteProject, editProject, projectsActions } from '../../store/slices/projectsSlice';
 import ProjectNav from '../../components/ProjectNav/ProjectNav';
 import Button from '../../components/UI/Button/Button';
 import SvgIcons from '../../components/UI/Svg/SvgIcons';
@@ -24,6 +24,7 @@ const ProjectPage = () => {
     useEffect(() => {
         if (project) {
             setTitle(project.title)
+            dispatch(projectsActions.setCurrentProject(project))
         }
     }, [project])
 

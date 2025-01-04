@@ -5,19 +5,19 @@ interface IModalContext {
     isModalOpen: boolean,
     handleOpenModal: () => void,
     handleCloseModal: () => void,
-    modalParams: { type: 'project' | 'column' | 'task', title: string } | null,
-    handleModalParams: (params: { type: 'project' | 'column' | 'task', title: string }) => void
+    modalParams: { formType: 'project' | 'column' | 'task', title: string } | null,
+    handleModalParams: (params: { formType: 'project' | 'column' | 'task', title: string }) => void
 }
 
 const ModalContext = createContext<IModalContext | null>(null);
 
 const ModalProvider = ({ children }: IModalProvider) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [modalParams, setModalParams] = useState<{ type: 'project' | 'column' | 'task', title: string } | null>(null)
+    const [modalParams, setModalParams] = useState<{ formType: 'project' | 'column' | 'task', title: string } | null>(null)
 
     const handleOpenModal = () => setIsModalOpen(true);
     const handleCloseModal = () => setIsModalOpen(false);
-    const handleModalParams = (params: { type: 'project' | 'column' | 'task', title: string }) => {
+    const handleModalParams = (params: { formType: 'project' | 'column' | 'task', title: string }) => {
         setModalParams(params)
     }
 

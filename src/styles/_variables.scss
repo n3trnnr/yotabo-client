@@ -11,9 +11,13 @@ $grey-3: #9C9C9C;
 $grey-4: #464646;
 $blue-1: #5E9EFF;
 $blue-2: #7EB1FF;
-$red-1: #f43f5e;
-$red-2: #FF7474;
-$red-3: #f43f5d19;
+$rose-1: #f43f5e;
+$rose-2: #FF7474;
+$rose-3: #f43f5d19;
+$red-1: #ef4444;
+$red-2: #ef444474;
+$green: #84cc16;
+$yellow: #eab308;
 
 %flex-center {
     display: flex;
@@ -112,13 +116,13 @@ $red-3: #f43f5d19;
     color: $grey-3;
 
     path {
-        fill: $red-2;
+        fill: $rose-2;
     }
 
     &:hover {
         border: none;
-        background: $red-3;
-        color: $red-1;
+        background: $rose-3;
+        color: $rose-1;
         @extend %svg-red;
     }
 }

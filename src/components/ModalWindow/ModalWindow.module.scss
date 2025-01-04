@@ -9,6 +9,7 @@
     @extend %flex-center;
 
     .modal-window {
+        width: 560px;
 
         &__inner {
             padding: 30px;
@@ -32,9 +33,6 @@
     }
 
     .form {
-        display: flex;
-        flex-direction: column;
-        row-gap: 30px;
 
         .form__items {
             display: flex;
@@ -45,38 +43,12 @@
                 color: variables.$grey-4;
                 @extend %font-18px-medium;
             }
-
-            .input-title {
-                height: 40px;
-                border-radius: 10px;
-                border: 1px solid variables.$grey-2;
-                padding: 10px;
-                @extend %font-16px-medium;
-
-                &:focus {
-                    @extend %focus;
-                }
-            }
-
-            .textarea-description {
-                width: 514px;
-                height: 135px;
-                border-radius: variables.$radius-10;
-                border-color: variables.$grey-2;
-                padding: 10px;
-                resize: none;
-                font-family: "inter", "sans-serif";
-                @extend %font-16px-medium;
-
-                &:focus {
-                    @extend %focus;
-                }
-            }
         }
     }
 
     .form__buttons {
         width: 100%;
+        margin-top: 30px;
         display: flex;
         justify-content: space-between;
         column-gap: 30px;

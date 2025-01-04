@@ -1,4 +1,4 @@
-import { IAuthInputs } from "../../components/AuthModalWindow/AuthModalWindow";
+import { IAuthInputs } from "../../components/AuthComponent/AuthComponent";
 import { TId } from "../global";
 
 export interface IUserFormData extends IAuthInputs { };

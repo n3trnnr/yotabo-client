@@ -21,7 +21,9 @@ const Column = ({ id, children, title, handleCreateTask, handleEditColumnTitle, 
     }
 
     const handleBlur = () => {
-        handleEditColumnTitle(columnTitle, id)
+        if (title !== columnTitle) {
+            handleEditColumnTitle(columnTitle, id)
+        }
         setEditMode(false)
     }
 

@@ -1,8 +1,16 @@
-import { UseFormRegister } from "react-hook-form";
-import { IFile, IModalWindowInputs } from "../ModalWindow";
+import { Control, FieldValues, Path } from "react-hook-form";
+import { IFile } from "../ModalWindow";
 
-export interface ITaskModal {
-    register: UseFormRegister<IModalWindowInputs>,
-    files?: IFile[],
-    handleDeleteFile: (id: string) => void
+export interface ITaskModal<T extends FieldValues> {
+    control: Control<T>,
+    name: {
+        title: Path<T>,
+        description: Path<T>,
+        priority: Path<T>,
+        dueTime: Path<T>,
+        beginTime: Path<T>,
+        files: Path<T>,
+    }
+    files: IFile[],
+    handleDeleteFile: (name: string) => void
 }
