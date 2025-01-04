@@ -1,8 +1,9 @@
 import { RootState } from "../store";
 import { createAsyncThunk, createSlice, UnknownAction } from "@reduxjs/toolkit";
-import { IColumn, IColumnFormData, IColumnResponse, IColumnsResponse } from "../../interfaces/store/boardSlice";
+import { IColumn, IColumnResponse, IColumnsResponse } from "../../interfaces/store/boardSlice";
 import { PREFIX } from "../../constants/constants";
 import { TId } from "../../interfaces/global";
+import { IColumnFormData, TModalWindowFormData } from "../../components/ModalWindow/TModalWindow";
 
 interface IBoardSlice {
     columns: IColumn[],
@@ -45,10 +46,13 @@ export const postColumnData = createAsyncThunk<IColumnsResponse, IColumnFormData
         const response = await fetch(`${PREFIX}/api/columns`, {
             method: 'POST',
             headers: {
+                'Content-Type': 'application/json',
                 Authorization: `Bearer ${jwt}`
             },
             body: JSON.stringify({
-                data: { ...formData, project: projectId }
+                data: {
+                    ...formData, project: projectId
+                }
             })
         })
 

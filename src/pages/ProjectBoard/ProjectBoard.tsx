@@ -29,7 +29,7 @@ const ProjectBoard = () => {
 
     const handleCreateColumn = () => {
         handleOpenModal()
-        handleModalParams({ type: 'column', title: 'Create column' })
+        handleModalParams({ formType: 'column', title: 'Create column' })
     }
 
     const handleEditColumnTitle = (title: string, columnId: TId) => {
@@ -42,7 +42,7 @@ const ProjectBoard = () => {
 
     const handleCreateTask = () => {
         handleOpenModal()
-        handleModalParams({ type: 'task', title: 'Create task' })
+        handleModalParams({ formType: 'task', title: 'Create task' })
     }
 
     return (

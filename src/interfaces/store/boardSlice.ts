@@ -6,7 +6,7 @@ export interface ITaskFormData extends IModalWindowFormData {
 }
 
 export interface IColumnFormData extends IModalWindowFormData {
-    projectId: TId | null
+    // projectId: TId | null
 }
 
 export interface ITask {

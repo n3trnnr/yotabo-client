@@ -4,48 +4,56 @@ import cn from 'classnames';
 import Button from "../UI/Button/Button";
 import SvgIcons from "../UI/Svg/SvgIcons";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { IModalWindow } from "./ModalWindow.props";
 import { useAppDispatch } from "../../hooks/useStore";
 import { postProjectData } from "../../store/slices/projectsSlice";
-// import { postTaskData } from "../../store/slices/taskSlice";
 import { postColumnData } from "../../store/slices/boardSlice";
 import { useModal } from "../../hoc/Contexts/ModalWindow/ModalProvider";
 import ProjectModal from "./ProjectModal/ProjectModal";
 import ColumnModal from "./ColumnModal/ColumnModal";
+import { IColumnFormData, IProjectFormData, ITaskFormData, TModalWindowFormData } from "./TModalWindow";
 import TaskModal from "./TaskModal/TaskModal";
-
-export interface IModalWindowFormData {
-    title: string,
-    description: string,
-    priority?: 'low' | 'med' | 'high',
-    columnType?: 'default' | 'to_do' | 'done',
-    deadline?: string,
-    files?: File[]
-}
 
 export interface IFile {
     name: string,
     size: number,
 }
 
-const ModalWindow = ({ type, title }: IModalWindow) => {
-
+const ModalWindow = () => {
     const dispatch = useAppDispatch()
+    const { isModalOpen, modalParams, handleCloseModal } = useModal();
     const [files, setFiles] = useState<IFile[]>([])
-    const { isModalOpen, handleCloseModal } = useModal();
+
+    const getDefaultValues = () => {
+        if (modalParams?.formType === 'project') {
+            return {
+                title: '',
+                description: '',
+            }
+        } else if (modalParams?.formType === 'column') {
+            return {
+                title: '',
+            }
+        } else {
+            return {
+                title: '',
+                description: '',
+                priority: 'low',
+                due_time: new Date(),
+                begin_time: new Date(),
+                files: []
+            }
+        }
+    }
 
     const { control, handleSubmit, watch, reset, // formState: { errors, isValid }
-    } = useForm<IModalWindowFormData>({
+    } = useForm<TModalWindowFormData>({
         mode: 'onChange',
-        defaultValues: {
-            title: '',
-            description: '',
-            // columnType: 'default'
-        }
+        defaultValues: getDefaultValues()
     })
 
     useEffect(() => {
-        const subscription = watch((data) => {
+        const subscription = watch((formData) => {
+            const data = formData as ITaskFormData
             if (data.files) {
                 const file = data.files[0]
                 if (file && files.length === 0) {
@@ -62,16 +70,17 @@ const ModalWindow = ({ type, title }: IModalWindow) => {
         setFiles([...filteredFiles])
     }
 
-    const submit: SubmitHandler<IModalWindowFormData> = (data) => {
+    const submit: SubmitHandler<TModalWindowFormData> = (data) => {
         console.log('data', data);
 
-        if (type === 'project') {
-            postProjectFormData(data)
-        } else if (type === 'task') {
-            postTaskFormData(data)
-        } else if (type === 'column') {
-
+        if (modalParams?.formType === 'project') {
+            postProjectFormData(data as IProjectFormData)
+        } else if (modalParams?.formType === 'column') {
+            postColumnFormData(data as IColumnFormData)
+        } else if (modalParams?.formType === 'task') {
+            postTaskFormData(data as ITaskFormData)
         }
+
         reset()
         handleCloseModal()
     }
@@ -81,19 +90,19 @@ const ModalWindow = ({ type, title }: IModalWindow) => {
         handleCloseModal()
     }
 
-    const postProjectFormData = (data: IModalWindowFormData) => {
+    const postProjectFormData = (data: IProjectFormData) => {
         dispatch(postProjectData(data))
     }
 
-    const postColumnFormData = (data: IModalWindowFormData) => {
-        // dispatch(postColumnData)
+    const postColumnFormData = (data: IColumnFormData) => {
+        dispatch(postColumnData(data))
     }
 
-    const postTaskFormData = (data: IModalWindowFormData) => {
+    const postTaskFormData = (data: ITaskFormData) => {
         // dispatch(postTaskData(data))
     }
 
-    if (!isModalOpen) return;
+    if (!isModalOpen) return null;
 
     return (
         <div className={styles['overlay']}>
@@ -102,18 +111,18 @@ const ModalWindow = ({ type, title }: IModalWindow) => {
                     <form onSubmit={handleSubmit(submit)} className={styles["form"]}>
 
                         <div className={styles['form__items']}>
-                            <div className={styles.title}>{title}</div>
+                            <div className={styles.title}>{modalParams?.title}</div>
 
-                            {/* <ProjectModal control={control} name={{ title: 'title', description: 'description' }} /> */}
-                            <ColumnModal control={control} name={{ title: 'title', columnType: 'columnType' }} />
-                            {/* 
-                            {type === "task" &&
-                                <TaskModal
-                                    register={register}
-                                    files={files}
-                                    handleDeleteFile={handleDeleteFile}
-                                />
-                            } */}
+                            {modalParams?.formType === 'project' && <ProjectModal control={control} name={{ title: 'title', description: 'description' }} />}
+                            {modalParams?.formType === 'column' && <ColumnModal control={control} name={{ title: 'title' }} />}
+                            {modalParams?.formType === 'task' && <TaskModal control={control} name={{
+                                title: 'title',
+                                description: 'description',
+                                priority: 'priority',
+                                due_time: 'due_time',
+                                begin_time: 'begin_time',
+                                files: 'files'
+                            }} />}
                         </div>
 
                         <div className={styles["form__buttons"]}>

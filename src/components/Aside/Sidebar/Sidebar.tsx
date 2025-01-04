@@ -28,7 +28,7 @@ const Sidebar = () => {
 
     const handleOpenModalWindow = () => {
         handleOpenModal()
-        handleModalParams({ type: 'project', title: 'Create project' })
+        handleModalParams({ formType: 'project', title: 'Create project' })
     }
 
     return (

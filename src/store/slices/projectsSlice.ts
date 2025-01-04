@@ -2,9 +2,10 @@ import { IProject } from './../../interfaces/store/projectsSlice';
 import { createAsyncThunk, createSlice, PayloadAction, UnknownAction } from "@reduxjs/toolkit";
 import { PREFIX } from "../../constants/constants";
 import { RootState } from "../store";
-import { IProjectFormData, IProjectResponse, IProjectsResponse } from "../../interfaces/store/projectsSlice";
+import { IProjectResponse, IProjectsResponse } from "../../interfaces/store/projectsSlice";
 import { TId } from "../../interfaces/global";
 import { hex } from "../../helpers/hex";
+import { IProjectFormData } from '../../components/ModalWindow/TModalWindow';
 
 interface IProjectsSlice {
     project: IProject | null,

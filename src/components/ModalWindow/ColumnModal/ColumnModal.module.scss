@@ -5,6 +5,7 @@
     height: 40px;
     border-radius: 10px;
     text-align: left;
+    background: variables.$grey-1;
     border: 1px solid variables.$grey-2;
     padding-inline: 10px;
     @extend %font-16px-medium;
@@ -13,47 +14,6 @@
         @extend %focus;
     }
 }
-
-.radios {
-    display: flex;
-    column-gap: 20px;
-    align-items: center;
-
-
-
-    .label-radio {
-        display: flex;
-        align-items: center;
-        padding-inline: 10px;
-        height: 40px;
-        border-radius: variables.$radius-10;
-        color: variables.$white;
-        background: variables.$blue-1;
-    }
-
-
-    .input-radio {
-
-        &:checked {
-            background-color: variables.$blue-2 !important;
-        }
-
-        &:checked+span {
-            color: variables.$grey-4;
-        }
-
-        &::before {
-            content: '';
-            visibility: visible;
-            min-width: 20px;
-            min-height: 20px;
-            border-radius: 100%;
-            background: rgb(247, 246, 246);
-        }
-    }
-}
-
-
 
 .error-message {
     margin: 5px 0 0 15px;

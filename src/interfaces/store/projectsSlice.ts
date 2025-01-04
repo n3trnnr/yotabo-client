@@ -1,9 +1,4 @@
-import { IModalWindowFormData } from "../../components/ModalWindow/ModalWindow"
 import { TId } from "../global"
-
-export interface IProjectFormData extends IModalWindowFormData {
-    user?: TId
-}
 
 export interface IProject {
     id: TId,

@@ -1,33 +1,36 @@
-import { FieldValues } from "react-hook-form";
+import { Controller, FieldValues } from "react-hook-form";
 import { IProjectModal } from "./ProjectModal.props";
-import CustomInput from "../../UI/CustomInput/CustomInput";
 import styles from './ProjectModal.module.scss'
 
 const ProjectModal = <T extends FieldValues>({ control, name }: IProjectModal<T>) => {
     return (
         <>
-            <CustomInput
-                type={'text'}
+            <Controller
                 control={control}
-                className={styles["input-title"]}
-                errorClassName={styles['error-message']}
                 name={name.title}
-                placeHolder={'Title'}
                 rules={{
                     required: { value: true, message: 'Title is required' },
                 }}
+                render={({ field, fieldState: { error } }) => (
+                    <label className={styles['']}>
+                        <input className={styles["input-title"]} placeholder={'Title'} {...field} />
+                        {error && <div className={styles['error-message']}>{error.message}</div>}
+                    </label>
+                )}
             />
 
-            <CustomInput
-                type={'textaria'}
+            <Controller
                 control={control}
-                className={styles['textarea-description']}
-                errorClassName={styles['error-message']}
                 name={name.description}
-                placeHolder={'Description'}
                 rules={{
                     required: { value: true, message: 'Description is required' }
                 }}
+                render={({ field, fieldState: { error } }) => (
+                    <label className={''}>
+                        <textarea className={styles['textarea-description']} {...field} placeholder={'Description'} />
+                        {error && <div className={styles['error-message']}>{error.message}</div>}
+                    </label>
+                )}
             />
         </>
     );

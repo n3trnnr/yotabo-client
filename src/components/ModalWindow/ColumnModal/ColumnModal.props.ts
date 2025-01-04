@@ -4,6 +4,5 @@ export interface IColumnModal<T extends FieldValues> {
     control: Control<T>,
     name: {
         title: Path<T>,
-        columnType: Path<T>
     }
 }
