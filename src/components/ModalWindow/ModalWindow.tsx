@@ -38,9 +38,9 @@ const ModalWindow = () => {
                 title: '',
                 description: '',
                 priority: 'low',
-                due_time: new Date(),
-                begin_time: new Date(),
-                files: []
+                dueTime: '',
+                beginTime: '',
+                files: null
             }
         }
     }
@@ -52,18 +52,26 @@ const ModalWindow = () => {
     })
 
     useEffect(() => {
-        const subscription = watch((formData) => {
-            const data = formData as ITaskFormData
-            if (data.files) {
-                const file = data.files[0]
-                if (file && files.length === 0) {
-                    setFiles([...files, { name: file?.name, size: file?.size }])
+        if (modalParams?.formType === 'task') {
+            const subscription = watch((formData) => {
+                const data = formData as ITaskFormData
+                console.log(data)
+                if (data.files) {
+                    const file = data.files[0];
+                    if (file) {
+                        setFiles((prevFiles) => {
+                            if (prevFiles.findIndex((f) => f.name === file.name) === -1) {
+                                return [...prevFiles, { name: file.name, size: file.size }];
+                            }
+                            return prevFiles;
+                        });
+                    }
                 }
-            }
-        })
+            })
 
-        return () => subscription.unsubscribe()
-    }, [watch, files])
+            return () => subscription.unsubscribe()
+        }
+    }, [watch, modalParams, files])
 
     const handleDeleteFile = (name: string) => {
         const filteredFiles = files.filter((file: IFile) => file.name !== name)
@@ -87,6 +95,7 @@ const ModalWindow = () => {
 
     const closeModalWindow = () => {
         reset()
+        setFiles([])
         handleCloseModal()
     }
 
@@ -115,14 +124,18 @@ const ModalWindow = () => {
 
                             {modalParams?.formType === 'project' && <ProjectModal control={control} name={{ title: 'title', description: 'description' }} />}
                             {modalParams?.formType === 'column' && <ColumnModal control={control} name={{ title: 'title' }} />}
-                            {modalParams?.formType === 'task' && <TaskModal control={control} name={{
-                                title: 'title',
-                                description: 'description',
-                                priority: 'priority',
-                                due_time: 'due_time',
-                                begin_time: 'begin_time',
-                                files: 'files'
-                            }} />}
+                            {modalParams?.formType === 'task' && <TaskModal
+                                handleDeleteFile={handleDeleteFile}
+                                files={files}
+                                control={control}
+                                name={{
+                                    title: 'title',
+                                    description: 'description',
+                                    priority: 'priority',
+                                    dueTime: 'dueTime',
+                                    beginTime: 'beginTime',
+                                    files: 'files'
+                                }} />}
                         </div>
 
                         <div className={styles["form__buttons"]}>

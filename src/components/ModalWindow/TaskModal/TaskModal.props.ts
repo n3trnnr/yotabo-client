@@ -1,4 +1,5 @@
 import { Control, FieldValues, Path } from "react-hook-form";
+import { IFile } from "../ModalWindow";
 
 export interface ITaskModal<T extends FieldValues> {
     control: Control<T>,
@@ -6,8 +7,10 @@ export interface ITaskModal<T extends FieldValues> {
         title: Path<T>,
         description: Path<T>,
         priority: Path<T>,
-        due_time: Path<T>,
-        begin_time: Path<T>,
-        files: Path<T>
+        dueTime: Path<T>,
+        beginTime: Path<T>,
+        files: Path<T>,
     }
+    files: IFile[],
+    handleDeleteFile: (name: string) => void
 }
