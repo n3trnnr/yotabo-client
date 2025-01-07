@@ -1,0 +1,92 @@
+@use '../../styles/variables';
+
+.column-form {
+    min-height: 100%;
+
+    &__inner {
+        width: 320px;
+        height: calc(100% - 55px);
+
+        &:hover>.form-header {
+            border-color: transparent;
+        }
+
+        &:hover>.form-header>.button {
+            background: variables.$blue-1;
+            transition: background-color 200ms ease-in;
+
+            &>:first-child {
+                path {
+                    fill: variables.$white;
+                    transition: fill 200ms ease-in;
+                }
+            }
+
+            &>:last-child {
+                color: variables.$white;
+                transition: color 200ms ease-in;
+            }
+        }
+
+        &:hover>.plug {
+            background: variables.$grey-1;
+            border-color: transparent;
+            transition: background-color 200ms ease-in;
+        }
+
+        .form-header {
+            width: 100%;
+            height: 40px;
+            border: 1px solid variables.$grey-2;
+            border-radius: variables.$radius-10;
+
+
+            .button {
+                line-height: 40px;
+                @extend %flex-center, %font-16px-medium;
+                column-gap: 10px;
+                border-radius: variables.$radius-10;
+                cursor: pointer;
+
+                &>:first-child {
+                    path {
+                        fill: variables.$grey-3;
+                    }
+                }
+
+                &>:last-child {
+                    color: variables.$grey-3;
+                }
+            }
+
+            .label-title>.input {
+                width: 100%;
+                height: 100%;
+                padding-inline: 10px;
+                border-radius: variables.$radius-10;
+                outline-color: variables.$blue-2;
+                color: variables.$grey-4;
+                @extend %font-18px-medium;
+            }
+
+        }
+
+        .plug {
+            margin-top: 15px;
+            width: 100%;
+            // height: 222px;
+            min-height: 100%;
+            border: 1px solid variables.$grey-2;
+            border-radius: variables.$radius-10;
+            cursor: pointer;
+        }
+    }
+
+
+}
+
+.error-message {
+    margin: 5px 0 0 15px;
+    color: variables.$red-1;
+    @extend %font-14px-medium;
+}

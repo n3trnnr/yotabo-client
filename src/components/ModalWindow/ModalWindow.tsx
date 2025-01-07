@@ -80,7 +80,7 @@ const ModalWindow = () => {
         })
     }
 
-    const submit: SubmitHandler<TModalWindowFormData> = (data) => {
+    const onSubmit: SubmitHandler<TModalWindowFormData> = (data) => {
         if (modalParams?.formType === 'project') {
             postProjectFormData(data as IProjectFormData)
         } else if (modalParams?.formType === 'task') {
@@ -113,7 +113,7 @@ const ModalWindow = () => {
         <div className={styles['overlay']}>
             <div className={styles['modal-window']}>
                 <div className={styles["modal-window__inner"]}>
-                    <form onSubmit={handleSubmit(submit)} className={styles["form"]}>
+                    <form onSubmit={handleSubmit(onSubmit)} className={styles["form"]}>
 
                         <div className={styles['form__items']}>
                             <div className={styles.title}>{modalParams?.title}</div>

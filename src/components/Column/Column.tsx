@@ -57,7 +57,7 @@ const Column = ({ id, children, title, handleCreateTask, handleEditColumnTitle, 
                     {children}
                 </div>
 
-                <Button onClick={handleCreateTask} className={styles['button-add']} title={'Add Task'}>
+                <Button onClick={handleCreateTask} className={styles['button-add']} title={'Add task'}>
                     <SvgIcons svgIcon={'add'} />
                 </Button>
             </div>

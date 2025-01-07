@@ -8,7 +8,6 @@
 
     .board-header {
         display: flex;
-        justify-content: space-between;
         align-items: center;
         column-gap: 20px;
 
@@ -20,11 +19,10 @@
                 @extend %button-rectangle, %button-grey;
             }
 
-            .button-add {
-                @extend %button-rectangle, %button-blue;
+            .button-files {
+                @extend %button-rectangle, %button-grey;
             }
         }
-
     }
 
     .columns {

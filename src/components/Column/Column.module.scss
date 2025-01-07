@@ -82,5 +82,12 @@
         fill: variables.$grey-3;
     }
 
-    @extend %button-rectangle, %button-blue;
+    &:hover,
+    &:hover>:first-child>path {
+        color: variables.$white;
+        background: variables.$blue-1;
+        fill: variables.$white;
+    }
+
+    @extend %button-rectangle;
 }

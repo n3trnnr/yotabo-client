@@ -11,6 +11,7 @@ import { TId } from '../../interfaces/global';
 import { deleteColumn, editColumn, getColumnsData } from '../../store/slices/boardSlice';
 import { useOutletContext } from 'react-router-dom';
 import { IProject } from '../../interfaces/store/projectsSlice';
+import ColumnForm from '../../components/ColumnForm/ColumnForm';
 
 const ProjectBoard = () => {
 
@@ -26,11 +27,6 @@ const ProjectBoard = () => {
             dispatch(getColumnsData(project.documentId))
         }
     }, [project])
-
-    const handleCreateColumn = () => {
-        handleOpenModal()
-        handleModalParams({ formType: 'column', title: 'Create column' })
-    }
 
     const handleEditColumnTitle = (title: string, columnId: TId) => {
         dispatch(editColumn({ field: 'title', value: title, id: columnId }))
@@ -58,8 +54,10 @@ const ProjectBoard = () => {
                         </>
                     </Button>
 
-                    <Button onClick={handleCreateColumn} className={styles['button-add']} title={'Add Column'}>
-                        <SvgIcons svgIcon={'add'} />
+                    <Button className={styles['button-files']}>
+                        <>
+                            <SvgIcons svgIcon={'file'} /> <span>Files</span>
+                        </>
                     </Button>
                 </div>
             </div>
@@ -78,6 +76,7 @@ const ProjectBoard = () => {
                             <TaskCard />
                         </Column>
                     ))}
+                    <ColumnForm />
                 </div>
             </div>
 
