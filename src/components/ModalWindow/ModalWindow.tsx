@@ -6,32 +6,21 @@ import SvgIcons from "../UI/Svg/SvgIcons";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useAppDispatch } from "../../hooks/useStore";
 import { postProjectData } from "../../store/slices/projectsSlice";
-import { postColumnData } from "../../store/slices/boardSlice";
 import { useModal } from "../../hoc/Contexts/ModalWindow/ModalProvider";
 import ProjectModal from "./ProjectModal/ProjectModal";
-import ColumnModal from "./ColumnModal/ColumnModal";
-import { IColumnFormData, IProjectFormData, ITaskFormData, TModalWindowFormData } from "./TModalWindow";
+import { IProjectFormData, ITaskFormData, TModalWindowFormData } from "./TModalWindow";
 import TaskModal from "./TaskModal/TaskModal";
-
-export interface IFile {
-    name: string,
-    size: number,
-}
 
 const ModalWindow = () => {
     const dispatch = useAppDispatch()
     const { isModalOpen, modalParams, handleCloseModal } = useModal();
-    const [files, setFiles] = useState<IFile[]>([])
+    const [files, setFiles] = useState<File[]>([])
 
     const getDefaultValues = () => {
         if (modalParams?.formType === 'project') {
             return {
                 title: '',
                 description: '',
-            }
-        } else if (modalParams?.formType === 'column') {
-            return {
-                title: '',
             }
         } else {
             return {
@@ -55,13 +44,12 @@ const ModalWindow = () => {
         if (modalParams?.formType === 'task') {
             const subscription = watch((formData) => {
                 const data = formData as ITaskFormData
-                console.log(data)
-                if (data.files) {
+                if (data.files && data.files.length > 0) {
                     const file = data.files[0];
                     if (file) {
                         setFiles((prevFiles) => {
                             if (prevFiles.findIndex((f) => f.name === file.name) === -1) {
-                                return [...prevFiles, { name: file.name, size: file.size }];
+                                return [...prevFiles, file];
                             }
                             return prevFiles;
                         });
@@ -71,31 +59,36 @@ const ModalWindow = () => {
 
             return () => subscription.unsubscribe()
         }
-    }, [watch, modalParams, files])
+    }, [watch, modalParams])
+
+    const handleSetFiles = (newFiles: File[]) => {
+        if (newFiles) {
+            setFiles((prevState) => {
+                if (prevState.every((file) => newFiles.findIndex((newFile) => newFile.name === file.name))) {
+                    return [...prevState, ...newFiles]
+                }
+                return prevState
+            })
+        }
+    }
 
     const handleDeleteFile = (name: string) => {
-        const filteredFiles = files.filter((file: IFile) => file.name !== name)
-        setFiles([...filteredFiles])
+        setFiles((prevState) => {
+            return prevState.filter((file) => {
+                return file.name !== name
+            })
+        })
     }
 
     const submit: SubmitHandler<TModalWindowFormData> = (data) => {
-        console.log('data', data);
-
         if (modalParams?.formType === 'project') {
             postProjectFormData(data as IProjectFormData)
-        } else if (modalParams?.formType === 'column') {
-            postColumnFormData(data as IColumnFormData)
         } else if (modalParams?.formType === 'task') {
-            postTaskFormData(data as ITaskFormData)
+            postTaskFormData({ ...data, files: files } as ITaskFormData)
+            setFiles([])
         }
 
         reset()
-        handleCloseModal()
-    }
-
-    const closeModalWindow = () => {
-        reset()
-        setFiles([])
         handleCloseModal()
     }
 
@@ -103,12 +96,15 @@ const ModalWindow = () => {
         dispatch(postProjectData(data))
     }
 
-    const postColumnFormData = (data: IColumnFormData) => {
-        dispatch(postColumnData(data))
+    const postTaskFormData = (data: ITaskFormData) => {
+        console.log(data);
+        // dispatch(postTaskData(data))
     }
 
-    const postTaskFormData = (data: ITaskFormData) => {
-        // dispatch(postTaskData(data))
+    const closeModalWindow = () => {
+        reset()
+        setFiles([])
+        handleCloseModal()
     }
 
     if (!isModalOpen) return null;
@@ -123,8 +119,8 @@ const ModalWindow = () => {
                             <div className={styles.title}>{modalParams?.title}</div>
 
                             {modalParams?.formType === 'project' && <ProjectModal control={control} name={{ title: 'title', description: 'description' }} />}
-                            {modalParams?.formType === 'column' && <ColumnModal control={control} name={{ title: 'title' }} />}
                             {modalParams?.formType === 'task' && <TaskModal
+                                handleSetFiles={handleSetFiles}
                                 handleDeleteFile={handleDeleteFile}
                                 files={files}
                                 control={control}

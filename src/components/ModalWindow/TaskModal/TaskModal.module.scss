@@ -1,5 +1,11 @@
 @use '../../../styles/variables';
 
+.task-modal {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
 .input-title {
     width: 100%;
     height: 40px;
@@ -38,8 +44,7 @@
     @extend %font-14px-medium;
 }
 
-
-.priority {
+.priority-block {
     display: flex;
     align-items: center;
     column-gap: 15px;
@@ -56,70 +61,84 @@
         column-gap: 15px;
         align-items: center;
 
-        .label {
-            height: 40px;
-            padding-inline: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            column-gap: 5px;
-            border: 1px solid variables.$grey-2;
-            border-radius: variables.$radius-10;
-            color: variables.$grey-3;
-            cursor: pointer;
-            @extend %font-14px-medium;
-            outline-color: variables.$blue-2;
+        .radio {
+            position: relative;
 
-            &>.dote {
-                min-width: 15px;
-                min-height: 15px;
-                border-radius: 100%;
-                background: variables.$grey-2;
+            .input-radio {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
             }
-        }
 
-        .input-radio {
-            display: none;
-        }
+            .label-radio {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                cursor: pointer;
+            }
 
-        .input-radio:checked+.label {
-            border-color: transparent;
-            color: variables.$white;
-            transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
+            .radio-items {
+                height: 40px;
+                border: 1px solid variables.$grey-2;
+                border-radius: variables.$radius-10;
+                @extend %flex-center;
+                padding-inline: 10px;
+                column-gap: 5px;
 
-            &>.dote {
+                &>.dote {
+                    min-width: 15px;
+                    min-height: 15px;
+                    border-radius: 100%;
+                    background: variables.$grey-2;
+                    border-color: variables.$white;
+                }
+
+                &>span {
+                    color: variables.$grey-3;
+                }
+            }
+
+            .input-radio:focus~.radio-items {
+                @extend %focus;
+            }
+
+            .input-radio:checked~.radio-items {
+                border-color: transparent;
+                transition: background-color 200ms ease-in-out;
+
+                &>span {
+                    color: variables.$white;
+                    transition: color 200ms ease-in-out;
+                }
+            }
+
+            .input-radio:checked~.radio-items>.dote {
                 border: 4px solid variables.$white;
                 transition: background-color 200ms ease-in-out, border 200ms ease-in-out;
             }
-        }
 
-        .input-radio:checked+.label__low {
-            background: variables.$green;
-
-            &>.dote__low {
+            .input-radio:checked~.radio-items__low,
+            .input-radio:checked~.radio-items__low>.dote__low {
                 background: variables.$green;
             }
-        }
 
-        .input-radio:checked+.label__med {
-            background: variables.$yellow;
-
-            &>.dote__med {
+            .input-radio:checked~.radio-items__med,
+            .input-radio:checked~.radio-items__med>.dote__med {
                 background: variables.$yellow;
             }
-        }
 
-        .input-radio:checked+.label__high {
-            background: variables.$red-1;
-
-            &>.dote__high {
+            .input-radio:checked~.radio-items__high,
+            .input-radio:checked~.radio-items__high>.dote__high {
                 background: variables.$red-1;
             }
         }
     }
 }
 
-.dates {
+.dates-block {
     width: 100%;
     display: flex;
     column-gap: 30px;
@@ -127,7 +146,7 @@
     @extend %font-14px-medium;
     color: variables.$grey-4;
 
-    &>label {
+    &>.label-date {
         display: flex;
         align-items: center;
         column-gap: 15px;
@@ -152,44 +171,104 @@
     }
 }
 
-.files {
+.file-block {
     height: 150px;
     position: relative;
     overflow-x: hidden;
     overflow-y: auto;
 }
 
-.file-controller {
+.drop-files {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    background: variables.$grey-1;
+    border-radius: variables.$radius-10;
+    padding: 30px;
+
+    &__inner {
+        width: 100%;
+        height: 100%;
+        border: 2px dashed variables.$grey-3;
+        border-radius: variables.$radius-10;
+        @extend %flex-center;
+
+        .drop-files-title {
+            text-align: center;
+            color: variables.$grey-3;
+
+            &>:first-child {
+                height: 150px;
+                width: 150px;
+
+                path {
+                    stroke: variables.$grey-3;
+                    transition: stroke 150ms ease-in;
+                }
+            }
+
+            p {
+                @extend %font-24px-medium;
+            }
+        }
+    }
+}
+
+.file-input {
     position: relative;
     min-height: 150px;
     padding: 15px;
     background: variables.$grey-1;
     border-radius: variables.$radius-10;
-    border: 2px dashed variables.$grey-2;
-    cursor: pointer;
+    outline: 2px dashed variables.$grey-2;
+    outline-offset: -2px;
+    @extend %flex-center;
 
     &:hover {
-        opacity: 0.8;
-        outline: 2px solid variables.$blue-2;
-        outline-offset: -2px;
-        transition: opacity 150ms ease-in;
+        outline-color: variables.$grey-3;
+        transition: outline-color 150ms ease-in;
+
+        .file-input-title {
+            color: variables.$grey-4;
+            transition: color 150ms ease-in;
+
+            &>:first-child {
+                path {
+                    stroke: variables.$grey-4;
+                    transition: stroke 150ms ease-in;
+                }
+            }
+        }
     }
 
-    &>label {
+    .file-input-title {
+        @extend %flex-center;
+        flex-direction: column;
+        color: variables.$grey-3;
+        font-weight: 500;
+    }
+
+    & input[type=file] {
+        position: absolute;
+        opacity: 0;
+        z-index: -1;
+    }
+
+    .label-file {
         position: absolute;
         top: 0;
         right: 0;
         bottom: 0;
         left: 0;
         cursor: pointer;
-        text-align: center;
-        color: variables.$grey-3;
-        font-weight: 500;
-        @extend %flex-center;
+        border-radius: variables.$radius-10;
     }
 
-    &>input {
-        display: none;
+    input[type=file]:focus+.label-file {
+        @extend %focus;
     }
 }
 

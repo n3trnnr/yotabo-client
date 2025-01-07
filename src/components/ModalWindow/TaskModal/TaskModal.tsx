@@ -2,21 +2,40 @@ import styles from './TaskModal.module.scss'
 import { ITaskModal } from "./TaskModal.props";
 import { Controller, FieldValues } from 'react-hook-form';
 import cn from 'classnames'
-import { useEffect, useRef } from 'react';
+import { useState } from 'react';
 import SvgIcons from '../../UI/Svg/SvgIcons';
 import Button from '../../UI/Button/Button';
 
-const TaskModal = <T extends FieldValues>({ control, name, files, handleDeleteFile }: ITaskModal<T>) => {
-    const ref = useRef<HTMLInputElement>(null)
+const TaskModal = <T extends FieldValues>({ control, name, files, handleDeleteFile, handleSetFiles }: ITaskModal<T>) => {
 
-    useEffect(() => {
-        if (ref.current) {
-            ref.current.focus()
-        }
-    }, [])
+    const [over, setOver] = useState(false)
+    console.log(over);
+
+    const minDate = () => {
+        const date = new Date().toLocaleDateString()
+        const [day, month, year] = date.split('.')
+        return `${year}-${month}-${day}`;
+    }
+
+    const onDragover = (event: React.DragEvent) => {
+        event.preventDefault();
+        setOver(true)
+    }
+
+    const onDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
+        event.preventDefault()
+        setOver(false)
+    }
+
+    const onDrop = (event: React.DragEvent) => {
+        event.preventDefault();
+        const files = [...event.dataTransfer.files];
+        handleSetFiles(files)
+        setOver(false)
+    }
 
     return (
-        <>
+        <div className={styles['task-modal']} onDragOver={onDragover}>
             <Controller
                 control={control}
                 name={name.title}
@@ -45,67 +64,95 @@ const TaskModal = <T extends FieldValues>({ control, name, files, handleDeleteFi
                 )}
             />
 
-            <div className={styles['priority']}>
+            <div className={styles['priority-block']}>
                 <span>Priority</span>
                 <Controller
                     control={control}
                     name={name.priority}
                     render={({ field }) => (
                         <div className={styles['radios']}>
-                            <input className={styles['input-radio']} {...field} type="radio" id={'low'} name={'priority'} value={'low'} defaultChecked />
-                            <label tabIndex={0} className={cn(styles['label'], styles['label__low'])} htmlFor={'low'}>
-                                <div className={cn(styles['dote'], styles['dote__low'])} />
-                                <span>Low</span>
-                            </label>
+                            <div className={styles['radio']}>
+                                <input className={styles['input-radio']} {...field} type="radio" id={'low'} name={'priority'} value={'low'} defaultChecked />
+                                <label className={styles['label-radio']} htmlFor={'low'} />
+                                <div className={cn(styles['radio-items'], styles['radio-items__low'])}>
+                                    <div className={cn(styles['dote'], styles['dote__low'])} />
+                                    <span>Low</span>
+                                </div>
+                            </div>
 
-                            <input className={styles['input-radio']} {...field} type="radio" id={'med'} name={'priority'} value={'med'} />
-                            <label tabIndex={0} className={cn(styles['label'], styles['label__med'])} htmlFor={'med'}>
-                                <div className={cn(styles['dote'], styles['dote__med'])} />
-                                <span>Med</span>
-                            </label>
+                            <div className={styles['radio']}>
+                                <input className={styles['input-radio']} {...field} type="radio" id={'med'} name={'priority'} value={'med'} />
+                                <label className={cn(styles['label-radio'], styles['label__med'])} htmlFor={'med'} />
+                                <div className={cn(styles['radio-items'], styles['radio-items__med'])}>
+                                    <div className={cn(styles['dote'], styles['dote__med'])} />
+                                    <span>Med</span>
+                                </div>
+                            </div>
 
-                            <input className={styles['input-radio']} {...field} type="radio" id={'high'} name={'priority'} value={'high'} />
-                            <label tabIndex={0} className={cn(styles['label'], styles['label__high'])} htmlFor={'high'}>
-                                <div className={cn(styles['dote'], styles['dote__high'])} />
-                                <span>High</span>
-                            </label>
+                            <div className={styles['radio']}>
+                                <input className={styles['input-radio']} {...field} type="radio" id={'high'} name={'priority'} value={'high'} />
+                                <label className={cn(styles['label-radio'], styles['label__high'])} htmlFor={'high'} />
+                                <div className={cn(styles['radio-items'], styles['radio-items__high'])}>
+                                    <div className={cn(styles['dote'], styles['dote__high'])} />
+                                    <span>High</span>
+                                </div>
+                            </div>
                         </div>
                     )}
                 />
             </div>
 
-            <div className={styles['dates']}>
+            <div className={styles['dates-block']}>
                 <Controller control={control} name={name.beginTime} render={({ field }) => (
-                    <label>
+                    <label className={styles['label-date']}>
                         Begin date
-                        <input type="date" {...field} />
+                        <input type="date" min={minDate()} {...field} />
                     </label>
                 )} />
 
                 <Controller control={control} name={name.dueTime} render={({ field }) => (
-                    <label>
+                    <label className={styles['label-date']}>
                         Due date
-                        <input type="date" {...field} />
+                        <input type="date" min={minDate()} {...field} />
                     </label>
                 )} />
             </div>
 
-            <div className={styles['files']}>
+            {over && <div className={styles['drop-files']}
+                onDragOver={onDragover}
+                onDragLeave={onDragLeave}
+                onDrop={onDrop}
+            >
+                <div className={styles['drop-files__inner']}>
+                    <div className={styles['drop-files-title']}>
+                        <SvgIcons svgIcon={'upload'} />
+                        <p>Drag and Drop files here</p>
+                    </div>
+                </div>
+            </div>}
+
+            <div className={styles['file-block']}>
                 <Controller control={control} name={name.files} render={({ field }) => (
-                    <div tabIndex={0} className={styles['file-controller']}>
-                        <input type="file" id="file" onChange={(event) => { field.onChange(event.target.files) }} multiple />
-                        <label htmlFor="file">
-                            <div>
-                                <SvgIcons svgIcon={'upload'} />
-                                <p>Drag and Drop a file here or click</p>
-                            </div>
-                        </label>
+                    <div className={styles['file-input']}>
+                        <div className={styles['file-input-title']}>
+                            <SvgIcons svgIcon={'upload'} />
+                            <p>Drag and Drop files here or click</p>
+                        </div>
+
+                        <input type="file" id="file"
+                            onChange={(event) => {
+                                field.onChange(event.target.files);
+                                event.target.value = '';
+                            }}
+                            multiple
+                        />
+                        <label className={styles['label-file']} htmlFor="file" />
                     </div>
                 )} />
 
                 {Boolean(files.length) && <ul className={styles['files-list']}>
                     {files.map((file) => (
-                        <li key={`${file.size}_${file.size}`} className={styles['file-item']}>
+                        <li key={`${file.name}_${file.size}`} className={styles['file-item']}>
                             <p>{file.name}</p>
                             <Button className={styles['button-delete']} onClick={() => handleDeleteFile(file.name)}>
                                 <SvgIcons svgIcon={'trash'} />
@@ -115,7 +162,7 @@ const TaskModal = <T extends FieldValues>({ control, name, files, handleDeleteFi
                 </ul>}
             </div>
 
-        </>
+        </div>
     );
 }
 

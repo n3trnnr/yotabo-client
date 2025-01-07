@@ -62,6 +62,7 @@ $yellow: #eab308;
 
 %focus {
     outline: 2px solid $blue-2;
+    outline-offset: -2px;
 }
 
 %button-square-40 {
