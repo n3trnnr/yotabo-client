@@ -9,7 +9,7 @@ import Button from '../../UI/Button/Button';
 const TaskModal = <T extends FieldValues>({ control, name, files, handleDeleteFile, handleSetFiles }: ITaskModal<T>) => {
 
     const [over, setOver] = useState(false)
-    console.log(over);
+    // console.log(over);
 
     const minDate = () => {
         const date = new Date().toLocaleDateString()

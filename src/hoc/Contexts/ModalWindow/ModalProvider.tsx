@@ -1,23 +1,30 @@
 import { createContext, useContext, useState } from "react";
 import { IModalProvider } from "./ModalProvider.props";
+import { TId } from "../../../interfaces/global";
+
+interface IModalParams {
+    formType: 'project' | 'column' | 'task',
+    title: string,
+    id?: TId
+}
 
 interface IModalContext {
     isModalOpen: boolean,
     handleOpenModal: () => void,
     handleCloseModal: () => void,
-    modalParams: { formType: 'project' | 'column' | 'task', title: string } | null,
-    handleModalParams: (params: { formType: 'project' | 'column' | 'task', title: string }) => void
+    modalParams: IModalParams | null,
+    handleModalParams: (params: IModalParams) => void
 }
 
 const ModalContext = createContext<IModalContext | null>(null);
 
 const ModalProvider = ({ children }: IModalProvider) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [modalParams, setModalParams] = useState<{ formType: 'project' | 'column' | 'task', title: string } | null>(null)
+    const [modalParams, setModalParams] = useState<IModalParams | null>(null)
 
     const handleOpenModal = () => setIsModalOpen(true);
     const handleCloseModal = () => setIsModalOpen(false);
-    const handleModalParams = (params: { formType: 'project' | 'column' | 'task', title: string }) => {
+    const handleModalParams = (params: IModalParams) => {
         setModalParams(params)
     }
 

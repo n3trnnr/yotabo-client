@@ -12,12 +12,11 @@ import { deleteColumn, editColumn, getColumnsData } from '../../store/slices/boa
 import { useOutletContext } from 'react-router-dom';
 import { IProject } from '../../interfaces/store/projectsSlice';
 import ColumnForm from '../../components/ColumnForm/ColumnForm';
+import Loader from '../../components/Loader/Loader';
 
 const ProjectBoard = () => {
-
-    const columns = useAppSelector((state) => state.board.columns)
-
     const project = useOutletContext<IProject | null>();
+    const columns = useAppSelector((state) => state.board.columns)
 
     const dispatch = useAppDispatch();
     const { handleOpenModal, handleModalParams } = useModal();
@@ -33,17 +32,20 @@ const ProjectBoard = () => {
     }
 
     const handleDeleteColumn = (id: TId) => {
-        if (id) dispatch(deleteColumn(id))
+        if (id) {
+            dispatch(deleteColumn(id))
+        }
     }
 
-    const handleCreateTask = () => {
+    const handleCreateTask = (id: TId) => {
         handleOpenModal()
-        handleModalParams({ formType: 'task', title: 'Create task' })
+        handleModalParams({ formType: 'task', title: 'Create task', id: id })
     }
+
+    if (!project || !columns) return (<Loader />)
 
     return (
         <div className={styles['board-container']}>
-
             <div className={styles['board-header']}>
                 <ProgressBar progressPercentage={0} />
 
@@ -79,7 +81,6 @@ const ProjectBoard = () => {
                     <ColumnForm />
                 </div>
             </div>
-
         </div>
     );
 }

@@ -3,10 +3,10 @@ import { createAsyncThunk, createSlice, UnknownAction } from "@reduxjs/toolkit";
 import { IColumn, IColumnResponse, IColumnsResponse } from "../../interfaces/store/boardSlice";
 import { PREFIX } from "../../constants/constants";
 import { TId } from "../../interfaces/global";
-import { IColumnFormData, TModalWindowFormData } from "../../components/ModalWindow/TModalWindow";
+import { TModalWindowFormData } from "../../components/ModalWindow/TModalWindow";
 
 interface IBoardSlice {
-    columns: IColumn[],
+    columns: IColumn[] | null,
     status: string | null,
     error: string | null
 }
@@ -35,13 +35,17 @@ export const getColumnsData = createAsyncThunk<IColumnsResponse, TId, { rejectVa
     }
 )
 
-export const postColumnData = createAsyncThunk<IColumnsResponse, IColumnFormData, { rejectValue: string, state: RootState }>(
+export const postColumnData = createAsyncThunk<IColumnResponse, TModalWindowFormData, { rejectValue: string, state: RootState }>(
     'board/postColumnData',
     async (formData, { rejectWithValue, getState, dispatch }) => {
         const jwt = getState().user.jwt
         const projectId = getState().projects.project?.documentId
 
         dispatch(boardActions.resetStatus());
+
+        if (!formData.title.length) {
+            formData.title = 'Untitled column'
+        }
 
         const response = await fetch(`${PREFIX}/api/columns`, {
             method: 'POST',
@@ -61,7 +65,7 @@ export const postColumnData = createAsyncThunk<IColumnsResponse, IColumnFormData
             return rejectWithValue(`${response.status.toString()} - ${response.statusText} - ${errorData?.error?.message}`)
         }
 
-        const data = await response.json() as IColumnsResponse
+        const data = await response.json() as IColumnResponse
         return data
     }
 )
@@ -146,13 +150,23 @@ const boardSlice = createSlice({
                 state.columns = action.payload.data
             })
 
-            .addCase(editColumn.fulfilled, (state, action) => {
-                const index = state.columns.findIndex((column) => {
-                    column.documentId === action.payload.data.documentId
-                })
+            .addCase(postColumnData.fulfilled, (state, action) => {
+                console.log(action.payload);
 
-                if (index !== -1) {
-                    state.columns[index] = action.payload.data
+                if (action.payload && state.columns) {
+                    state.columns.push(action.payload.data)
+                }
+            })
+
+            .addCase(editColumn.fulfilled, (state, action) => {
+                if (state.columns) {
+                    const index = state.columns.findIndex((column) => {
+                        column.documentId === action.payload.data.documentId
+                    })
+
+                    if (index !== -1) {
+                        state.columns[index] = action.payload.data
+                    }
                 }
             })
 

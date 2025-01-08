@@ -72,13 +72,19 @@
         }
 
         .plug {
+            position: relative;
             margin-top: 15px;
             width: 100%;
-            // height: 222px;
             min-height: 100%;
             border: 1px solid variables.$grey-2;
             border-radius: variables.$radius-10;
             cursor: pointer;
+
+            &>:first-child {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+            }
         }
     }
 

@@ -1,13 +1,4 @@
 import { TId } from "../global"
-import { IModalWindowFormData } from '../../components/ModalWindow/ModalWindow';
-
-export interface ITaskFormData extends IModalWindowFormData {
-    columnId: TId
-}
-
-export interface IColumnFormData extends IModalWindowFormData {
-    // projectId: TId | null
-}
 
 export interface ITask {
     id: TId,

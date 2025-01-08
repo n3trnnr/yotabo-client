@@ -98,6 +98,7 @@ const ModalWindow = () => {
 
     const postTaskFormData = (data: ITaskFormData) => {
         console.log(data);
+        // console.log('modalParams-id', modalParams?.id)
         // dispatch(postTaskData(data))
     }
 
@@ -105,6 +106,14 @@ const ModalWindow = () => {
         reset()
         setFiles([])
         handleCloseModal()
+    }
+
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+        const key = event.key;
+
+        if (key === 'Escape') {
+            closeModalWindow()
+        }
     }
 
     if (!isModalOpen) return null;
