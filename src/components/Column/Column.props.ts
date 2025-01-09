@@ -1,10 +1,10 @@
 import { ReactNode } from "react";
 import { TId } from "../../interfaces/global";
+import { IColumn } from "../../interfaces/store/boardSlice";
 
-export interface IColumn {
-    id: TId,
+export interface IColumnProps {
+    column: IColumn,
     children: ReactNode,
-    title: string,
     handleCreateTask: (id: TId) => void,
     handleDeleteColumn: (id: TId) => void,
     handleEditColumnTitle: (title: string, columnId: TId) => void

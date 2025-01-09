@@ -6,49 +6,56 @@
         display: flex;
         flex-direction: column;
         width: 350px;
-        min-height: 212px;
-        max-height: 100%;
+        height: 100%;
         background: variables.$grey-1;
         border-radius: variables.$radius-10;
 
         .header {
+            position: relative;
             height: 40px;
             padding-inline: 15px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
             @extend %font-18px-medium;
             color: variables.$grey-4;
             user-select: none;
             // cursor: grab;
 
-            &>:first-child {
+            .header-bar {
                 display: flex;
                 align-items: center;
                 column-gap: 10px;
 
-                .column-icon {
-                    min-width: 20px;
-                    min-height: 20px;
-                    border-radius: 100%;
-                    background: #E67046;
-                    cursor: pointer;
+                .column-type-button {
+                    @extend %button-square-40;
                 }
 
-                // .tasks-count {}
-            }
+                .column-info {
+                    display: flex;
+                    align-items: baseline;
+                    column-gap: 10px;
 
-            // .title {}
+                    // .title {}
 
-            .title-input {
-                height: 28px;
-                min-width: 100px;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                padding-inline: 10px;
-                border-radius: 8px;
-                outline-color: variables.$blue-2;
-                @extend %font-18px-medium;
+                    .title-input {
+                        height: 28px;
+                        min-width: 100px;
+                        max-width: 150px;
+                        color: variables.$grey-4;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        padding-inline: 10px;
+                        border-radius: 8px;
+                        outline-color: variables.$blue-2;
+                        font-family: 'inter', sans-serif;
+                        @extend %font-18px-medium;
+                    }
+
+                    .tasks-count {
+                        color: variables.$grey-3;
+                        @extend %font-16px-regular;
+                    }
+                }
             }
 
             .button-delete {

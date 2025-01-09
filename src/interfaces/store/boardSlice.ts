@@ -8,10 +8,11 @@ export interface ITask {
     priority: 'low' | 'med' | 'high',
     createdAt: number,
     updatedAt: number
-    deadline: number,
+    dueDate: number,
+    beginDate: number,
     order: number,
     isOverdue: boolean,
-    file: File
+    files: File[]
 }
 
 export interface ITaskResponse {
@@ -39,7 +40,7 @@ export interface IColumn {
     createdAt: string,
     updatedAt: string,
     order: number,
-    tasks: { data: ITask[] }
+    tasks: ITask[]
 }
 
 export interface IColumnResponse {

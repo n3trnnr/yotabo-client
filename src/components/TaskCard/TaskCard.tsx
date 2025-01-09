@@ -2,11 +2,10 @@ import styles from './TaskCard.module.scss'
 import SvgIcons from "../UI/Svg/SvgIcons";
 import Button from "../UI/Button/Button";
 import { useState } from 'react';
+import { ITaskProps } from './TaskCard.props';
 
-const TaskCard = () => {
-
+const TaskCard = ({ task, handleDeleteTask }: ITaskProps) => {
     const [mouseIsOver, setMouseIsOver] = useState(false);
-
     return (
         <div className={styles["task-card"]}
             onMouseEnter={() => setMouseIsOver(true)}
@@ -15,22 +14,22 @@ const TaskCard = () => {
             <div className={styles['task-card__inner']}>
 
                 <div className={styles['task-info']}>
-                    <h3 className={styles.title}>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi voluptatibus ullam quaerat repellendus quia corrupti ut atque numquam, minus, cupiditate tempore, distinctio libero quasi aut similique eum corporis fuga perspiciatis!</h3>
-                    <p className={styles.description}>Lorem ipsum dolor sit amet.</p>
+                    <h3 className={styles.title}>{task.title}</h3>
+                    <p className={styles.description}>{task.description}.</p>
                 </div>
 
                 <div className={styles["info-bar"]}>
                     <div className={styles['info-bar__item']}>
-                        <div className={styles["priority-high"]}></div>
-                        <span>High</span>
+                        <div className={styles[`priority-${task.priority}`]} />
+                        <span>{task.priority}</span>
                     </div>
                     <div className={styles['info-bar__item']}>
                         <SvgIcons svgIcon={"inProgress"} className={styles["deadline-icon"]} />
-                        <span>Dec 24</span>
+                        <span>{new Date(task.dueDate).toLocaleDateString()}</span>
                     </div>
                     <div className={styles['info-bar__item']}>
                         <SvgIcons svgIcon={"file"} className={styles["files-icon"]} />
-                        <span>0</span>
+                        <span>{0}</span>
                     </div>
                 </div>
 

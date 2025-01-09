@@ -1,12 +1,12 @@
 import { RootState } from "../store";
 import { createAsyncThunk, createSlice, UnknownAction } from "@reduxjs/toolkit";
-import { IColumn, IColumnResponse, IColumnsResponse } from "../../interfaces/store/boardSlice";
+import { IColumn, IColumnResponse, IColumnsResponse, ITask } from "../../interfaces/store/boardSlice";
 import { PREFIX } from "../../constants/constants";
 import { TId } from "../../interfaces/global";
 import { TModalWindowFormData } from "../../components/ModalWindow/TModalWindow";
 
 interface IBoardSlice {
-    columns: IColumn[] | null,
+    columns: IColumn[],
     status: string | null,
     error: string | null
 }
@@ -38,13 +38,14 @@ export const getColumnsData = createAsyncThunk<IColumnsResponse, TId, { rejectVa
 export const postColumnData = createAsyncThunk<IColumnResponse, TModalWindowFormData, { rejectValue: string, state: RootState }>(
     'board/postColumnData',
     async (formData, { rejectWithValue, getState, dispatch }) => {
-        const jwt = getState().user.jwt
-        const projectId = getState().projects.project?.documentId
+        const jwt = getState().user.jwt;
+        const projectId = getState().projects.project?.documentId;
+        const order = getState().board.columns.length === 0 ? 0 : getState().board.columns.length
 
         dispatch(boardActions.resetStatus());
 
         if (!formData.title.length) {
-            formData.title = 'Untitled column'
+            formData.title = 'Untitled'
         }
 
         const response = await fetch(`${PREFIX}/api/columns`, {
@@ -55,7 +56,7 @@ export const postColumnData = createAsyncThunk<IColumnResponse, TModalWindowForm
             },
             body: JSON.stringify({
                 data: {
-                    ...formData, project: projectId
+                    ...formData, project: projectId, order
                 }
             })
         })
@@ -73,9 +74,7 @@ export const postColumnData = createAsyncThunk<IColumnResponse, TModalWindowForm
 export const editColumn = createAsyncThunk<IColumnResponse, { field: string, value: string, id: TId }, { rejectValue: string, state: RootState }>(
     'board/editColumn',
     async (updatedData, { rejectWithValue, getState, dispatch }) => {
-
         const jwt = getState().user.jwt;
-
         dispatch(boardActions.resetStatus());
 
         const response = await fetch(`${PREFIX}/api/columns/${updatedData.id}`, {
@@ -125,6 +124,37 @@ export const deleteColumn = createAsyncThunk<TId, TId, { rejectValue: string, st
     }
 )
 
+export const postTaskData = createAsyncThunk<ITask, TModalWindowFormData, { rejectValue: string, state: RootState }>(
+    'board/postTaskData',
+    async (formData, { rejectWithValue, getState, dispatch }) => {
+        const jwt = getState().user.jwt;
+        const order = getState().board.columns.length === 0 ? 0 : getState().board.columns.length
+
+        dispatch(boardActions.resetStatus());
+
+        const response = await fetch(`${PREFIX}/api/columns`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${jwt}`
+            },
+            body: JSON.stringify({
+                data: {
+                    ...formData, column: '', order
+                }
+            })
+        })
+
+        if (!response.ok) {
+            const errorData = await response.json()
+            return rejectWithValue(`${response.status.toString()} - ${response.statusText} - ${errorData?.error?.message}`)
+        }
+
+        const data = await response.json() as ITask
+        return data
+    }
+)
+
 const initialState: IBoardSlice = {
     columns: [],
     status: null,
@@ -148,37 +178,43 @@ const boardSlice = createSlice({
                 state.status = 'Succes';
 
                 state.columns = action.payload.data
+                console.log('state.columns', state.columns);
+
             })
 
             .addCase(postColumnData.fulfilled, (state, action) => {
-                console.log(action.payload);
-
-                if (action.payload && state.columns) {
+                if (action.payload) {
                     state.columns.push(action.payload.data)
                 }
             })
 
             .addCase(editColumn.fulfilled, (state, action) => {
-                if (state.columns) {
-                    const index = state.columns.findIndex((column) => {
-                        column.documentId === action.payload.data.documentId
-                    })
+                state.error = null
+                state.status = 'Success'
 
-                    if (index !== -1) {
-                        state.columns[index] = action.payload.data
+                // const index = state.columns.findIndex((column) => {
+                //     column.documentId === action.payload.data.documentId
+                // })
+
+                // if (index !== -1) {
+                //     state.columns[index] = action.payload.data
+                // }
+
+                state.columns = state.columns.map((column) => {
+                    if (column.documentId === action.payload.data.documentId) {
+                        return column = action.payload.data
                     }
-                }
+                    return column
+                })
             })
 
             .addCase(deleteColumn.fulfilled, (state, action) => {
                 state.error = null
                 state.status = 'Success'
 
-                if (state.columns) {
-                    state.columns = state.columns.filter((column) => {
-                        return column.documentId !== action.payload
-                    })
-                }
+                state.columns = state.columns.filter((column) => {
+                    return column.documentId !== action.payload
+                })
             })
 
             .addMatcher(isRejected, (state, action: any) => {

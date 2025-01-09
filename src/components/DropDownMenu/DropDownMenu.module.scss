@@ -1,0 +1,18 @@
+@use '../../styles/variables';
+
+.drop-down-menu {
+    position: absolute;
+    top: 40px;
+    left: 30px;
+    max-width: 250px;
+    min-width: 150px;
+    min-height: 40px;
+    background: variables.$white;
+    border-radius: variables.$radius-10;
+    border: 1px solid variables.$grey-2;
+    z-index: 10;
+
+    .drop-down-menu__inner {
+        padding: 15px;
+    }
+}

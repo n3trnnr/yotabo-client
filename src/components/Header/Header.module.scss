@@ -19,7 +19,6 @@
     @extend %flex-center;
     justify-content: flex-start;
     border-radius: variables.$radius-10;
-    background-color: variables.$grey-1;
     outline: 1px solid variables.$grey-2;
 
     &:focus-within {

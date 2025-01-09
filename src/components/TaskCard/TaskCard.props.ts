@@ -1,9 +1,6 @@
+import { ITask } from "../../interfaces/store/boardSlice"
+
 export interface ITaskProps {
-    id: string | number,
-    tatle: string,
-    description: string,
-    proprity: string,
-    deadline: number,
-    files: number,
+    task: ITask,
     handleDeleteTask: (id: string | number) => void
 }

@@ -17,7 +17,7 @@ const ProjectOverview = () => {
         }
     }, [project])
 
-    const handleChangeTitle = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    const handleChangeDescription = (event: ChangeEvent<HTMLTextAreaElement>) => {
         setDescription(event.target.value)
     }
 
@@ -36,7 +36,7 @@ const ProjectOverview = () => {
                         <span className={styles['description-title']}>Project description</span>
                         <textarea
                             onBlur={handleEditProject}
-                            onChange={handleChangeTitle}
+                            onChange={handleChangeDescription}
                             className={styles['textarea']}
                             value={description}
                             placeholder={"What's this project about?"}

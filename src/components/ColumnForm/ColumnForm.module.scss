@@ -13,25 +13,25 @@
 
         &:hover>.form-header>.button {
             background: variables.$blue-1;
-            transition: background-color 200ms ease-in;
+            transition: background-color 150ms ease-in;
 
             &>:first-child {
                 path {
                     fill: variables.$white;
-                    transition: fill 200ms ease-in;
+                    transition: fill 150ms ease-in;
                 }
             }
 
             &>:last-child {
                 color: variables.$white;
-                transition: color 200ms ease-in;
+                transition: color 150ms ease-in;
             }
         }
 
         &:hover>.plug {
             background: variables.$grey-1;
             border-color: transparent;
-            transition: background-color 200ms ease-in;
+            transition: background-color 150ms ease-in;
         }
 
         .form-header {

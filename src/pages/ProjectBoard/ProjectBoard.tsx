@@ -13,6 +13,7 @@ import { useOutletContext } from 'react-router-dom';
 import { IProject } from '../../interfaces/store/projectsSlice';
 import ColumnForm from '../../components/ColumnForm/ColumnForm';
 import Loader from '../../components/Loader/Loader';
+import { sortColumns } from '../../helpers/sortColumns';
 
 const ProjectBoard = () => {
     const project = useOutletContext<IProject | null>();
@@ -25,10 +26,12 @@ const ProjectBoard = () => {
         if (project) {
             dispatch(getColumnsData(project.documentId))
         }
-    }, [project])
+    }, [project, dispatch])
 
     const handleEditColumnTitle = (title: string, columnId: TId) => {
-        dispatch(editColumn({ field: 'title', value: title, id: columnId }))
+        if (title && columnId) {
+            dispatch(editColumn({ field: 'title', value: title, id: columnId }))
+        }
     }
 
     const handleDeleteColumn = (id: TId) => {
@@ -41,6 +44,8 @@ const ProjectBoard = () => {
         handleOpenModal()
         handleModalParams({ formType: 'task', title: 'Create task', id: id })
     }
+
+    const handleDeleteTask = () => { }
 
     if (!project || !columns) return (<Loader />)
 
@@ -66,16 +71,21 @@ const ProjectBoard = () => {
 
             <div className={styles['columns']}>
                 <div className={styles['columns__inner']}>
-                    {columns && columns.map((column) => (
+                    {columns && [...sortColumns(columns)].map((column) => (
                         <Column
                             key={column.documentId}
-                            id={column.documentId}
+                            column={column}
                             handleCreateTask={handleCreateTask}
                             handleDeleteColumn={handleDeleteColumn}
                             handleEditColumnTitle={handleEditColumnTitle}
-                            title={column.title}
                         >
-                            <TaskCard />
+                            {column.tasks && column.tasks.map((task) => (
+                                <TaskCard
+                                    key={task.documentId}
+                                    task={task}
+                                    handleDeleteTask={handleDeleteTask}
+                                />
+                            ))}
                         </Column>
                     ))}
                     <ColumnForm />

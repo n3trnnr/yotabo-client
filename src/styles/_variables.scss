@@ -161,20 +161,20 @@ $yellow: #eab308;
 %priority-high {
     width: 17px;
     height: 17px;
-    border: 1.5px solid #FF0000;
+    border: 2px solid $red-1;
     border-radius: 10px;
 }
 
 %priority-med {
     width: 17px;
     height: 17px;
-    border: 1.5px solid #FAFF00;
+    border: 2px solid $yellow;
     border-radius: 10px;
 }
 
 %priority-low {
     width: 17px;
     height: 17px;
-    border: 1.5px solid #00FF47;
+    border: 2px solid $green;
     border-radius: 10px;
 }
