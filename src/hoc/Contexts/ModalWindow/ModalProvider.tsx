@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { IModalProvider } from "./ModalProvider.props";
+import { IModalProvider } from "./IModalProvider.props";
 import { TId } from "../../../interfaces/global";
 
 interface IModalParams {

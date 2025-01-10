@@ -32,9 +32,11 @@ const Column = ({ column, children, handleCreateTask, handleEditColumnTitle, han
 
         if (key === 'Enter' && column.title !== columnTitle) {
             handleEditColumnTitle(columnTitle, column.documentId)
-        } else {
+            setEditMode(false)
+        } else if (key === 'Enter' && column.title === columnTitle) {
             setEditMode(false)
         }
+
         if (key === 'Escape') {
             setEditMode(false)
         }
