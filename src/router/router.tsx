@@ -12,6 +12,7 @@ import ProjectBoard from '../pages/ProjectBoard/ProjectBoard';
 import ProjectOverview from '../pages/ProjectOverview/ProjectOverview';
 import Dashboard from '../pages/Dashboard/Dashboard';
 import ProjectList from '../pages/ProjectList/ProjectList';
+import Files from '../pages/Files/Files';
 
 const router = createBrowserRouter(createRoutesFromElements(
     <>
@@ -24,6 +25,7 @@ const router = createBrowserRouter(createRoutesFromElements(
                 <Route path='board' element={<ProjectBoard />} />
                 <Route path='list' element={<ProjectList />} />
                 <Route path='dashboard' element={<Dashboard />} />
+                <Route path='files' element={<Files />} />
             </Route>
             <Route path='*' element={<NotFound />} />
         </Route>

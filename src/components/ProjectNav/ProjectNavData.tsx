@@ -33,4 +33,10 @@ export const ProjectNavData: IProjectData[] = [
         path: 'dashboard',
         icon: <SvgIcons svgIcon={'dashboard'} />
     },
+    {
+        id: 5,
+        title: 'Files',
+        path: 'files',
+        icon: <SvgIcons svgIcon={'file'} />
+    },
 ]

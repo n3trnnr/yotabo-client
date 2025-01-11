@@ -7,14 +7,13 @@ import ModalWindow from "../ModalWindow/ModalWindow";
 import { useModal } from "../../hoc/Contexts/ModalWindow/ModalProvider";
 
 const Layout: React.FC = () => {
-
     const { modalParams } = useModal();
 
     return (
         <>
-            {modalParams !== null && <ModalWindow type={modalParams.type} title={modalParams.title} />}
+            {modalParams !== null && <ModalWindow />}
             <Aside />
-            <div className={styles["main-content"]}>
+            <div className={styles["main-content"]} >
                 <Header />
                 <MainSection />
             </div>

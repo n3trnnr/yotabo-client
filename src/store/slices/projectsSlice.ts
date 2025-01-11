@@ -9,8 +9,8 @@ import { IProjectFormData } from '../../components/ModalWindow/TModalWindow';
 
 interface IProjectsSlice {
     project: IProject | null,
-    projects: IProjectsResponse | null,
-    filteredProjects: IProjectsResponse | null,
+    projects: IProject[],
+    filteredProjects: IProject[] | null,
     error: string | null,
     status: string | null
 }
@@ -146,7 +146,7 @@ export const deleteProject = createAsyncThunk<TId, TId, { rejectValue: string, s
 
 const initialState: IProjectsSlice = {
     project: null,
-    projects: null,
+    projects: [],
     filteredProjects: null,
     error: null,
     status: null
@@ -175,7 +175,7 @@ const projectsSlice = createSlice({
                     console.log(action.payload, 'ok');
                     const substring = action.payload.toLocaleLowerCase();
 
-                    state.projects.data = [...state.projects.data].sort((a, b) => {
+                    state.projects = [...state.projects].sort((a, b) => {
                         const indexA = a.title.toLocaleLowerCase().indexOf(substring)
                         const indexB = b.title.toLocaleLowerCase().indexOf(substring)
                         if (indexA === -1 && indexB === -1) return 0;
@@ -185,7 +185,7 @@ const projectsSlice = createSlice({
                     })
                 } else {
                     console.log('clear  ', action.payload);
-                    state.projects.data = state.filteredProjects.data
+                    state.projects = state.filteredProjects
                 }
             }
         }
@@ -193,7 +193,7 @@ const projectsSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getProjectsData.fulfilled, (state, action) => {
-                state.projects = action.payload
+                state.projects = action.payload.data
             })
 
             //Удалить текущий кейс?
@@ -206,7 +206,7 @@ const projectsSlice = createSlice({
                 state.status = 'Success'
                 console.log('action', action.payload)
                 if (state.projects) {
-                    state.projects.data.push(action.payload.data)
+                    state.projects.push(action.payload.data)
                 }
             })
 
@@ -215,7 +215,7 @@ const projectsSlice = createSlice({
                 state.status = 'Success'
 
                 if (state.projects) {
-                    state.projects.data = state.projects.data.filter((project) => {
+                    state.projects = state.projects.filter((project) => {
                         return project.documentId !== action.payload
                     })
                 }
@@ -225,22 +225,17 @@ const projectsSlice = createSlice({
                 state.error = null
                 state.status = 'Success'
 
-                const updatedProject = action.payload
+                const updatedProject = action.payload.data
 
-                if (state.projects) {
-                    const index = state.projects.data.findIndex((project) => {
-                        return project.id === updatedProject.data.id
-                    })
-
-                    if (index !== -1) {
-                        state.projects.data[index] = updatedProject.data
+                state.projects = state.projects.map((project) => {
+                    if (project.documentId === updatedProject.documentId) {
+                        project = updatedProject
                     }
-                }
+                    return project
+                })
             })
 
             .addMatcher(isRejected, (state, action: any) => {
-                // console.log('action', action);
-
                 const payloadMessage = action.payload as unknown as string
                 const errorMessage = action.error.message as unknown as string
                 state.error = payloadMessage ?? errorMessage

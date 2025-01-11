@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import styles from './AuthComponent.module.scss'
 import SvgIcons from '../UI/Svg/SvgIcons';
 import { Link, useNavigate } from 'react-router-dom';
@@ -8,7 +8,6 @@ import { loginUser, registerUser } from '../../store/slices/userSlice';
 import { IAuthComponent } from './AuthComponent.props';
 import Button from '../UI/Button/Button';
 import cn from 'classnames'
-import CustomInput from '../UI/CustomInput/CustomInput';
 
 export interface IAuthInputs {
     username: string,
@@ -29,6 +28,21 @@ const AuthComponent = ({ type }: IAuthComponent) => {
         }
     }, [error, jwt])
 
+    const getDefaultValues = () => {
+        if (type === 'signup') {
+            return {
+                username: '',
+                password: '',
+                email: ''
+            }
+        } else {
+            return {
+                identifier: '',
+                password: '',
+            }
+        }
+    }
+
     const {
         handleSubmit,
         reset,
@@ -36,11 +50,7 @@ const AuthComponent = ({ type }: IAuthComponent) => {
         formState: { isValid }
     } = useForm<IAuthInputs>({
         mode: 'onChange',
-        defaultValues: {
-            username: '',
-            password: '',
-            email: ''
-        }
+        defaultValues: getDefaultValues()
     })
 
     const submit: SubmitHandler<IAuthInputs> = (data) => {
@@ -70,63 +80,81 @@ const AuthComponent = ({ type }: IAuthComponent) => {
                     <div className={styles['labels-list']}>
                         {type === 'signup' ?
                             <>
-                                <CustomInput
-                                    className={styles["input-auth"]} errorClassName={styles['error-message']}
+                                <Controller
                                     control={control}
                                     name={'username'}
-                                    type={'text'}
-                                    placeHolder={'Login'}
                                     rules={{
                                         required: { value: true, message: 'Login is required' },
                                         pattern: { value: /^[A-Za-z](.+[A-Za-z-_\d])/i, message: 'Invalid login' }
                                     }}
+                                    render={({ field, fieldState: { error } }) => (
+                                        <label >
+                                            <input type="text" {...field} className={styles["input-auth"]} placeholder={'Login'} />
+                                            {error && <div className={styles['error-message']}>{error.message}</div>}
+                                        </label>
+                                    )}
                                 />
 
-                                <CustomInput
-                                    className={styles["input-auth"]} errorClassName={styles['error-message']}
-                                    control={control} name={'password'}
-                                    type={'password'}
-                                    placeHolder={'Password'}
+                                <Controller
+                                    control={control}
+                                    name={'password'}
                                     rules={{
                                         required: { value: true, message: 'Password is required' },
                                         minLength: { value: 3, message: 'Password must be at least 3 characters' }
                                     }}
+                                    render={({ field, fieldState: { error } }) => (
+                                        <label>
+                                            <input type="text" {...field} className={styles["input-auth"]} placeholder={'Password'} />
+                                            {error && <div className={styles['error-message']}>{error.message}</div>}
+                                        </label>
+                                    )}
                                 />
 
-                                <CustomInput
-                                    className={styles["input-auth"]} errorClassName={styles['error-message']}
-                                    control={control} name={'email'}
-                                    type={'email'}
-                                    placeHolder={'Email'}
+                                <Controller
+                                    control={control}
+                                    name={'email'}
                                     rules={{
                                         required: { value: true, message: 'Email is required' },
                                         pattern: { value: /^\S+@\S+$/i, message: 'Invalid email' }
                                     }}
+                                    render={({ field, fieldState: { error } }) => (
+                                        <label>
+                                            <input type="text" {...field} className={styles["input-auth"]} placeholder={'Email'} />
+                                            {error && <div className={styles['error-message']}>{error.message}</div>}
+                                        </label>
+                                    )}
                                 />
                             </>
                             :
                             <>
-                                <CustomInput
-                                    className={styles["input-auth"]} errorClassName={styles['error-message']}
+                                <Controller
                                     control={control}
                                     name={'identifier'}
-                                    type={'text'}
-                                    placeHolder={'Login'}
                                     rules={{
                                         required: { value: true, message: 'Login is required' },
                                         pattern: { value: /^[A-Za-z](.+[A-Za-z-_\d])/i, message: 'Invalid login' }
                                     }}
+                                    render={({ field, fieldState: { error } }) => (
+                                        <label >
+                                            <input type="text" {...field} className={styles["input-auth"]} placeholder={'Login'} />
+                                            {error && <div className={styles['error-message']}>{error.message}</div>}
+                                        </label>
+                                    )}
                                 />
 
-                                <CustomInput
-                                    className={styles["input-auth"]} errorClassName={styles['error-message']}
-                                    control={control} name={'password'}
-                                    type={'password'}
-                                    placeHolder={'Password'}
+                                <Controller
+                                    control={control}
+                                    name={'password'}
                                     rules={{
                                         required: { value: true, message: 'Password is required' },
                                         minLength: { value: 3, message: 'Password must be at least 3 characters' }
                                     }}
+                                    render={({ field, fieldState: { error } }) => (
+                                        <label>
+                                            <input type="text" {...field} className={styles["input-auth"]} placeholder={'Password'} />
+                                            {error && <div className={styles['error-message']}>{error.message}</div>}
+                                        </label>
+                                    )}
                                 />
                             </>
                         }

@@ -16,7 +16,7 @@
         @extend %font-12px-medium;
 
         &:focus {
-            outline: 2px solid variables.$blue-2;
+            @extend %focus;
         }
     }
 

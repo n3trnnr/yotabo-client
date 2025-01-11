@@ -12,8 +12,8 @@ export interface ITaskFormData {
     title: string,
     description: string,
     priority: 'low' | 'med' | 'high',
-    dueTime: Date,
-    beginTime: Date,
+    dueTime: string,
+    beginTime: string,
     files?: File[]
 }
 

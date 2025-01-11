@@ -7,9 +7,9 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useAppDispatch } from "../../hooks/useStore";
 import { postProjectData } from "../../store/slices/projectsSlice";
 import { useModal } from "../../hoc/Contexts/ModalWindow/ModalProvider";
-import ProjectModal from "./ProjectModal/ProjectModal";
 import { IProjectFormData, ITaskFormData, TModalWindowFormData } from "./TModalWindow";
-import TaskModal from "./TaskModal/TaskModal";
+import TaskForm from "../TaskForm/TaskForm";
+import ProjectForm from "../ProjectForm/ProjectForm";
 
 const ModalWindow = () => {
     const dispatch = useAppDispatch()
@@ -127,8 +127,8 @@ const ModalWindow = () => {
                         <div className={styles['form__items']}>
                             <div className={styles.title}>{modalParams?.title}</div>
 
-                            {modalParams?.formType === 'project' && <ProjectModal control={control} name={{ title: 'title', description: 'description' }} />}
-                            {modalParams?.formType === 'task' && <TaskModal
+                            {modalParams?.formType === 'project' && <ProjectForm control={control} name={{ title: 'title', description: 'description' }} />}
+                            {modalParams?.formType === 'task' && <TaskForm
                                 handleSetFiles={handleSetFiles}
                                 handleDeleteFile={handleDeleteFile}
                                 files={files}

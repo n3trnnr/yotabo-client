@@ -1,15 +1,19 @@
 import styles from './TaskCard.module.scss'
 import SvgIcons from "../UI/Svg/SvgIcons";
-import Button from "../UI/Button/Button";
-import { useState } from 'react';
 import { ITaskProps } from './TaskCard.props';
+import { useSideDrawer } from '../../hoc/Contexts/SideDrawer/SideDrawerProvider';
 
 const TaskCard = ({ task, handleDeleteTask }: ITaskProps) => {
-    const [mouseIsOver, setMouseIsOver] = useState(false);
+    const { handleOpenSideDrawer } = useSideDrawer();
+
+    const openSideDrawer = (event: React.MouseEvent) => {
+        event.stopPropagation();
+        handleOpenSideDrawer();
+    }
+
     return (
         <div className={styles["task-card"]}
-            onMouseEnter={() => setMouseIsOver(true)}
-            onMouseLeave={() => setMouseIsOver(false)}
+            onClick={openSideDrawer}
         >
             <div className={styles['task-card__inner']}>
 
@@ -32,10 +36,6 @@ const TaskCard = ({ task, handleDeleteTask }: ITaskProps) => {
                         <span>{0}</span>
                     </div>
                 </div>
-
-                {mouseIsOver && <Button className={styles['button-delete']}>
-                    <SvgIcons svgIcon={'trash'} />
-                </Button>}
             </div>
         </div>
     );

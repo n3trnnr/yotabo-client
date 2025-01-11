@@ -2,31 +2,36 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import styles from './ProjectPage.module.scss'
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/useStore';
-import { deleteProject, editProject, projectsActions } from '../../store/slices/projectsSlice';
+import { deleteProject, editProject } from '../../store/slices/projectsSlice';
 import ProjectNav from '../../components/ProjectNav/ProjectNav';
 import Button from '../../components/UI/Button/Button';
 import SvgIcons from '../../components/UI/Svg/SvgIcons';
 import cn from 'classnames'
 import AdaptiveInput from '../../components/UI/AdaptiveInput/AdaptiveInput';
+import { getColumnsData } from '../../store/slices/boardSlice';
+import SideDrawer from '../../components/SideDrawer/SideDrawer';
+import { useSideDrawer } from '../../hoc/Contexts/SideDrawer/SideDrawerProvider';
 
 const ProjectPage = () => {
     const [title, setTitle] = useState('')
     const { id } = useParams();
     const dispatch = useAppDispatch();
     const navigate = useNavigate()
+    const { handleCloseSideDrawer } = useSideDrawer();
 
     const project = useAppSelector((state) => {
         if (state.projects.projects && id) {
-            return state.projects.projects.data.find(project => project.documentId === id)
+            return state.projects.projects.find(project => project.documentId === id)
         }
     })
+    const columns = useAppSelector((state) => state.board.columns)
 
     useEffect(() => {
         if (project) {
             setTitle(project.title)
-            dispatch(projectsActions.setCurrentProject(project))
+            dispatch(getColumnsData(project.documentId))
         }
-    }, [project])
+    }, [project, dispatch])
 
     const hadnleDeleteProject = () => {
         if (id) {
@@ -54,7 +59,8 @@ const ProjectPage = () => {
     }
 
     return (
-        <div className={styles['project']}>
+        <div className={styles['project']} onClick={handleCloseSideDrawer}>
+            <SideDrawer />
             <div className={styles['project__inner']}>
 
                 <div className={styles['info-bar']}>
@@ -83,7 +89,7 @@ const ProjectPage = () => {
                     <ProjectNav />
                 </div>
 
-                <Outlet context={project} />
+                <Outlet context={{ project, columns }} />
             </div>
         </div>
     );

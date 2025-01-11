@@ -1,14 +1,14 @@
 import styles from './ProjectOverview.module.scss'
 import { useOutletContext } from "react-router-dom";
-import { IProject } from '../../interfaces/store/projectsSlice';
 import { useAppDispatch } from '../../hooks/useStore';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { editProject } from '../../store/slices/projectsSlice';
+import { IOutletContext } from '../../interfaces/IOutletContext';
 
 const ProjectOverview = () => {
     const [description, setDescription] = useState('')
 
-    const project = useOutletContext<IProject | null>();
+    const { project } = useOutletContext<IOutletContext>();
     const dispatch = useAppDispatch();
 
     useEffect(() => {

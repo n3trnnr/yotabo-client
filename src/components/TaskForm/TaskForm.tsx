@@ -1,12 +1,12 @@
-import styles from './TaskModal.module.scss'
-import { ITaskModal } from "./TaskModal.props";
+import styles from './TaskForm.module.scss'
+import { ITaskForm } from "./TaskForm.props";
 import { Controller, FieldValues } from 'react-hook-form';
 import cn from 'classnames'
 import { useState } from 'react';
-import SvgIcons from '../../UI/Svg/SvgIcons';
-import Button from '../../UI/Button/Button';
+import SvgIcons from '../UI/Svg/SvgIcons';
+import Button from '../UI/Button/Button';
 
-const TaskModal = <T extends FieldValues>({ control, name, files, handleDeleteFile, handleSetFiles }: ITaskModal<T>) => {
+const TaskForm = <T extends FieldValues>({ control, name, files, handleDeleteFile, handleSetFiles }: ITaskForm<T>) => {
 
     const [over, setOver] = useState(false)
     // console.log(over);
@@ -35,7 +35,7 @@ const TaskModal = <T extends FieldValues>({ control, name, files, handleDeleteFi
     }
 
     return (
-        <div className={styles['task-modal']} onDragOver={onDragover}>
+        <div className={styles['task-form']} onDragOver={onDragover}>
             <Controller
                 control={control}
                 name={name.title}
@@ -166,4 +166,4 @@ const TaskModal = <T extends FieldValues>({ control, name, files, handleDeleteFi
     );
 }
 
-export default TaskModal;
+export default TaskForm;

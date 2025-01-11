@@ -18,10 +18,6 @@
             .button-filter {
                 @extend %button-rectangle, %button-grey;
             }
-
-            .button-files {
-                @extend %button-rectangle, %button-grey;
-            }
         }
     }
 

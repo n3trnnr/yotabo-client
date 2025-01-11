@@ -1,8 +1,8 @@
 import { Controller, FieldValues } from "react-hook-form";
-import { IProjectModal } from "./ProjectModal.props";
-import styles from './ProjectModal.module.scss'
+import { IProjectForm } from "./ProjectForm.props";
+import styles from './ProjectForm.module.scss'
 
-const ProjectModal = <T extends FieldValues>({ control, name }: IProjectModal<T>) => {
+const ProjectForm = <T extends FieldValues>({ control, name }: IProjectForm<T>) => {
     return (
         <>
             <Controller
@@ -36,4 +36,4 @@ const ProjectModal = <T extends FieldValues>({ control, name }: IProjectModal<T>
     );
 }
 
-export default ProjectModal;
+export default ProjectForm;

@@ -178,8 +178,6 @@ const boardSlice = createSlice({
                 state.status = 'Succes';
 
                 state.columns = action.payload.data
-                console.log('state.columns', state.columns);
-
             })
 
             .addCase(postColumnData.fulfilled, (state, action) => {

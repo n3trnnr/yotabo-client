@@ -1,6 +1,6 @@
 import { Control, FieldValues, Path } from "react-hook-form";
 
-export interface ITaskModal<T extends FieldValues> {
+export interface ITaskForm<T extends FieldValues> {
     control: Control<T>,
     name: {
         title: Path<T>,

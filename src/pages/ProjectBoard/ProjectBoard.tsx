@@ -1,32 +1,24 @@
 import styles from './ProjectBoard.module.scss'
 import TaskCard from "../../components/TaskCard/TaskCard";
-import { useAppDispatch, useAppSelector } from '../../hooks/useStore';
-import { useEffect } from 'react';
+import { useAppDispatch } from '../../hooks/useStore';
 import ProgressBar from '../../components/UI/ProgressBar/ProgressBar';
 import Button from '../../components/UI/Button/Button';
 import SvgIcons from '../../components/UI/Svg/SvgIcons';
 import Column from '../../components/Column/Column';
 import { useModal } from '../../hoc/Contexts/ModalWindow/ModalProvider';
 import { TId } from '../../interfaces/global';
-import { deleteColumn, editColumn, getColumnsData } from '../../store/slices/boardSlice';
+import { deleteColumn, editColumn } from '../../store/slices/boardSlice';
 import { useOutletContext } from 'react-router-dom';
-import { IProject } from '../../interfaces/store/projectsSlice';
 import ColumnForm from '../../components/ColumnForm/ColumnForm';
 import Loader from '../../components/Loader/Loader';
 import { sortColumns } from '../../helpers/sortColumns';
+import { IOutletContext } from '../../interfaces/IOutletContext';
 
 const ProjectBoard = () => {
-    const project = useOutletContext<IProject | null>();
-    const columns = useAppSelector((state) => state.board.columns)
 
+    const { project, columns } = useOutletContext<IOutletContext>();
     const dispatch = useAppDispatch();
     const { handleOpenModal, handleModalParams } = useModal();
-
-    useEffect(() => {
-        if (project) {
-            dispatch(getColumnsData(project.documentId))
-        }
-    }, [project, dispatch])
 
     const handleEditColumnTitle = (title: string, columnId: TId) => {
         if (title && columnId) {
@@ -58,12 +50,6 @@ const ProjectBoard = () => {
                     <Button className={styles['button-filter']}>
                         <>
                             <SvgIcons svgIcon={'filter'} /> <span>Filter</span> <SvgIcons svgIcon={'arrowDown'} />
-                        </>
-                    </Button>
-
-                    <Button className={styles['button-files']}>
-                        <>
-                            <SvgIcons svgIcon={'file'} /> <span>Files</span>
                         </>
                     </Button>
                 </div>

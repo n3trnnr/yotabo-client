@@ -60,7 +60,7 @@ const Sidebar = () => {
                                 handleClick={handleOpenModalWindow}
                             >
                                 <ItemsList className={styles['items-list']}>
-                                    {projects?.data.map((project) => (
+                                    {projects.map((project) => (
                                         <LinkItems
                                             key={project.documentId}
                                             id={project.documentId}

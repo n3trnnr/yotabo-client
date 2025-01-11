@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { ISideDrawerProps } from "../../../components/SideDrawer/SideDrawer.props";
+import { ISideDrawerProviderProps } from "./ISideDrawerProviderProps.props";
 
 interface SideDrawerContext {
     isOpen: boolean,
@@ -9,7 +9,7 @@ interface SideDrawerContext {
 
 const SideDrawerContext = createContext<SideDrawerContext | null>(null)
 
-const SideDrawerProvider = ({ children }: ISideDrawerProps) => {
+const SideDrawerProvider = ({ children }: ISideDrawerProviderProps) => {
 
     const [isOpen, setIsOpen] = useState(false)
     const [data, setData] = useState<null>()
